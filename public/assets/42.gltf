@@ -1,0 +1,115 @@
+{
+  "accessors": [
+    {
+      "name": "Cube-Mesh_0_positions",
+      "componentType": 5126,
+      "count": 42,
+      "min": [
+        -0.22747500240802765,
+        -1.2225689888000488,
+        -0.037620000541210175
+      ],
+      "max": [
+        0.23240700364112854,
+        1.1199820041656494,
+        2.8430979251861572
+      ],
+      "type": "VEC3",
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "name": "Cube-Mesh_0_indices",
+      "componentType": 5123,
+      "count": 228,
+      "min": [
+        0
+      ],
+      "max": [
+        41
+      ],
+      "type": "SCALAR",
+      "bufferView": 1,
+      "byteOffset": 0
+    }
+  ],
+  "asset": {
+    "generator": "obj2gltf",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "name": "42",
+      "byteLength": 960,
+      "uri": "data:application/octet-stream;base64,1/ttPlrZPr9KJr0/1/ttPlrZPr9R9TVANe9ovlrZPr9R9TVANe9ovlrZPr9KJr0/GvxtPpJbjz/7IJE/Ne9ovpJbjz/zIJE/Ne9ovpJbjz/6KM0/1/ttPpJbjz8CKc0/VdxovqdYjT8LJ9E+VdxovsbgAT8yx2Y/Vdxovr9Hjz8yx2Y/1/ttPuY9rr5R9TVANe9ovuY9rr5R9TVANe9ovi7Ilr5mERNANe9ovkJCnL7zIJE/GvxtPkJCnL77IJE/1/ttPoi6m7/zIJE/Ne9ovoi6m7/zIJE/GvxtPi7Ilr5mERNA1/ttPiR9nL8WpL8/Ne9oviR9nL8OpL8/Vdxovs2rmr1uFxq9qRJlPs2rmr1uFxq9qRJlPnsuO79uFxq9VdxovnsuO79uFxq9qRJlPpQuDT9728Q+qRJlPptWIj9uFxq9qRJlPr9Hjz9uFxq9qRJlPrBYjT8LJ9E+qRJlPvPiBL4yx2Y/VdxovvPiBL4yx2Y/VdxovnsuO78yx2Y/qRJlPnsuO78yx2Y/qRJlPr9Hjz8yx2Y/Vdxovr9Hjz9uFxq9qRJlPsbgAT8yx2Y/VdxovpQuDT9728Q+VdxovptWIj9uFxq9qRJlPqm9iL0GEsw+Vdxovqm9iL0GEsw+qRJlPihFL79FhMc+VdxovihFL79FhMc+AgADAAAAAAABAAIABQAHAAQABwAFAAYACAAJAAoABgAMAAsACwAHAAYADQAOAAMAEAAOAA8ADgAQABEADAACAAEAAQALAAwAEgAFAAQABQASAA0ADwANABIADQAPAA4AFAARABAAEAATABQAAwAUABMAEwAAAAMAFgAYABUAGAAWABcAGwAcABkAGQAaABsAHwAgAB0AHQAeAB8AFwAgAB8AHwAYABcAGwAKACEACgAbACIACQAjACEAIQAKAAkACQAcACMAHAAJAAgAJAAZABwAHAAIACQAHgAdABkAGQAkAB4AGwAlACIAJQAbABoAGgAnACUAJwAaACYAJgApACcAKQAmACgAFgAVACkAKQAoABYAIQAjABwAKQAVABgAFwAWACgAEgAEAAcAGwAhABwAIAAXACgABQANAAYAJAAnAB4ADQACAAwAAgANAAMAGQAmABoAJgAZAB0AEwAQAA8ADwAAABMADQAMAAYAEgALAAEAAQAAABIADwASAAAAIAAoACYAJgAdACAAEgAHAAsAAwARABQAEQADAA4AJwAkACUAKQAYAB8ACAAKACIAHgApAB8AKQAeACcAJQAIACIACAAlACQA"
+    }
+  ],
+  "bufferViews": [
+    {
+      "name": "bufferView_0",
+      "buffer": 0,
+      "byteLength": 504,
+      "byteOffset": 0,
+      "byteStride": 12,
+      "target": 34962
+    },
+    {
+      "name": "bufferView_1",
+      "buffer": 0,
+      "byteLength": 456,
+      "byteOffset": 504,
+      "target": 34963
+    }
+  ],
+  "materials": [
+    {
+      "name": "Material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Cube-Mesh",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Cube",
+      "mesh": 0
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

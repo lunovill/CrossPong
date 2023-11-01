@@ -1,0 +1,63 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+#root, html, body, .Chat {
+	height: 100%;
+}
+
+html,
+body {
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.nav {
+	position: sticky;
+	z-index: 1;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.nav-links {
+	display: flex;
+}
+
+.logo,
+.nav-item {
+	margin: 2em;
+	font-weight: 400;
+	font-size: 1.5vw;
+}
+
+
+
+/*a expliquer */
+
+.slide-in { 
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: black;
+	transform-origin: bottom;
+}
+
+.slide-out {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: black;
+	transform-origin: top;
+
+}
+
+.canvas {
+	flex: 1;
+	background: rgb(179, 226, 230);
+}
