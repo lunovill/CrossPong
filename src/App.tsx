@@ -1,4 +1,3 @@
-import React from 'react';
 import './styles/App.css';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -14,7 +13,7 @@ import HomeLoading from './pages/loadingPages/HomeLoading';
 import { useEffect } from 'react';
 import { ReadyContext } from './components/ContextBoard';
 
-const ChargingTime = 3000;
+const ChargingTime = 0;
 const intervalTime = 10;
 
 function App() {

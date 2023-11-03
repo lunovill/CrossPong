@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import React from 'react';
 import { useUserInfos } from '../components/ContextBoard';
 import styled from 'styled-components';
 import UpdateInfo from '../components/Profil/ChangeInfo';

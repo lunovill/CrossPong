@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import { ReactNode } from 'react';
 import chroma from 'chroma-js';
-import React from 'react';
 
 interface AnimatedPageProps {
   endColor: string;
   children: ReactNode;
 }
 
-const AnimatedPage: React.FC<AnimatedPageProps> = ({ endColor, children }) => {
+const AnimatedPage: FC<AnimatedPageProps> = ({ endColor, children }) => {
     useEffect(() => {
       let startColor = document.body.style.backgroundColor || 'white';
       let t = 0;

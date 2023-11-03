@@ -1,4 +1,3 @@
-import React from "react";
 import { memberInfo } from "../../data/models/TeamMember"
 import styled from "styled-components"
 

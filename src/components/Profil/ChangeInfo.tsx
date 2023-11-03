@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, useRef, useEffect } from 'react';
-import React from 'react';
+import {FormEvent, FC} from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useUserInfos } from '../ContextBoard';
 import { generateRandomUsername } from './Utils';
@@ -57,7 +57,7 @@ interface SvgProps {
 	onFirstUpdate?: boolean;
 }
 
-const SvgUpdateProfile: React.FC<SvgProps> = ({ onClick }: SvgProps) => {
+const SvgUpdateProfile: FC<SvgProps> = ({ onClick }: SvgProps) => {
 	return (
 		<StyledSVG onClick={onClick} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -92,7 +92,7 @@ const StyledSVGReloadPicture = styled.svg<StyledSvgReloadPictureProps>`
   }
 `;
 
-const SvgReloadPicture: React.FC<SvgProps> = ({ onClick, onFirstUpdate = false }) => {
+const SvgReloadPicture: FC<SvgProps> = ({ onClick, onFirstUpdate = false }) => {
 	return (
 		<StyledSVGReloadPicture onClick={onClick} $onFirstUpdate={onFirstUpdate} viewBox="0 0 24.00 24.00" id="update-alt" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" className="icon flat-line">
 			<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -158,7 +158,7 @@ interface UpdateInfoProps {
 	name: string | null;
 	onFirstUpdate?: boolean;
 }
-const UpdateInfo: React.FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
+const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 	const [showDialog, setShowDialog] = useState(false);
 	const { setUserInfo, setIsConnected, setNeedToReload } = useUserInfos();
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -243,7 +243,7 @@ const UpdateInfo: React.FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) 
 						elements: [{ name: 'file', files: changeEvent.target.files }]
 					},
 					preventDefault: () => { }
-				} as unknown as React.FormEvent<HTMLFormElement>;
+				} as unknown as FormEvent<HTMLFormElement>;
 				await handleUploadedOnSubmit(fakeEvent);
 			}
 		};
@@ -252,7 +252,7 @@ const UpdateInfo: React.FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) 
 
 	{/* async function to Patch */ }
 
-	async function handleUploadedOnSubmit(event: React.FormEvent<HTMLFormElement>) {
+	async function handleUploadedOnSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setIsLoading(true);
 		const form = event.currentTarget;

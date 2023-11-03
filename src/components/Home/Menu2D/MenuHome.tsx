@@ -3,16 +3,12 @@ import { MenuItem } from './MenuItem';
 
 
 const MenuStyle = styled.div`
-    font-size: 4rem;
+    font-size: 3rem;
 
     display: flex;
     flex-direction: column;
     list-style: none;
     user-select: none;
-	
-    @media (max-width: 1800px) {
-		font-size: 3rem;
-    }
 	
 		@media (max-width: 800px) {
 			font-size: 2rem;

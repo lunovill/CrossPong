@@ -11,7 +11,7 @@ const Container = styled.div`
   width: 300px;
   position: relative;
 `;
-const srcLogo ="/images/CrossPongLogo.png" 
+const srcLogo ="/images/CrossPongLogo.webp" 
 const altLogo ="Cross Pong Logo"
 
 const LineDrawingComponent = () => {

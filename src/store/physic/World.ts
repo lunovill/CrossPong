@@ -1,21 +1,21 @@
-import Ball from "./Ball";
-import Paddle from "./Paddle";
-import * as P2 from 'p2-es';
-import { BALL, BORDER, FPS, MAP_HEIGHT, MAP_WIDTH, OFFSET, PADDLE, PADDLE_POSITION } from "./config";
+import Ball from "./Ball"
+import Paddle from "./Paddle"
+import {Box, Body, BeginContactEvent, World as P2World} from 'p2-es'
+import { BALL, BORDER, FPS, MAP_HEIGHT, MAP_WIDTH, OFFSET, PADDLE, PADDLE_POSITION } from "./config"
 
-export class World extends P2.World {
-	private static createBorder(location: number): P2.Body {
-		let shape: P2.Box = new P2.Box({ width: MAP_WIDTH * 2, height: OFFSET * 2 });
+export class World extends P2World {
+	private static createBorder(location: number): Body {
+		let shape: Box = new Box({ width: MAP_WIDTH * 2, height: OFFSET * 2 });
 		shape.collisionGroup = BORDER;
 		shape.collisionMask = BALL | PADDLE;
 
-		let body: P2.Body = new P2.Body({ mass: 0, position: [0, (MAP_HEIGHT / 2 + OFFSET) * location] });
+		let body: Body = new Body({ mass: 0, position: [0, (MAP_HEIGHT / 2 + OFFSET) * location] });
 		body.addShape(shape);
 		return body;
 	}
 
 	private ball: { body: Ball, isDestroyed: boolean };
-	private interval: NodeJS.Timeout | undefined;
+	private interval: number | undefined;
 	private paddles: [Paddle, Paddle];
 
 	constructor(ball: { body: Ball, isDestroyed: boolean }, paddles: [Paddle, Paddle]) {
@@ -82,18 +82,18 @@ export class World extends P2.World {
 		return;
 	};
 
-	private handleBeginContact(event: P2.BeginContactEvent): void {
-		const isBall = (body: P2.Body): Ball | undefined => {
+	private handleBeginContact(event: BeginContactEvent): void {
+		const isBall = (body: Body): Ball | undefined => {
 			if (body === this.ball.body.body)
 				return this.ball.body;
 			return this.paddles[0].isSkillBalls(body) ?? this.paddles[1].isSkillBalls(body);
 		};
 
-		const isPaddle = (body: P2.Body): Paddle | undefined => {
+		const isPaddle = (body: Body): Paddle | undefined => {
 			return this.paddles.find(p => p.body === body);
 		};
 
-		const isStone = (body: P2.Body): Paddle['skillBodies'][0] | undefined => {
+		const isStone = (body: Body): Paddle['skillBodies'][0] | undefined => {
 			return this.paddles[0].isSkillBodies(body) ?? this.paddles[1].isSkillBodies(body);
 		};
 

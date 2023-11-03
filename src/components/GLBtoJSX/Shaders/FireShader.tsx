@@ -1,6 +1,6 @@
 import  { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Vector2, Vector3, Mesh } from 'three';
 
 const vert = `
       varying vec3 vNormal;
@@ -110,17 +110,17 @@ const FireShader = ({
 	color2 = [201, 158, 72] }: FireShaderProps) => {
 
 	const { size } = useThree();
-	const meshRef = useRef<THREE.Mesh>(null!);
+	const meshRef = useRef<Mesh>(null!);
 
 	const uniformsRef = useRef({
 		time: { type: 'f', value: 10.0 },
-		resolution: { value: new THREE.Vector2(size.width, size.height) },
-		color1: { value: new THREE.Vector3(...color2) },
-		color0: { value: new THREE.Vector3(...color1) },
+		resolution: { value: new Vector2(size.width, size.height) },
+		color1: { value: new Vector3(...color2) },
+		color0: { value: new Vector3(...color1) },
 	});
 
 	useEffect(() => {
-		uniformsRef.current.resolution.value = new THREE.Vector2(size.width, size.height);
+		uniformsRef.current.resolution.value = new Vector2(size.width, size.height);
 	}, [size]);
 
 	useFrame(({ clock }) => {

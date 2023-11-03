@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Vector3, TextureLoader, Mesh } from 'three';
 
 const vertflame = `
     varying vec2 vUv;
@@ -90,16 +90,16 @@ const FlameShader = ({
 	scale,
 	rotation = [0, 0, 0],
 	color1 = [147, 21, 44] }: FlameShaderProps) => {
-	const meshRef = useRef<THREE.Mesh>(null!);
+	const meshRef = useRef<Mesh>(null!);
 	const uniformsRef = useRef({
 		perlinnoise: {
 			type: "t",
-			value: new THREE.TextureLoader().load(
+			value: new TextureLoader().load(
 				"https://raw.githubusercontent.com/pizza3/asset/master/water-min.jpg"
 			)
 		},
 		color4: {
-			value: new THREE.Vector3(...color1)
+			value: new Vector3(...color1)
 		},
 		time: {
 			type: "f",
@@ -107,7 +107,7 @@ const FlameShader = ({
 		},
 		noise: {
 			type: "t",
-			value: new THREE.TextureLoader().load(
+			value: new TextureLoader().load(
 				"https://raw.githubusercontent.com/pizza3/asset/master/noise9.jpg"
 			)
 		}
@@ -116,7 +116,7 @@ const FlameShader = ({
 	useFrame(({ clock }) => {
 		const delta = clock.getElapsedTime() * 1000;
 		uniformsRef.current.time.value = -delta / (3000 * 2);
-		uniformsRef.current.color4.value = new THREE.Vector3(...color1);
+		uniformsRef.current.color4.value = new Vector3(...color1);
 	});
 
 	return (
