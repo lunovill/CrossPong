@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { ReactNode } from 'react';
 import chroma from 'chroma-js';
+import React from 'react';
 
 interface AnimatedPageProps {
   endColor: string;

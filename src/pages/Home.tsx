@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import HomeScene from '../components/Home/Menu3D/HomeScene';
 import MenuHome from '../components/Home/Menu2D/MenuHome';
 import {  MeshProvider, RotationProvider } from '../components/ContextBoard';
+import React from 'react';
 
 const Container = styled.div`
 	display: grid;
@@ -68,7 +69,7 @@ const MenuContainer = styled.div`
 
 const items = [
 	{ to: '/game', children: 'Let\'s Play', rotationValue: 1.245 },
-	{ to: '/profile', children: 'Profile', rotationValue: 5.95 },
+	{ to: '', children: 'Profile', rotationValue: 5.95 },
 	{ to: null, children: 'Chatbox', rotationValue: 4.39 },
 	{ to: 'https://github.com/pandamanxv3/Transcendance', children: 'About Us', rotationValue: 2.837 },
 ]

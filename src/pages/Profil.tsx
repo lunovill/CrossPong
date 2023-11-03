@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
+import React from 'react';
 import { useUserInfos } from '../components/ContextBoard';
 import styled from 'styled-components';
-import { getPlayerDataApi, GameRecord, fetchMatches } from '../components/Profil/FetchApi';
 import UpdateInfo from '../components/Profil/ChangeInfo';
-import { TwoFAToggle } from '../components/Profil/TwoFAToggle';
 import { WrittingContainer } from '../components/Profil/ProfileStyle';
 import { Link } from 'react-router-dom';
 
@@ -170,31 +169,11 @@ const LogOutContainer = styled.div`
 `;
 
 export default function Profil() {
-	const [errorProfile, setErrorProfile] = useState<string | null>(null);
-	const { userInfo, setUserInfo, setIsConnected, setNeedToReload } = useUserInfos();
-	const [matches, setMatches] = useState<GameRecord[] | undefined>(undefined);
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const data = await getPlayerDataApi();
-				setMatches(await fetchMatches(data.player.id));
-				// console.log('data', data);
-				setUserInfo({ pseudo: data.player.pseudo, urlPhoto: data.player.urlPhotoProfile });
-			} catch (error: any) {
-				if (error && (error.statusCode === 401 || error.statusCode === 403)) {
-					setIsConnected(false);
-					setNeedToReload(true);
-				}
-				console.error('Erreur lors de la récupération du joueur:', error);
-				setErrorProfile('Erreur lors de la récupération du joueur: ' + error as string);
-			}
-		};
-		fetchData();
-	}, []);
+
 
 	return (
 		<>
-			{errorProfile &&
+			{/* {errorProfile &&
 				<p>{errorProfile}</p>}
 			<TitleContainer>
 				<Link to="/">
@@ -239,7 +218,7 @@ export default function Profil() {
 			</Container>
 			<LogOutContainer>
 				<Logout />
-			</LogOutContainer>
+			</LogOutContainer> */}
 		</>
 	);
 }

@@ -1,8 +1,8 @@
 import { useState, ChangeEvent, useRef, useEffect } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useUserInfos } from '../ContextBoard';
 import { generateRandomUsername } from './Utils';
-import { updatePlayerPhotoApi, updatePlayerPseudoApi } from './FetchApi';
 import { StyledImage, WrittingContainer, StyledButton } from './ProfileStyle';
 import DefaultPhoto from './DefaultPhoto';
 import { useNavigate } from 'react-router-dom';
@@ -185,25 +185,7 @@ const UpdateInfo: React.FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) 
 	};
 
 	const handleSubmitPseudo = async () => {
-		try {
-			const data = await updatePlayerPseudoApi(newPseudo!);
-			setUserInfo({ pseudo: data.pseudo.pseudo, urlPhoto: data.pseudo.urlPhotoProfile });
-			if (onFirstUpdate)
-				navigate('/');
-			else
-				closeDialog();
-		} catch (error: any) {
-			if (error && (error.statusCode === 401 || error.statusCode === 403)) {
-				setIsConnected(false);
-				setNeedToReload(true);
-			}
-			if (typeof error === 'object' && error !== null && 'message' in error) {
-				const errorMessage = (error as { message: string }).message;
-				setErrorPseudo(errorMessage);
-			} else {
-				setErrorPseudo("Une erreur est survenue");
-			}
-		}
+	
 	};
 
 	{/* handler */ }
@@ -239,12 +221,7 @@ const UpdateInfo: React.FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) 
 	};
 
 	const handleImageClick = () => {
-		if (selectedImage === "Uploaded")
-			changeUrlOnTheBack(imageSrc as string);
-		else
-			changeUrlOnTheBack(selectedImage!);
-		if (!onFirstUpdate)
-			closeDialog();
+	
 	};
 
 	const closeDialog = () => {
@@ -306,22 +283,6 @@ const UpdateInfo: React.FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) 
 		setIsLoading(false);
 	}
 
-	const changeUrlOnTheBack = async (newPic: string) => {
-		try {
-			const data = await updatePlayerPhotoApi(newPic);
-			setUserInfo({ pseudo: data.updatedPlayer.pseudo, urlPhoto: data.updatedPlayer.urlPhotoProfile });
-		} catch (error: any) {
-			if (error && (error.statusCode === 401 || error.statusCode === 403)) {
-				setIsConnected(false);
-				setNeedToReload(true);
-			}
-			if (typeof error === 'object' && error !== null && 'message' in error) {
-				const errorMessage = (error as { message: string }).message;
-				console.log(errorMessage);
-			} else
-				console.log("Une erreur est survenue");
-		}
-	};
 
 	return (
 		<>

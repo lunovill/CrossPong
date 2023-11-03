@@ -1,3 +1,4 @@
+import React from 'react';
 import './styles/App.css';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -7,19 +8,17 @@ import Profil from './pages/Profil';
 import Game from './pages/Game';
 import { GlobalStyle } from './styles/HomeStyles';
 import AnimatedPage from './components/AnimatedPage';
-import { ChakraProvider } from '@chakra-ui/react'
 import { useGLTF } from '@react-three/drei';
 import { LoadingContext } from './components/ContextBoard';
 import HomeLoading from './pages/loadingPages/HomeLoading';
 import { useEffect } from 'react';
 import { ReadyContext } from './components/ContextBoard';
 
-const ChargingTime = 10;
+const ChargingTime = 3000;
 const intervalTime = 10;
 
 function App() {
 	const location = useLocation();
-	const [ready, setReady] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [elapsedTime, setElapsedTime] = useState(0);
 
@@ -53,26 +52,22 @@ function App() {
 	}
 
 	return (
-		<ChakraProvider>
+		<>
 			<GlobalStyle />
-			<ReadyContext.Provider value={{ setReady, ready }}>
-				<AnimatePresence mode="wait">
-					<Routes location={location} key={location.pathname}>
-						<Route index element={
-							<Home />
-						} />
-						<Route path="/game" element={
-							<Game />
-						} />
-						<Route path="/profile" element={
-							<AnimatedPage endColor="#71ca71">
-								<Profil />
-							</AnimatedPage>
-						} />
-					</Routes>
-				</AnimatePresence>
-			</ReadyContext.Provider>
-		</ChakraProvider>
+			<Routes location={location} key={location.pathname}>
+				<Route index element={
+					<Home />
+				} />
+				<Route path="/game" element={
+					<Game />
+				} />
+				<Route path="/profile" element={
+					<AnimatedPage endColor="#71ca71">
+						{/* <Profil /> */}
+					</AnimatedPage>
+				} />
+			</Routes>
+		</>
 	)
 }
 export default App
