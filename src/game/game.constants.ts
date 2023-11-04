@@ -3,7 +3,7 @@ export const MAP_WIDTH: number = 6;
 export const MAP_HEIGHT: number = 4.5;
 
 export const OFFSET: number = 0.1;
-export const OFFSETBOOT: number = 0.1;
+export const OFFSETBOOT: number = 0.2;
 
 export const BALL: number = Math.pow(2, 0);
 export const BALL_RADIUS: number = 0.15;
