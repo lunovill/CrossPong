@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ModeType } from '../../../types/machine';
 import MenuButton from './SelectModeMenuButton'
 import styled from 'styled-components';
@@ -50,14 +51,33 @@ const Button: ButtonProps[] = [
 	},
 ];
 
+// ${props => props.$expanded && css`
+//   		position: absolute;	
+// 		transform: translate(0%, calc((66.666% - 564px)));
+// 		width: 544px;
+// 		height: 566px;
+//       	background-color: #FFF8DC;
+//       	& > button {
+//         	opacity: 0; // Hide the button text and border
+//       	}
+//   `}
+
+// send({ type: 'join', id: 'j1', name: 'Tmp' });
+// send({ type: 'join', id: 'j2', name: 'Bot' });
+// send({ type: 'chooseMode', mode: modeValue });
+
 const SelectModeSubMenu = () => {
+	const [expanded, setExpanded] = useState<Number>(-1);
+
 	return (
 		<>
 			<MenuContainer >
 				
 				{Button.map((button, index) => (
-					<MenuButton
+					<MenuButton	
 						key={index}
+						setExpanded={setExpanded}
+						$key={index}
 						label={button.label}
 						modeValue={button.modeValue}
 						$backgroundColor={button.$backgroundColor}
