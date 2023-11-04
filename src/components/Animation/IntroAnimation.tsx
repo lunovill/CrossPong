@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useThree } from '@react-three/fiber'
-import { useGame } from '../../store/hooks/useGame';
+import { useGame } from '../../game/hooks/useGame';
 import { BoxGeometry, MeshStandardMaterial } from 'three';
 import gsap from 'gsap';
 import { TextManagerIntro } from './TextManager';
@@ -60,7 +60,7 @@ export default function IntroAnimation() {
 			}, 5300);
 		}
 		setTimeout(() => {
-				send({ type: 'start', isBall: true });
+				send({ type: 'start' });
 		}, 10000);
 
 	}, []);

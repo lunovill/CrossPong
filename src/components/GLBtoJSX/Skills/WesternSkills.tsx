@@ -1,8 +1,8 @@
 import { ReactElement, useMemo, useRef } from "react";
-import { MAP_HEIGHT } from "../../../store/physic/config";
+import { MAP_HEIGHT } from "../../../game/game.constants";
 import { BufferGeometry, Float32BufferAttribute, Points } from "three";
 import { useFrame } from "@react-three/fiber";
-import { Position } from "../../../store/Player";
+import { Position } from "../../../game/states/Player";
 
 interface TornadoProps {
 	position?: Position

@@ -1,5 +1,5 @@
 import { Text } from "@react-three/drei";
-import { useGame } from "../../store/hooks/useGame";
+import { useGame } from "../../game/hooks/useGame";
 import { useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 

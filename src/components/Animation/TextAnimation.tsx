@@ -1,6 +1,6 @@
 
 import { Text } from '@react-three/drei'
-import { MapTheme } from '../../types/machine';
+import { MapTheme } from '../../types/machine.type';
 
 interface TextDataProps {
 	position: [number, number, number];

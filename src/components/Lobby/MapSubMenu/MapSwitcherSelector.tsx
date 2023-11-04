@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import SelectMap from './SelectMap';
 import { PixelCorners2x2, PixelCorners3x3 } from '../../../styles/HomeStyles';
-import { useGame } from '../../../store/hooks/useGame';
-import { ModeType } from '../../../types/machine';
-import { Player } from '../../../store/Player';
+import { useGame } from '../../../game/hooks/useGame';
+import { ModeType } from '../../../types/machine.type';
+import { Player } from '../../../game/states/Player';
 
 type TabProps = {
     $active: boolean;

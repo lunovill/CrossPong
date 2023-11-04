@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { useGame } from '../../../store/hooks/useGame';
+import { useGame } from '../../../game/hooks/useGame';
 import LifeBar from './LifeBar'
 import styled from 'styled-components'
 import IconMap from './IconMap';
@@ -75,34 +75,34 @@ function HudGame(): ReactElement {
 	const [isUltiAvailable2, setIsUltiAvailable2] = useState(true);
 
 	useEffect(() => {
-		if (context.players[0].canUseUlti === false)
+		if (context.physic!.paddlesInfo[0].skill.ulti.isAvailable === false)
 			setIsUltiAvailable(false);
-	}, [context.players[0].canUseUlti])
+	}, [context.physic!.paddlesInfo[0].skill.ulti.isAvailable])
 
 	useEffect(() => {
-		if (context.players[1].canUseUlti === false && context.mode === '2PLocal')
+		if (context.physic!.paddlesInfo[1].skill.ulti.isAvailable === false && context.mode === '2PLocal')
 			setIsUltiAvailable2(false);
-	}, [context.players[1].canUseUlti])
+	}, [context.physic!.paddlesInfo[1].skill.ulti.isAvailable])
 
 
 	useEffect(() => {
-		setMaxCooldownSkill(context.players[0].power.cooldown);
-	}, [context.players[0].power.cooldown])
-
-	useEffect(() => {
-		if (context.mode === '2PLocal')
-			setMaxCooldownSkill2(context.players[1].power.cooldown);
-	}, [context.players[1].power.cooldown])
-
-
-	useEffect(() => {
-		setCooldownSkill(context.players[0].power.time);
-	}, [context.players[0].power.time])
+		setMaxCooldownSkill(context.physic!.paddlesInfo[0].cooldown);
+	}, [context.physic!.paddlesInfo[0].cooldown]);
 
 	useEffect(() => {
 		if (context.mode === '2PLocal')
-			setCooldownSkill2(context.players[1].power.time);
-	}, [context.players[1].power.time])
+			setMaxCooldownSkill2(context.physic!.paddlesInfo[1].cooldown);
+	}, [context.physic!.paddlesInfo[1].cooldown]);
+
+
+	useEffect(() => {
+		setCooldownSkill(context.physic!.paddlesInfo[0].time);
+	}, [context.physic!.paddlesInfo[0].time]);
+
+	useEffect(() => {
+		if (context.mode === '2PLocal')
+			setCooldownSkill2(context.physic!.paddlesInfo[1].time);
+	}, [context.physic!.paddlesInfo[1].time]);
 
 	return (
 		<>

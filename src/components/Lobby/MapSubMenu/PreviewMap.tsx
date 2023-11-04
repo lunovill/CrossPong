@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { mapsAssets } from '../../../data/models/MapObject';
 import { PixelCorners1x1, PixelCorners2x2, PixelCorners3x3 } from '../../../styles/HomeStyles';
-import { MapTheme } from '../../../types/machine';
+import { MapTheme } from '../../../types/machine.type';
 
 type backgroundProps = {
 	$color: string;

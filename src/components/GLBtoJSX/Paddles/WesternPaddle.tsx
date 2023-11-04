@@ -2,9 +2,9 @@ import { useGLTF } from '@react-three/drei'
 import { MutableRefObject, ReactElement, useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { GLTFResult, PaddleProps } from '../../../types/Map';
-import { Position } from '../../../store/Player';
+import { Position } from '../../../game/states/Player';
 import { Group, Mesh, MeshStandardMaterial } from 'three';
-import { WesternSkillInfoProps } from '../../../store/physic/WesternPaddle';
+import { WesternSkillInfoProps } from '../../../game/physic/WesternPaddle';
 import { AnimationSkillWestern } from '../Skills/MedivalSkills';
 import { DissolveMaterial } from '../DissolveMaterial';
 import { RetroPowerEffect } from '../../Effects/RetroPowerEffect';

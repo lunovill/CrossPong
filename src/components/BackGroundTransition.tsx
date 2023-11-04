@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import chroma from 'chroma-js';
-import { useGame } from '../store/hooks/useGame';
+import { useGame } from '../game/hooks/useGame';
 
 const BackGroundTransition = () => {
     const { state, context } = useGame();

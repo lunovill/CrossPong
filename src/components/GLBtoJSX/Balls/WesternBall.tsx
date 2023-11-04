@@ -2,7 +2,7 @@ import { MutableRefObject, useMemo, useRef } from "react";
 import { GLTFResult, BallProps } from "../../../types/Map";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { Position } from "../../../store/Player";
+import { Position } from "../../../game/states/Player";
 import { Group, Mesh, MeshStandardMaterial } from "three";
 import { RetorUltiEffect } from "../../Effects/RetroUltiEffect";
 import NinjaPowerEffect from "../../Effects/NinjaPowerEffect";

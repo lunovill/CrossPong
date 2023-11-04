@@ -1,8 +1,8 @@
 import { Euler, Group } from 'three';
 import { MapObject } from '../models/MapObject';
-import { Position } from '../store/Player';
+import { Position } from '../game/states/Player';
 import { SkillInfoProps } from '../types/physics';
-import { World } from '../store/physic/World';
+import { World } from '../game/physic/World';
 
 export type GLTFResult = GLTF & {
     nodes: {

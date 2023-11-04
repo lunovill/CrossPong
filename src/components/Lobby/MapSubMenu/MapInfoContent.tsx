@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MapTheme } from '../../../types/machine';
+import { MapTheme } from '../../../types/machine.type';
 
 interface SpellProps {
 	$left: string;

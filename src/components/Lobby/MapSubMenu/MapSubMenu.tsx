@@ -1,7 +1,7 @@
 import Pixelated_Button from '../../Global_UI/Pixelated_Button';
 import MapSwitcherSelector from './MapSwitcherSelector';
 import styled from 'styled-components';
-import { useGame } from '../../../store/hooks/useGame';
+import { useGame } from '../../../game/hooks/useGame';
 
 type ButtonColorProps = {
 	$color: string;
@@ -46,7 +46,7 @@ const SelectMapSubMenu = () => {
 				position={['40px', '30px']}
 				text={'PLAY'}
 				onClick={() => {
-					send({ type: 'load' });
+					send({ type: 'start' });
 				}} />
 		</>
 	);

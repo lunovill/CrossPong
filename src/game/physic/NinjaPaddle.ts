@@ -1,15 +1,12 @@
 import { Body } from "p2-es";
 import Paddle from "./Paddle";
-import { FPS } from "./config";
+import { COOLDOWN, FPS } from "../game.constants";
 import { Vector3 } from "../../types/physic.type";
 import Ball from "./Ball";
 
 export interface NinjaSkillInfoProps {
 	power: { isActive: boolean, effect: boolean, factor: number },
-	ulti: {
-		isActive: boolean,
-		balls: { position: Vector3, velocity: Vector3 }[]
-	}
+	ulti: Paddle['ulti'] & { balls: { position: Vector3, velocity: Vector3 }[] }
 };
 
 export default class NinjaPaddle extends Paddle {
@@ -18,6 +15,7 @@ export default class NinjaPaddle extends Paddle {
 	constructor(location: number) {
 		super(location);
 
+		this.power.cooldown = COOLDOWN.Ninja;
 		this.effect = false;
 		this.skillBalls.push({ body: new Ball, isDestroyed: true });
 		this.skillBalls.push({ body: new Ball, isDestroyed: true });
@@ -48,15 +46,21 @@ export default class NinjaPaddle extends Paddle {
 	}
 
 	public setPower(power: boolean, _: Vector3[]): Body[] {
-		this.power = power;
+		if (this.power.time) return [];
+		if (!power && this.power.isActive) {
+			this.power.start = Date.now();
+			this.power.time = this.power.cooldown;
+		}
+		this.power.isActive = power;
 		(power && this.factor < 1.5) && (this.factor += 0.01);
 		(!power) && (this.factor = 1);
 		return [];
 	}
 
 	public setUlti(ulti: boolean, ball: Ball): Body[] {
-		if (ulti && !this.ulti) {
-			this.ulti = true;
+		if (ulti && this.ulti.isAvailable && !this.ulti.isActive) {
+			this.ulti.isActive = true;
+			this.ulti.isAvailable = false;
 			this.skillBalls.forEach((b, i) => {
 				b.body.copy(ball);
 				b.body.body.velocity = [
@@ -71,7 +75,7 @@ export default class NinjaPaddle extends Paddle {
 			return this.skillBalls.map(ball => ball.body.body);
 		}
 		if (!ulti) {
-			this.ulti = false;
+			this.ulti.isActive = false;
 			this.skillBalls.forEach(b => b.isDestroyed = true);
 		}
 		return [];
@@ -79,9 +83,10 @@ export default class NinjaPaddle extends Paddle {
 
 	get skillInfo(): NinjaSkillInfoProps {
 		return {
-			power: { isActive: this.power, effect: this.effect, factor: (this.factor - 1) * 2 },
+			power: { isActive: this.power.isActive, effect: this.effect, factor: (this.factor - 1) * 2 },
 			ulti: {
-				isActive: this.ulti, balls: this.skillBalls
+				...this.ulti,
+				balls: this.skillBalls
 					.filter(ball => !ball.isDestroyed)
 					.map(ball => ({
 						position: ball.body.position,

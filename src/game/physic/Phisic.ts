@@ -2,24 +2,24 @@ import { EventEmitter } from "events";
 import Ball from "./Ball";
 import Paddle from "./Paddle";
 import { World } from "./World";
-import { Vector3 } from "../../types/physic.type";
+import { SkillInfoProps, Vector3 } from "../../types/physic.type";
 import { bot } from "./bot";
-import { MapTheme } from "../../types/machine";
-import MedievalPaddle, { MedievalSkillInfoProps } from "./MedievalPaddle";
-import WesternPaddle, { WesternSkillInfoProps } from "./WesternPaddle";
-import NinjaPaddle, { NinjaSkillInfoProps } from "./NinjaPaddle";
-import RetroPaddle, { RetroSkillInfoProps } from "./RetroPaddle";
-
-export type SkillInfoProps = MedievalSkillInfoProps | WesternSkillInfoProps | NinjaSkillInfoProps | RetroSkillInfoProps;
+import { MapTheme } from "../../types/machine.type";
+import MedievalPaddle from "./MedievalPaddle";
+import WesternPaddle from "./WesternPaddle";
+import NinjaPaddle from "./NinjaPaddle";
+import RetroPaddle from "./RetroPaddle";
 
 interface PaddleInfoProps {
 	position: Vector3,
 	velocity: Vector3,
 	collision: number,
 	skill: SkillInfoProps,
+	cooldown: number,
+	time: number
 }
 
-interface BallsInfoProps {
+interface BallInfoProps {
 	position: Vector3,
 	velocity: Vector3,
 	collision: number
@@ -86,7 +86,14 @@ export default class Physic extends EventEmitter {
 
 	public stop(): void { this.world.stop() };
 
-	get ballsInfo(): BallsInfoProps[] {
+	public restart(): void {
+		this.paddles.forEach(p => {
+			p.ulti.isActive = false,
+				p.ulti.isAvailable = true
+		});
+	}
+
+	get ballsInfo(): BallInfoProps[] {
 		const balls: { body: Ball, isDestroyed: boolean }[] = [...([] as { body: Ball, isDestroyed: boolean }[]).concat(...this.paddles.map(p => p.skillBalls)), this.ball].filter(b => !b.isDestroyed);
 		for (let i = balls.length - 1; i >= 0; i--) {
 			if (balls[i].body.score) {
@@ -117,16 +124,21 @@ export default class Physic extends EventEmitter {
 	}
 
 	get paddlesInfo(): [PaddleInfoProps, PaddleInfoProps] {
-		return [{
-			position: this.paddles[0].position,
-			velocity: this.paddles[0].velocity,
-			collision: this.paddles[0].collision,
-			skill: this.paddles[0].skillInfo
-		}, {
-			position: this.paddles[1].position,
-			velocity: this.paddles[1].velocity,
-			collision: this.paddles[1].collision,
-			skill: this.paddles[1].skillInfo
-		}]
+		return this.paddles.map(p => {
+			if (p.power.start) {
+				const time = Date.now() - p.power.start;
+				if (time >= p.power.cooldown) { p.power.start = 0; p.power.time = 0; }
+				else { p.power.time = p.power.cooldown - time }
+			}
+
+			return {
+				position: p.position,
+				velocity: p.velocity,
+				collision: p.collision,
+				skill: p.skillInfo,
+				cooldown: p.power.cooldown,
+				time: p.power.time
+			}
+		}) as [PaddleInfoProps, PaddleInfoProps];
 	}
 };

@@ -4,7 +4,7 @@ import { useGLTF } from '@react-three/drei'
 import { useEffect, useState } from 'react'
 import StarsDisappearEffect from '../../Animation/StarsDisepearEffect'
 import { DissolveMaterial } from '../DissolveMaterial'
-import { MedievalSkillInfoProps } from '../../../store/physic/MedievalPaddle'
+import { MedievalSkillInfoProps } from '../../../game/physic/MedievalPaddle'
 import { AnimationSkillMedieval, AnimationUltiMedieval } from '../Skills/MedivalSkills'
 
 type GLTFResultMedieval = GLTF & {

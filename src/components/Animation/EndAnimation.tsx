@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useGame } from '../../store/hooks/useGame';
+import { useGame } from '../../game/hooks/useGame';
 import { Html } from '@react-three/drei';
 import styled from 'styled-components';
 

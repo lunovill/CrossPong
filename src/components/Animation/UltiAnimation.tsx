@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import { useGame } from "../../store/hooks/useGame";
-import { Player } from "../../store/Player";
+import { useGame } from "../../game/hooks/useGame";
+import { Player } from "../../game/states/Player";
 import { Html } from "@react-three/drei";
 import UltimIcon from "../Game/HUD/Ultim";
 
@@ -79,11 +79,11 @@ export default function UltiAnimation({ index }: { index: number }) {
 		if (context.mode !== '2PLocal') {
 			setTimeout(() => {
 				('send ulti');
-				send({ type: 'ulti', id: player.id });
+				send({ type: 'ulti' });
 			}, 1000);
 		}
 		setTimeout(() => {
-				send({ type: 'start', isBall: true });
+			context.physic?.play();
 		}, 3000);
 	}, []);
 

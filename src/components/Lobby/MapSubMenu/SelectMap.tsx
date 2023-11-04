@@ -1,5 +1,5 @@
-import { useGame } from '../../../store/hooks/useGame';
-import { MapTheme } from '../../../types/machine';
+import { useGame } from '../../../game/hooks/useGame';
+import { MapTheme } from '../../../types/machine.type';
 import MapInfo from './MapInfo';
 import PreviewMap from './PreviewMap';
 import SelectMapButton from './SelectMapButton';

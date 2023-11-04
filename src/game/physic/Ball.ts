@@ -1,5 +1,5 @@
 import { Body, Circle } from 'p2-es';
-import { BALL, BALL_RADIUS, BORDER, PADDLE, PADDLE_POSITION, STONE } from './config';
+import { BALL, BALL_RADIUS, BORDER, PADDLE, PADDLE_POSITION, STONE } from '../game.constants';
 import { Vector3, formatTuple } from "../../types/physic.type";
 
 export default class Ball {
@@ -38,9 +38,7 @@ export default class Ball {
 		return (direction === -1) ? 0 : 1;
 	}
 
-	public step(delta: number): void { // TMP - Trouver le bon BALL_SPEED
-		// ball.impulse[0] *= delta;
-		// ball.impulse[1] *= delta;
+	public step(delta: number): void { // TMP - Utiliser delta
 		if (this.body.position[0] < -PADDLE_POSITION - 2 || this.body.position[0] > PADDLE_POSITION + 2)
 			this.score = (Math.sign(this.body.position[0]) < 0) ? -1 : 1;
 		this.body.applyForce(this.impulse);

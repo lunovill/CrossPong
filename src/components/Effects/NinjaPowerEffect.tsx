@@ -1,5 +1,5 @@
 import { useEffect, ReactElement, useState } from 'react';
-import { Position } from '../../store/Player';
+import { Position } from '../../game/states/Player';
 import WindShader from '../GLBtoJSX/Shaders/WindShader';
 import { hexToRgb } from '../GLBtoJSX/Shaders/FlamShader';
 

@@ -3,7 +3,7 @@ import { GLTFResult, BallProps } from "../../../types/Map";
 import { MutableRefObject, ReactElement, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Group, MeshStandardMaterial } from "three";
-import { Position } from "../../../store/Player";
+import { Position } from "../../../game/states/Player";
 import FlameShader, { hexToRgb } from "../Shaders/FlamShader";
 import { RetorUltiEffect } from "../../Effects/RetroUltiEffect";
 import NinjaPowerEffect from "../../Effects/NinjaPowerEffect";

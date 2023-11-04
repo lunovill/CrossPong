@@ -2,11 +2,11 @@ import { ReactElement, useEffect } from 'react';
 import { RootState, useThree } from '@react-three/fiber';
 import Ball from './Ball';
 import Player from './Player';
-import Area from '../Area';
-import Lights from '../Lights';
-import IntroAnimation from '../../Animation/IntroAnimation';
-import EndAnimation from '../../Animation/EndAnimation';
-import { useGame } from '../../../store/hooks/useGame';
+import Area from './Area';
+import Lights from './Lights';
+import IntroAnimation from '../Animation/IntroAnimation';
+import EndAnimation from '../Animation/EndAnimation';
+import { useGame } from '../../game/hooks/useGame';
 
 export default function World(): ReactElement {
 	const { camera } = useThree<RootState>();
@@ -42,7 +42,7 @@ export default function World(): ReactElement {
 		
 		return () => { window.removeEventListener('resize', handleResize); };
 	}, [state]);
-	
+
 	return <>
 		{context.animation === 'Intro' && <IntroAnimation />}
 		{context.animation === 'End' && <EndAnimation />}

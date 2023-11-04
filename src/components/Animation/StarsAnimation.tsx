@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, ReactElement } from 'react'
 import { RootState, useFrame, useThree } from '@react-three/fiber'
 import { Points, PointMaterial, useTexture } from '@react-three/drei'
 import { Material, NearestFilter, Texture, Points as ThreePoints, Vector3 } from 'three';
-import { useGame } from '../../store/hooks/useGame';
+import { useGame } from '../../game/hooks/useGame';
 
 const star_frame1 = [
 	'/images/animation/anim1_frame1.png',

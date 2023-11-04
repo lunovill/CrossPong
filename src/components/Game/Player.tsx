@@ -1,11 +1,11 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useKeyboardControls } from '@react-three/drei';
-import UltiAnimation from '../../Animation/UltiAnimation';
-import { useGame } from '../../../store/hooks/useGame';
-import { MapTheme } from '../../../types/machine';
-import Physic from '../../../store/physic/Phisic';
-import TextThreeTwoOne from '../../Animation/TextThreeTwoOne';
+import UltiAnimation from '../Animation/UltiAnimation';
+import { useGame } from '../../game/hooks/useGame';
+import { MapTheme } from '../../types/machine.type';
+import Physic from '../../game/physic/Phisic';
+import TextThreeTwoOne from '../Animation/TextThreeTwoOne';
 
 type Info = Physic['paddlesInfo'][0] & { effect: string };
 
@@ -25,35 +25,25 @@ export default function Player(): ReactElement {
 	const [isAnimation, setIsAnimation] = useState<boolean>(true);
 
 	const handleScoreEvent = (index: number, isBall: boolean): void => {
-		send({ type: 'score', index, isBall });
-		send({ type: 'start', isBall });
-		(isBall) && setIsAnimation(true);
+		send({ type: 'score', index });
+		if (isBall) {
+			send({ type: 'start' });
+			setIsAnimation(true);
+		} else {
+			context.physic?.play();
+		}
 	};
 
 	const keyEnvent = (index: number, { leftward, rightward, power, ulti }: { leftward: boolean, rightward: boolean, power: boolean, ulti: boolean }) => {
-		const current = !index ? player : opponent;
-		if (!current.power.time) {
-			if (current.mapInfo.id === MapTheme.NINJA) {
-				if (collision[index]) { power = false; (!index) ? setCollision([false, collision[1]]) : setCollision([collision[0], false]); }
-				if (!power && context.physic!.paddlesInfo[index].skill!.power.isActive) {
-					send({ type: 'power', id: `j${index + 1}` });
-					send({ type: 'update' });
-				}
-				context.physic?.setPower(index, power);
-			} else {
-				context.physic?.setPower(index, power);
-				if (context.physic!.paddlesInfo[index].skill.power.isActive) {
-					send({ type: 'power', id: `j${index + 1}` });
-					send({ type: 'update' });
-				}
-			}
+		if (collision[index]) {
+			power = false;
+			(!index) ? setCollision([false, collision[1]]) : setCollision([collision[0], false]);
 		}
-		if (ulti) {
-			context.physic?.setUlti(index, true);
-			if (context.physic!.paddlesInfo[index].skill.ulti.isActive) {
-				setIndex(index);
-				send({ type: 'ulti', id: `j${index + 1}` });
-			}
+		context.physic?.setPower(index, power);
+		ulti && context.physic?.setUlti(index, true);
+		if (context.physic!.paddlesInfo[index].skill.ulti.isActive) {
+			setIndex(index);
+			send({ type: 'ulti' });
 		}
 		context.physic!.setKeys(index, { leftward, rightward });
 	};
@@ -90,7 +80,6 @@ export default function Player(): ReactElement {
 	useEffect(() => { setCollision([collision[0], true]); }, [info[1].collision]);
 
 	useFrame(() => {
-		(player.power.time) && (send({ type: 'update' }));
 		(state === 'Play') && handleKeyEvent();
 		const newInfo: [Info, Info] = [
 			{ ...context.physic!.paddlesInfo[0], effect: effect(0) },

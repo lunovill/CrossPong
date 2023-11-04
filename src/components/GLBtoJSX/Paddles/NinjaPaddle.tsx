@@ -2,12 +2,12 @@ import { useGLTF } from '@react-three/drei'
 import { MutableRefObject, ReactElement, useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { GLTFResult, PaddleProps } from '../../../types/Map';
-import { Position } from '../../../store/Player';
+import { Position } from '../../../game/states/Player';
 import { Group, MeshStandardMaterial } from 'three';
 import chroma, { Scale } from 'chroma-js';
 import FlameShader from '../Shaders/FlamShader';
 import gsap from 'gsap';
-import { NinjaSkillInfoProps } from '../../../store/physic/NinjaPaddle';
+import { NinjaSkillInfoProps } from '../../../game/physic/NinjaPaddle';
 import { DissolveMaterial } from '../DissolveMaterial';
 import { RetroPowerEffect } from '../../Effects/RetroPowerEffect';
 

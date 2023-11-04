@@ -2,7 +2,7 @@ import { useGLTF } from '@react-three/drei'
 import { MutableRefObject, ReactElement, useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { GLTFResult, PaddleProps } from '../../../types/Map';
-import { Position } from '../../../store/Player';
+import { Position } from '../../../game/states/Player';
 import { Group, Mesh, MeshStandardMaterial } from 'three';
 import { DissolveMaterial } from '../DissolveMaterial';
 import { RetroPowerEffect } from '../../Effects/RetroPowerEffect';

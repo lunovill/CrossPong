@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { MapTheme } from '../../../types/machine';
+import { MapTheme } from '../../../types/machine.type';
 import MapInfoContent from './MapInfoContent';
 import { PixelCorners3x3, PixelCorners2x2 } from '../../../styles/HomeStyles';
 

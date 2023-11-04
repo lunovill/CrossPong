@@ -1,6 +1,6 @@
 import  { useState } from 'react';
 import { TextAnimationVersus, SimpleText } from './TextAnimation';
-import { useGame } from '../../store/hooks/useGame';
+import { useGame } from '../../game/hooks/useGame';
 import { useFrame } from '@react-three/fiber';
 
 export const TextManagerIntro = () => {

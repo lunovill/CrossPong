@@ -1,12 +1,12 @@
 import { Body, Box } from "p2-es";
 import Paddle from "./Paddle";
-import { BALL, BALL_RADIUS, MAP_HEIGHT, PADDLE_POSITION, STONE } from "./config";
+import { BALL, BALL_RADIUS, COOLDOWN, MAP_HEIGHT, PADDLE_POSITION, STONE } from "../game.constants";
 import { Vector3 } from "../../types/physic.type";
 import Ball from "./Ball";
 
 export interface MedievalSkillInfoProps {
 	power: { isActive: boolean, left: boolean, right: boolean },
-	ulti: { isActive: boolean, stones: boolean[] }
+	ulti: Paddle['ulti'] & { stones: boolean[] }
 };
 
 export default class MedievalPaddle extends Paddle {
@@ -23,6 +23,7 @@ export default class MedievalPaddle extends Paddle {
 	constructor(location: number) {
 		super(location);
 
+		this.power.cooldown = COOLDOWN.Medieval;
 		const x = PADDLE_POSITION + 0.5;
 		this.skillBodies = [{
 			body: MedievalPaddle.createStone(0.5, 0.5, 1, MAP_HEIGHT / 4, this.location, -1),
@@ -54,7 +55,8 @@ export default class MedievalPaddle extends Paddle {
 	}
 
 	public setPower(power: boolean, balls: Vector3[]): Body[] {
-		if (power && !this.power && Math.sign(this.body.position[1])) {
+		if (this.power.time) return [];
+		if (power && !this.power.isActive && Math.sign(this.body.position[1])) {
 			const locationX = this.location;
 			const locationY = Math.sign(this.body.position[1]);
 			const left = 1 * locationX - 0.3;
@@ -64,7 +66,9 @@ export default class MedievalPaddle extends Paddle {
 
 			if (balls.every(ball => ball.x + BALL_RADIUS <= left || ball.x - BALL_RADIUS >= right ||
 				ball.y + BALL_RADIUS <= top || ball.y - BALL_RADIUS >= bottom)) {
-				this.power = true;
+				this.power.isActive = true;
+				this.power.start = Date.now();
+				this.power.time = this.power.cooldown;
 				const index = (Math.sign(this.body.position[1]) + 1) / 2;
 				this.skillBodies[index].isDestroyed = false;
 				return [this.skillBodies[index].body];
@@ -78,12 +82,12 @@ export default class MedievalPaddle extends Paddle {
 	}
 
 	public setUlti(ulti: boolean, _: Ball): Body[] {
-		if (ulti && !this.ulti) {
-			this.ulti = true;
+		if (ulti && this.ulti.isAvailable && !this.ulti.isActive) {
+			this.ulti.isActive = true;
+			this.ulti.isAvailable = false;
 			return this.skillBodies.slice(2).map(stone => stone.body);
-		}
-		if (!ulti && this.ulti) {
-			this.ulti = false;
+		} else if (!ulti && this.ulti.isActive) {
+			this.ulti.isActive = false;
 			this.skillBodies.slice(2).forEach(b => b.isDestroyed = true);
 		}
 		return [];
@@ -92,13 +96,13 @@ export default class MedievalPaddle extends Paddle {
 	get skillInfo(): MedievalSkillInfoProps {
 		const left: boolean = !!(!this.skillBodies[0].isDestroyed)
 		const right: boolean = !!(!this.skillBodies[1].isDestroyed)
-		this.power = (left || right);
+		this.power.isActive = (left || right);
 		return (this.location === 1) ? {
-			power: { isActive: this.power, left, right },
-			ulti: { isActive: this.ulti, stones: this.skillBodies.slice(2).map(stone => !stone.isDestroyed) }
+			power: { isActive: this.power.isActive, left, right },
+			ulti: { ...this.ulti, stones: this.skillBodies.slice(2).map(stone => !stone.isDestroyed) }
 		} : {
-			power: { isActive: this.power, left: right, right: left },
-			ulti: { isActive: this.ulti, stones: this.skillBodies.slice(2).map(stone => !stone.isDestroyed).reverse() }
+			power: { isActive: this.power.isActive, left: right, right: left },
+			ulti: { ...this.ulti, stones: this.skillBodies.slice(2).map(stone => !stone.isDestroyed).reverse() }
 		}
 	}
 };

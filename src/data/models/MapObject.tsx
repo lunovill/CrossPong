@@ -1,5 +1,5 @@
 import { mapName, MapInfo, MapsAssets, MapProps, BallProps, PaddleProps } from '../../types/Map';
-import { MapTheme } from '../../types/machine';
+import { MapTheme } from '../../types/machine.type';
 import MedievalBall from '../../components/GLBtoJSX/Balls/MedievalBall';
 import WesternBall from '../../components/GLBtoJSX/Balls/WesternBall';
 import NinjaBall from '../../components/GLBtoJSX/Balls/NinjaBall';

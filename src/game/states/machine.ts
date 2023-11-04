@@ -1,22 +1,37 @@
-import { AnimationStates, GameStates, MapTheme, ModeType } from "../../types/machine";
+import { AnimationStates, GameStates, MapTheme, ModeType } from "../../types/machine.type";
 import { createModel } from "xstate/lib/model";
-import { canChangeCurrentGuard, canJoinGuard, canStartGuard, canUseUltiGuard, isEndGameGuard } from "./guards";
-import { changeCurrentAction, changeStarsColorAction, chooseMapAction, chooseModeAction, joinGameAction, leaveGameAction, restartGameAction, scoreGameAction, startPhysicAction, updatePlayerGameAction, introGameAction, startGameAction, setIsMapVisibleAction, ultiGameAction, powerGameAction, updateGameAction, endGameAction } from "./actions";
-import { Player } from "../Player";
+import { canChangeCurrentGuard, canChooseModeGuard, canJoinGuard, isEndGameGuard } from "./guards";
+import {
+	changeCurrentAction,
+	changeStarsColorAction,
+	chooseMapAction,
+	chooseModeAction,
+	joinGameAction,
+	leaveGameAction,
+	restartGameAction,
+	scoreGameAction,
+	startPhysicAction,
+	introGameAction,
+	startGameAction,
+	setIsMapVisibleAction,
+	endGameAction
+} from "./actions";
+import { Player } from "./Player";
 import { Group } from "three";
 import { MutableRefObject } from "react";
 import Physic from "../physic/Phisic";
+import { LIFE } from "../game.constants";
 
 export const GameModel = createModel({
 	animation: undefined as AnimationStates | undefined,
 	starsColor: ['#2245e2', '#d92fe6', '#f0e51c', '#1cf030', '#ffffff'] as string[],
-	starsRef: null as MutableRefObject<Group | null> | null,
+	starsRef: null as MutableRefObject<Group| null> | null,
 	mode: undefined as ModeType | undefined,
 	current: undefined as Player | undefined,
 	players: [] as Player[],
 	physic: null as Physic | null,
 	isMapVisible: true as boolean,
-	victory: 5,
+	victory: LIFE
 }, {
 	events: {
 		changeCurrent: (id: Player['id']) => ({ id }),
@@ -27,17 +42,13 @@ export const GameModel = createModel({
 		join: (id: Player['id'], name: Player['name']) => ({ id, name }),
 		leave: () => ({}),
 		end: () => ({}),
-		load: () => ({}),
-		power: (id: Player['id']) => ({ id }),
 		restart: () => ({}),
-		score: (index: number, isBall: boolean) => ({ index, isBall }),
+		score: (index: number) => ({ index }),
 		sendEnd: () => ({}),
-		setIsMapVisible: (visible: boolean) => ({visible}),
+		setIsMapVisible: (visible: boolean) => ({ visible }),
 		setStarsRef: (starsRef: React.MutableRefObject<Group | null>) => ({ starsRef }),
-		start: (isBall: boolean) => ({ isBall }),
-		ulti: (id: Player['id']) => ({ id }),
-		updatePlayer: (id: Player['id'], location: Player['location']) => ({ id, location }),
-		update: () => ({})
+		start: () => ({}),
+		ulti: () => ({})
 	}
 });
 
@@ -52,6 +63,7 @@ export const GameMachine = GameModel.createMachine({
 			entry: [GameModel.assign(changeStarsColorAction)],
 			on: {
 				chooseMode: {
+					cond: canChooseModeGuard,
 					actions: [GameModel.assign(chooseModeAction)],
 					target: GameStates.MAP
 				},
@@ -82,43 +94,13 @@ export const GameMachine = GameModel.createMachine({
 					actions: [GameModel.assign(chooseMapAction)],
 					target: GameStates.MAP
 				},
-				load: {
-					target: GameStates.LOADING
-				},
 				leave: {
 					actions: [GameModel.assign(leaveGameAction)],
 					target: GameStates.MODE
-				}
-			}
-		},
-		[GameStates.LOADING]: {
-			on: {
-				changeCurrent: {
-					cond: canChangeCurrentGuard,
-					actions: [GameModel.assign(changeCurrentAction)],
-					target: GameStates.LOADING
-				},
-				chooseMap: {
-					actions: [GameModel.assign(chooseMapAction)],
-					target: GameStates.LOADING
-				},
-				join: {
-					cond: canJoinGuard,
-					actions: [GameModel.assign(joinGameAction)],
-					target: GameStates.LOADING
 				},
 				start: {
-					cond: canStartGuard,
 					actions: [GameModel.assign(startGameAction)],
 					target: GameStates.ANIMATION
-				},
-				updatePlayer: {
-					actions: [GameModel.assign(updatePlayerGameAction)],
-					target: GameStates.LOADING
-				},
-				leave: {
-					actions: [GameModel.assign(leaveGameAction)],
-					target: GameStates.MODE
 				}
 			}
 		},
@@ -140,19 +122,6 @@ export const GameMachine = GameModel.createMachine({
 				score: {
 					actions: [GameModel.assign(scoreGameAction)],
 					target: GameStates.ANIMATION
-				},
-				power: {
-					actions: [GameModel.assign(powerGameAction)],
-					target: GameStates.PLAY
-				},
-				ulti: {
-					cond: canUseUltiGuard,
-					actions: [GameModel.assign(ultiGameAction)],
-					target: GameStates.ANIMATION
-				},
-				update: {
-					actions: [GameModel.assign(updateGameAction)],
-					target: GameStates.PLAY
 				}
 			}
 		},
@@ -207,5 +176,4 @@ export const GameMachine = GameModel.createMachine({
 		}
 
 	}
-
 });

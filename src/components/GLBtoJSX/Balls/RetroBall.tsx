@@ -4,7 +4,7 @@ import { GLTF } from 'three-stdlib'
 import { MutableRefObject, ReactElement, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Group } from "three";
-import { Position } from "../../../store/Player";
+import { Position } from "../../../game/states/Player";
 import FlameShader, { hexToRgb } from "../Shaders/FlamShader";
 import chroma from "chroma-js";
 import { RetorUltiEffect } from "../../Effects/RetroUltiEffect";

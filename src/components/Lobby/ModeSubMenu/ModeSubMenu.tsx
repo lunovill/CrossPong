@@ -1,4 +1,4 @@
-import { ModeType } from '../../../types/machine';
+import { ModeType } from '../../../types/machine.type';
 import MenuButton from './SelectModeMenuButton'
 import styled from 'styled-components';
 

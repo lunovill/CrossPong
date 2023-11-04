@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
 import { PixelCorners1x1 } from '../../../styles/HomeStyles';
-import { useGame } from '../../../store/hooks/useGame';
-import { MapTheme } from '../../../types/machine';
+import { useGame } from '../../../game/hooks/useGame';
+import { MapTheme } from '../../../types/machine.type';
 
 type ButtonProps = {
     $left: number;

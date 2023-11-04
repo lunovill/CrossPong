@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { GameContext, GameEvents, GameStates } from '../../types/machine'
+import { GameContext, GameEvents, GameStates } from '../../types/machine.type'
 import { PropsWithChildren } from 'react';
 import { ReactElement } from 'react';
 import { useMachine } from '@xstate/react'

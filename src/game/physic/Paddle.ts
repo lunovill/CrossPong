@@ -1,8 +1,7 @@
 import { Body, Box } from "p2-es";
-import { BALL, BORDER, PADDLE, PADDLE_DAMPING, PADDLE_HEIGHT, PADDLE_POSITION, PADDLE_SPEED, PADDLE_WIDTH } from "./config";
-import { Vector3, formatTuple } from "../../types/physic.type";
+import { BALL, BORDER, PADDLE, PADDLE_DAMPING, PADDLE_HEIGHT, PADDLE_POSITION, PADDLE_SPEED, PADDLE_WIDTH } from "../game.constants";
+import { SkillInfoProps, Vector3, formatTuple } from "../../types/physic.type";
 import Ball from "./Ball";
-import { SkillInfoProps } from "./Phisic";
 
 export default abstract class Paddle {
 	public body: Body;
@@ -10,9 +9,17 @@ export default abstract class Paddle {
 	public factor: number;
 	public key: { leftward: boolean, rightward: boolean };
 	public location: number;
-	public power: boolean;
+	public power: {
+		isActive: boolean,
+        start: number,
+        time: number,
+        cooldown: number
+    };
 	public skillBalls: { body: Ball, isDestroyed: boolean }[];
-	public ulti: boolean;
+	public ulti: {
+		isActive: boolean,
+		isAvailable: boolean,
+	};
 
 	protected skillBodies: { body: Body, isDestroyed: boolean }[];
 
@@ -28,10 +35,18 @@ export default abstract class Paddle {
 		this.factor = 1;
 		this.key = { leftward: false, rightward: false };
 		this.location = location;
-		this.power = false;
+		this.power = {
+			isActive: false,
+			start: 0,
+            time: 0,
+            cooldown: 0
+		};
 		this.skillBodies = [];
 		this.skillBalls = [];
-		this.ulti = false;
+		this.ulti = {
+			isActive: false,
+			isAvailable: true
+		};
 	}
 
 	abstract applyPower(): void
@@ -56,7 +71,7 @@ export default abstract class Paddle {
 			impulse[1] = PADDLE_SPEED * -location * delta;
 		if (this.key.rightward)
 			impulse[1] = PADDLE_SPEED * location * delta;
-		if (this.power)
+		if (this.power.isActive)
 			this.applyPower();
 		this.body.applyForce(impulse);
 		this.body.angle = 0;
@@ -67,6 +82,13 @@ export default abstract class Paddle {
 	public reset(): void {
 		this.body.position[1] = 0;
 		this.body.velocity[1] = 0;
+		this.power = {
+			...this.power,
+			isActive: false,
+			start: 0,
+			time: 0
+		};
+		this.ulti.isActive = false;
 		return;
 	}
 

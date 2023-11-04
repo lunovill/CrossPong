@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import SelectModeSubMenu from './ModeSubMenu/ModeSubMenu';
 import SelectMapSubMenu from './MapSubMenu/MapSubMenu';
 import { PixelCorners3x3 } from '../../styles/HomeStyles';
-import { useGame } from '../../store/hooks/useGame';
+import { useGame } from '../../game/hooks/useGame';
 
 const Container = styled.div`
   position: relative;

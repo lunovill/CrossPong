@@ -1,13 +1,13 @@
-import { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
+import { ReactElement, useMemo, useRef, useState } from 'react';
 import { BoxGeometry, MeshStandardMaterial } from 'three';
-import { useGame } from '../../store/hooks/useGame';
+import { useGame } from '../../game/hooks/useGame';
 import { useFrame } from '@react-three/fiber';
-import { SkillInfoProps } from '../../store/physic/Phisic';
+import { SkillInfoProps } from 'src/types/physic.type';
 
 type Info = { skill: SkillInfoProps };
 
 export default function Area(): ReactElement {
-	const { state, context } = useGame();
+	const { context } = useGame();
 	const player = context.players[0];
 	const opponent = context.players[1];
 	const MapPlayer = player.Map();

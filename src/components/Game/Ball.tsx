@@ -1,11 +1,11 @@
 import { ReactElement, useState } from 'react';
-import { useGame } from '../../../store/hooks/useGame';
+import { useGame } from '../../game/hooks/useGame';
 import { useFrame } from '@react-three/fiber';
-import { MapTheme } from '../../../types/machine';
-import { NinjaSkillInfoProps } from '../../../store/physic/NinjaPaddle';
-import { RetroSkillInfoProps } from '../../../store/physic/RetroPaddle';
-import Physic from '../../../store/physic/Phisic';
-import { WesternSkillInfoProps } from '../../../store/physic/WesternPaddle';
+import { MapTheme } from '../../types/machine.type';
+import { NinjaSkillInfoProps } from '../../game/physic/NinjaPaddle';
+import { RetroSkillInfoProps } from '../../game/physic/RetroPaddle';
+import Physic from '../../game/physic/Phisic';
+import { WesternSkillInfoProps } from '../../game/physic/WesternPaddle';
 
 type Info = Physic['ballsInfo'][0] & { effect: string };
 

@@ -1,9 +1,9 @@
-import { ReactElement, useEffect, useRef } from 'react';
+import { ReactElement, Suspense, useEffect, useRef } from 'react';
 import EndExperience from './EndExperience';
-import Play from './Play';
 import StarsAnimation from '../Animation/StarsAnimation'
 import BackGroundTransition from '../BackGroundTransition';
-import { useGame } from '../../store/hooks/useGame';
+import { useGame } from '../../game/hooks/useGame';
+import World from './World';
 
 export default function Experience(): ReactElement {
 	const { state, send } = useGame();
@@ -18,11 +18,12 @@ export default function Experience(): ReactElement {
 			(['Mode', 'Map'].includes(state))
 				? <BackGroundTransition />
 				: <>
-					<Play />
+					<Suspense><World /></Suspense>
 					{(state === 'End') && <EndExperience />}
 				</>
 		}
-		{(['Mode', 'Map', 'Loading'].includes(state)) &&
+		{
+			(['Mode', 'Map'].includes(state)) &&
 			<group>
 				<StarsAnimation refStars={starsRef} />
 			</group>

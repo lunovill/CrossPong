@@ -1,6 +1,6 @@
 import Canvas from "../components/Game/Canvas";
 import Experience from "../components/Game/Experience";
-import { GameContextProvider } from "../store/hooks/useGame";
+import { GameContextProvider } from "../game/hooks/useGame";
 import Interface from '../components/Game/Interface';
 
 function Game() {

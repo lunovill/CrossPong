@@ -1,5 +1,5 @@
 import { Vec2 } from 'p2-es';
-import { MAP_HEIGHT, OFFSETBOOT } from './config';
+import { MAP_HEIGHT, OFFSETBOOT } from '../game.constants';
 import Paddle from './Paddle';
 import Ball from './Ball';
 

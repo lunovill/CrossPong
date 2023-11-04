@@ -1,10 +1,9 @@
-import { GameModel } from '../store/states/machine';
+import { GameModel } from '../game/states/machine';
 import { ContextFrom, EventFrom } from 'xstate';
 
 export enum GameStates {
     MODE = 'Mode',
     MAP = 'Map',
-    LOADING = 'Loading',
     PLAY = 'Play',
     END = 'End',
     ANIMATION = 'Animation',

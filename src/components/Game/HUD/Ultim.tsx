@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { MapTheme } from '../../../types/machine';
+import { MapTheme } from '../../../types/machine.type';
 
 type abilityUrl = {
 	[key in MapTheme]: string;

@@ -1,6 +1,6 @@
 import { mapsAssets } from "../../data/models/MapObject";
-import { AnimationStates, GameAction, MapTheme } from "../../types/machine";
-import { Player } from "../Player";
+import { AnimationStates, GameAction, MapTheme } from "../../types/machine.type";
+import { Player } from "./Player";
 import Physic from "../physic/Phisic";
 
 const palettes: Record<MapTheme | 'default', string[]> = {
@@ -45,7 +45,7 @@ export const introGameAction: GameAction<'intro'> = () => {
 };
 
 export const joinGameAction: GameAction<'join'> = (context, event) => {
-	const player = new Player({ id: event.id, name: event.name });
+	const player = new Player(event.id, event.name, (context.players.length === 0) ? -1 : 1);
 	return {
 		current: (!context.current) ? player : context.current,
 		players: [...context.players, player]
@@ -57,31 +57,9 @@ export const leaveGameAction: GameAction<'leave'> = (context, _) => {
 	return { current: undefined, players: [] };
 };
 
-export const powerGameAction: GameAction<'power'> = (context, event) => {
-	return {
-		players: context.players.map(p => {
-			if (p.id === event.id) {
-				p.power.start = Date.now();
-				p.power.cooldown = (p.mapInfo.id === MapTheme.MEDIEVAL) ? 8000 :
-					(p.mapInfo.id === MapTheme.WESTERN) ? 4000 :
-						(p.mapInfo.id === MapTheme.NINJA) ? 12000 :
-							(p.mapInfo.id === MapTheme.RETRO) ? 10000 : 0;
-			}
-			return p;
-		})
-	};
-};
-
 export const restartGameAction: GameAction<'restart'> = (context, _) => {
-	return {
-		players: context.players.map(p => {
-			p.location = undefined;
-			p.score = 0;
-			p.ulti = false;
-			p.canUseUlti = true;
-			return p;
-		})
-	};
+	context.physic?.restart();
+	return { players: context.players.map(p => { p.score = 0; return p; }) };
 };
 
 export const startGameAction: GameAction<'start'> = (context, _) => {
@@ -95,60 +73,21 @@ export const scoreGameAction: GameAction<'score'> = (context, event) => {
 		animation: AnimationStates.SCORE,
 		players: context.players.map((p, i) => {
 			(i === event.index) && (p.score += 1);
-			if (event.isBall) {
-				p.power = { ...p.power, start: 0, time: 0 };
-				p.ulti = false;
-			}
 			return p;
 		})
 	};
 };
 
-export const startPhysicAction: GameAction<'start'> = (context, event) => {
-	let i: number | undefined = undefined;
-	if (context.animation === 'Ulti' || !event.isBall) { context.physic?.play(); }
-	else { i = context.physic?.start(); }
-	return { animation: undefined, current: (i !== undefined) ? context.players[i] : context.current };
+export const startPhysicAction: GameAction<'start'> = (context, _) => {
+	const i: number | undefined = context.physic?.start();
+	return { animation: undefined, current: (i !== undefined) ? context.players[i] : undefined };
 };
 
 export const setIsMapVisibleAction: GameAction<'setIsMapVisible'> = (_, event) => {
 	return { isMapVisible: event.visible };
 };
 
-export const ultiGameAction: GameAction<'ulti'> = (context, event) => {
+export const ultiGameAction: GameAction<'ulti'> = (context, _) => {
 	context.physic?.pause();
-	return {
-		animation: AnimationStates.ULTI,
-		players: context.players.map(p => {
-			if (p.id === event.id && p.canUseUlti) {
-				p.canUseUlti = false;
-				setTimeout(() => {
-					p.ulti = true;
-				}, 150)
-			};
-			return p;
-		})
-	};
-};
-
-export const updateGameAction: GameAction<'update'> = (context, _) => {
-	return {
-		players: context.players.map((p) => {
-			if (p.power.start) {
-				const time = Date.now() - p.power.start;
-				if (time >= p.power.cooldown) { p.power.start = 0; p.power.time = 0; }
-				else { p.power.time = p.power.cooldown - time }
-			}
-			return p;
-		})
-	};
-}
-
-export const updatePlayerGameAction: GameAction<'updatePlayer'> = (context, event) => {
-	return {
-		players: context.players.map(p => {
-			p.id === event.id && (p.location = event.location);
-			return p;
-		})
-	};
+	return { animation: AnimationStates.ULTI };
 };

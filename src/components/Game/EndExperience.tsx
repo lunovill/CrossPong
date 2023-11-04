@@ -1,6 +1,6 @@
 import { ReactElement, useEffect } from 'react';
 import { RootState, useFrame, useThree } from '@react-three/fiber';
-import { useGame } from '../../store/hooks/useGame';
+import { useGame } from '../../game/hooks/useGame';
 
 export default function EndExperience(): ReactElement {
 	const { camera } = useThree<RootState>();

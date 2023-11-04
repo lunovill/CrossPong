@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { PixelCorners3x3 } from '../../../styles/HomeStyles';
 import Pixelated_Button from '../../Global_UI/Pixelated_Button';
-import { ModeType } from '../../../types/machine';
-import { useGame } from '../../../store/hooks/useGame';
+import { ModeType } from '../../../types/machine.type';
+import { useGame } from '../../../game/hooks/useGame';
 
 const MenuButtonContainer = styled(PixelCorners3x3)`
     display: flex;
@@ -30,7 +30,7 @@ const MenuButton: React.FC<Props> = ({ label, modeValue, $backgroundColor }) => 
                 text={label}
                 font_size={'24px'}
                 onClick={() => {
-                    send({ type: 'join', id: 'j1', name: 'Tmp' });
+                    send({ type: 'join', id: 'j1', name: 'Player' });
                     send({ type: 'join', id: 'j2', name: 'Bot' });
                     send({ type: 'chooseMode', mode: modeValue });
                 }}

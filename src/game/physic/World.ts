@@ -1,7 +1,7 @@
 import Ball from "./Ball";
 import Paddle from "./Paddle";
 import * as P2 from 'p2-es';
-import { BALL, BORDER, FPS, MAP_HEIGHT, MAP_WIDTH, OFFSET, PADDLE, PADDLE_POSITION } from "./config";
+import { BALL, BORDER, FPS, MAP_HEIGHT, MAP_WIDTH, OFFSET, PADDLE, PADDLE_POSITION } from "../game.constants";
 
 export class World extends P2.World {
 	private static createBorder(location: number): P2.Body {
@@ -15,12 +15,11 @@ export class World extends P2.World {
 	}
 
 	private ball: { body: Ball, isDestroyed: boolean };
-	private interval: NodeJS.Timeout | undefined;
+	private interval: number | undefined;
 	private paddles: [Paddle, Paddle];
 
 	constructor(ball: { body: Ball, isDestroyed: boolean }, paddles: [Paddle, Paddle]) {
 		super({ gravity: [0, 0] });
-		// this.addBody(ball.body);
 		this.addBody(paddles[0].body);
 		this.addBody(paddles[1].body);
 		this.addBody(World.createBorder(-1));
@@ -123,7 +122,7 @@ export class World extends P2.World {
 	}
 
 	public stop(): void {
-		this.pause.bind(this)();
+		this.pause();
 		this.clear();
 	};
 };

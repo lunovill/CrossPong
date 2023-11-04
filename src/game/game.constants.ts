@@ -7,7 +7,6 @@ export const OFFSETBOOT: number = 0.1;
 
 export const BALL: number = Math.pow(2, 0);
 export const BALL_RADIUS: number = 0.15;
-export const BALL_SPEED: number = 250;
 
 export const PLAYER: number = -1;
 export const OPPONENT: number = 1;
@@ -18,6 +17,15 @@ export const PADDLE_POSITION: number = 5;
 export const PADDLE_DAMPING: number = 0.98;
 export const PADDLE_SPEED: number = 2500;
 
+export const COOLDOWN = {
+    Medieval: 8000,
+    Western: 4000,
+    Ninja: 12000,
+    Retro: 10000,
+};
+
 export const BORDER: number = Math.pow(2, 2);
 
 export const STONE: number = Math.pow(2, 3);
+
+export const LIFE: number = 5;

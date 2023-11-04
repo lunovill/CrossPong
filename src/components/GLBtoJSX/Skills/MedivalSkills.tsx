@@ -3,7 +3,7 @@ import { Low_poly_rock } from '../Low_poly_rock'
 import { useFrame } from '@react-three/fiber';
 import { CustomEase } from "gsap/CustomEase";
 import gsap from 'gsap';
-import { MAP_HEIGHT } from '../../../store/physic/config';
+import { MAP_HEIGHT } from '../../../game/game.constants';
 
 gsap.registerPlugin(CustomEase);
 
