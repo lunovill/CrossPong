@@ -1,22 +1,22 @@
-import * as THREE from 'three';
+import {MeshStandardMaterial, Mesh} from 'three';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
-import React from 'react';
+import { Ref, forwardRef } from 'react';
 
 type GLTFResult = GLTF & {
   nodes: {
-    Cube?: THREE.Mesh;
-    lp_shuriken_e_0?: THREE.Mesh;
-    Projectile2HP_map1_0?: THREE.Mesh;
+    Cube?: Mesh;
+    lp_shuriken_e_0?: Mesh;
+    Projectile2HP_map1_0?: Mesh;
   };
   materials: {
-    Material?: THREE.MeshStandardMaterial;
-    Shuriken_lp?: THREE.MeshStandardMaterial;
-    map1?: THREE.MeshStandardMaterial;
+    Material?: MeshStandardMaterial;
+    Shuriken_lp?: MeshStandardMaterial;
+    map1?: MeshStandardMaterial;
   };
 };
 
-export const ModelFortyTwo = React.forwardRef((props: JSX.IntrinsicElements['mesh'], ref: React.Ref<THREE.Mesh>) => {
+export const ModelFortyTwo = forwardRef((props: JSX.IntrinsicElements['mesh'], ref: Ref<THREE.Mesh>) => {
 
   const { nodes, materials } = useGLTF('./assets/42.gltf') as GLTFResult
 

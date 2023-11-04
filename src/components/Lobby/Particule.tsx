@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Points, PointMaterial } from '@react-three/drei'
-import * as random from 'maath/random/dist/maath-random.cjs'
-import * as THREE from 'three'
+import {inSphere} from 'maath/random/dist/maath-random.cjs'
+import { BufferGeometry, Points as ThreePoints} from 'three';
 
 const GenerateStars: React.FC = () => {
-    const ref = useRef<THREE.Points<THREE.BufferGeometry>>(null)
-    const [sphere] = useState<Float32Array>(() => new Float32Array(random.inSphere(new Float32Array(5000), { radius: 1.5 })));
+    const ref = useRef<ThreePoints<BufferGeometry>>(null)
+    const [sphere] = useState<Float32Array>(() => new Float32Array(inSphere(new Float32Array(5000), { radius: 1.5 })));
 
     useFrame((_, delta) => {
         if (!ref.current) return

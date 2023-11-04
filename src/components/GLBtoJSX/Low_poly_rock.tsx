@@ -8,10 +8,10 @@ Source: https://sketchfab.com/3d-models/low-poly-rock-491da500467d4dd08fd9cba89c
 Title: Low Poly Rock
 */
 
-import * as THREE from 'three'
-import React from 'react'
+import {Group} from 'three'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import {forwardRef} from 'react'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -22,7 +22,7 @@ type GLTFResult = GLTF & {
   }
 }
 
-export const Low_poly_rock = React.forwardRef<THREE.Group, JSX.IntrinsicElements['group']>((props, ref) => {
+export const Low_poly_rock = forwardRef<Group, JSX.IntrinsicElements['group']>((props, ref) => {
   const { nodes, materials } = useGLTF('./assets/low_poly_rock-transformed.glb') as GLTFResult;
   return (
     <group ref={ref} {...props} dispose={null}>

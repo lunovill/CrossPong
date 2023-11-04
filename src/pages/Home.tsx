@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import HomeScene from '../components/Home/Menu3D/HomeScene';
 import MenuHome from '../components/Home/Menu2D/MenuHome';
 import {  MeshProvider, RotationProvider } from '../components/ContextBoard';
-import React from 'react';
 
 const Container = styled.div`
 	display: grid;
@@ -27,19 +26,22 @@ const TitleContainer = styled.div`
 	align-items: left;
 	grid-column: 2 / 3;
 	grid-row: 1 / 2;
-	width: 100%;
+	width: 40%;
 	height: 100%;
 	z-index: 2;
-	margin: 0;
+	margin-left: 10px;
 	padding: 0;
 `
 
 const Title = styled.img`
 	transform: translate(0%, -20%);
-	width: 45%;
-	font-size: 3rem;
+	width: 100%;
 	user-select: none;
 	color: #b36b89;
+	@media (max-width: 1800px) {
+
+		transform: translate(50%, -10%);
+	}
 `
 
 const MenuContainer = styled.div`
@@ -51,12 +53,11 @@ const MenuContainer = styled.div`
 	width: 100%;
 	height: 100%;
 	z-index: 2;
-	transform: rotate(-5deg) translate(-35%, 0%);
+	transform: rotate(-5deg) translate(-30%, 0%);
 	margin-left: 30%;
 	padding: 0;
 	
     @media (max-width: 1800px) {
-		font-size: 3rem;
 		transform: rotate(-5deg) translate(-15%, 0%);
     }
 	
@@ -85,7 +86,7 @@ const Home = () => {
 					draggable={false}
 					onDragStart={(e) => e.preventDefault()}>
 					<TitleContainer>
-						<Title src="/images/CrossPongLogo.png" alt="Cross Pong Logo" />
+						<Title src="/images/CrossPongLogo.webp" alt="Cross Pong Logo" />
 					</TitleContainer>
 					<MenuContainer>
 						<MenuHome items={items} />

@@ -3,13 +3,13 @@ export const generateRandomUsername = () => {
         "Wild", "Fast", "Cool", "Sly", "Dark",
         "Grim", "Bold", "Vast", "Old", "Calm",
         "High", "Free", "Pure", "Warm", "Wise",
-        "Hard", "Deep", "Soft", "Thin", "Tall"
+        "Hard", "Deep", "Soft", "Thin", "Tall", "JeanMichel"
     ];
     const nouns: string[] = [
         "Gun", "Bow", "Hat", "Star", "Boot",
         "Fort", "Mask", "Sword", "Pike", "Cape",
         "Town", "Dust", "King", "Sage", "Cart",
-        "Mace", "Wand", "Wolf", "Bear", "Crow"];
+        "Mace", "Wand", "Wolf", "Bear", "Crow", "Du"];
     
     const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
     const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];

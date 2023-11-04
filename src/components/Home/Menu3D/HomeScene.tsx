@@ -27,27 +27,28 @@ export const CanvasContainer = styled.div`
 `;
 
 export default function HomeScene() {
-    const { meshRefs } = useMeshState();
-    const [actualRef, setActualRef] = useState(meshRefs.Play);
-    const [cursor, setCursor] = useState('default');
+	const { meshRefs } = useMeshState();
+	const [actualRef, setActualRef] = useState(meshRefs.Play);
+	const [cursor, setCursor] = useState('default');
 
-    return (
-        <ActualRefMenu.Provider value={{ actualRef, setActualRef }}>
-            <CanvasContainer style={{ cursor: cursor }}>
-                <Canvas
-                    camera={{
-                        fov: 35,
-                        near: 0.1,
-                        far: 10,
-                        position: [0, 3, 9],
-                    }}
-                >
+	const width = window.innerWidth;
+
+	return (
+		<ActualRefMenu.Provider value={{ actualRef, setActualRef }}>
+			<CanvasContainer style={{ cursor: cursor }}>
+				<Canvas
+					camera={{
+						fov: 35,
+						near: 0.1,
+						position: [0, 3, 9],
+					}}
+				>
 					<Responsive />
-                    <Lights />
-                        <MainBoutonMenu setCursor={setCursor} />
-                        <ModelsToScene />
-                </Canvas>
-            </CanvasContainer>
-        </ActualRefMenu.Provider>
-    );
+					<Lights />
+					<MainBoutonMenu setCursor={setCursor} />
+					<ModelsToScene />
+				</Canvas>
+			</CanvasContainer>
+		</ActualRefMenu.Provider>
+	);
 }

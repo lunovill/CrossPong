@@ -66,6 +66,7 @@ export const GlobalStyle = createGlobalStyle`
        url('/fonts/inknutantiqua-extrabold-webfont.woff') format('woff');
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -74,6 +75,7 @@ export const GlobalStyle = createGlobalStyle`
        url('/fonts/inknutantiqua-regular-webfont.woff') format('woff');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -82,6 +84,7 @@ export const GlobalStyle = createGlobalStyle`
        url('/fonts/inknutantiqua-bold-webfont.woff') format('woff');
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
       `;
 

@@ -6,6 +6,7 @@ const Responsive = () => {
 	const { camera } = useThree();
 	const updateCameraPosition = () => {
 
+		console.log('updateCameraPosition');
 		const width = window.innerWidth;
 
 		if (width < 900) {
@@ -23,6 +24,7 @@ const Responsive = () => {
 			camera.lookAt(-1.5, 0, 0);
 			camera.far = 10.1;
 		}
+		camera.updateProjectionMatrix();
 	};
 
 	useEffect(() => {

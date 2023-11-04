@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Vector3, TextureLoader, Mesh } from 'three';
+
 
 const vertcylinder = `
     varying vec2 vUv;

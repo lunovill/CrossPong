@@ -1,6 +1,6 @@
 import { patchShaders } from "gl-noise";
 import { useEffect, useRef } from "react";
-import * as THREE from "three";
+import {Material, Color}from "three";
 import gsap from "gsap";
 import CSM from "three-custom-shader-material";
 
@@ -36,7 +36,7 @@ const fragmentShader = patchShaders(/* glsl */ `
   }`);
 
 interface DissolveMaterialProps {
-    baseMaterial: THREE.Material;
+    baseMaterial: Material;
     thickness?: number;
     color?: string;
     intensity?: number;
@@ -52,7 +52,7 @@ export function DissolveMaterial({ baseMaterial, thickness = 0.1, color = "#3607
 
     const uniforms = useRef({
         uThickness: { value: 0.1 },
-        uColor: { value: new THREE.Color(color).multiplyScalar(intensity) },
+        uColor: { value: new Color(color).multiplyScalar(intensity) },
         uProgress: { value: 0 },
     });
 
