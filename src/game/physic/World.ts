@@ -29,9 +29,6 @@ export class World extends P2World {
 		this.interval = undefined;
 		this.paddles = paddles;
 
-		this.handlePaddleCollision = this.handlePaddleCollision.bind(this);
-		this.handleBorderCollision = this.handleBorderCollision.bind(this);
-		this.handleStoneCollision = this.handleStoneCollision.bind(this);
 		this.handleBeginContact = this.handleBeginContact.bind(this);
 	}
 
@@ -46,7 +43,7 @@ export class World extends P2World {
 	};
 
 	private handlePaddleCollision(ball: Ball, paddle: Paddle): void {
-		ball.collision++
+		ball.collision++;
 		const collisionPoint: number = ball.body.position[1] - paddle.body.position[1];
 		const speedFactor = this.paddles[0].handleCollision(this.paddles[0] === paddle)
 			* this.paddles[1].handleCollision(this.paddles[1] === paddle);
@@ -59,14 +56,14 @@ export class World extends P2World {
 	}
 
 	private handleBorderCollision = (ball: Ball) => {
-		ball.collision += 1;
+		ball.collision++;
 		ball.impulse[1] *= -1;
 		ball.body.velocity[1] *= -1;
 		return;
 	};
 
 	private handleStoneCollision = (ball: Ball, stone: Paddle['skillBodies'][0]) => {
-		ball.collision += 1;
+		ball.collision++;
 		const dx = ball.body.position[0] - stone.body.position[0];
 		const dy = ball.body.position[1] - stone.body.position[1];
 

@@ -118,14 +118,14 @@ export default class Physic extends EventEmitter {
 		}));
 	}
 
-	get bot(): Paddle['key'] {
+	get bot(): Paddle['key'] & { power: boolean, ulti: boolean } {
 		const balls: { body: Ball, isDestroyed: boolean }[] = [
 			...([] as { body: Ball, isDestroyed: boolean }[])
 				.concat(...this.paddles.map(p => p.skillBalls)),
 			this.ball
 		].filter(b => !b.isDestroyed)
 		.sort((a, b) => b.body.body.velocity[1] - a.body.body.velocity[1]);
-		return bot(balls[0].body.body.position, balls[0].body.body.velocity,this.paddles[0].body.position, this.paddles[1].body.position, [])
+		return bot(balls[0].body.body.position, balls[0].body.body.velocity, this.paddles[0].body.position, this.paddles[1].body.position, [])
 	}
 
 	get paddlesInfo(): [PaddleInfoProps, PaddleInfoProps] {

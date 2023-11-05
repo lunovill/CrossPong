@@ -54,7 +54,7 @@ export default function Player(): ReactElement {
 				? { leftward: false, rightward: false, power: false, ulti: false }
 				: getKeys();
 			keyEnvent(0, { leftward, rightward, power, ulti });
-			keyEnvent(1, { ...context.physic!.bot, power: false, ulti: false });
+			keyEnvent(1, context.physic!.bot);
 		} : (): void => {
 			const { keyUpward, keyDownward, arrowUpward, arrowDownward, power, power2, ulti, ulti2 } = (isAnimation)
 				? { keyUpward: false, keyDownward: false, arrowUpward: false, arrowDownward: false, power: false, power2: false, ulti: false, ulti2: false }
