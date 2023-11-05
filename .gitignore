@@ -1,0 +1,48 @@
+# Dependency directories
+node_modules/
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# Optional: fichiers et dossiers souvent ignorés dans les projets web
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers de l'éditeur de texte et de l'environnement de développement
+*.code-workspace
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Fichiers de build et de compilation
+/dist/
+/tmp/
+/out/
+/build/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers spécifiques au système d'exploitation
+*.swp
+*.swo
+*.tmp
+*~
+.__*
+
+# Archive des anciens fichiers
+*.bak
+*.backup
+*.old
+*.save
+
+# Fichiers spécifiques aux paquets NPM
+npm-debug.log*
+.pnpm-debug.log*
