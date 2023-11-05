@@ -38,6 +38,7 @@ const InfoText = styled.div`
 	border: none;
 	cursor: pointer;
 	user-select: none; 
+	transform: translate(0%, -25%);
 	-webkit-user-select: none;
 `;
 

@@ -97,6 +97,9 @@ export type MapInfo = {
     font: string,
     mainColor: string,
     secondaryColor: string,
+	thirdColor: string,
+	nameIa: string,
+	pictureIa: string,
     mapJSX: (props: PropsMap) => JSX.Element,
     paddleJSX: (props: PaddleProps) => JSX.Element,
     ballJSX: (props: BallProps) => JSX.Element

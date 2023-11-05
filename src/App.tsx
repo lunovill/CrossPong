@@ -62,7 +62,7 @@ function App() {
 				} />
 				<Route path="/profile" element={
 					<AnimatedPage endColor="#71ca71">
-						{/* <Profil /> */}
+						<Profil />
 					</AnimatedPage>
 				} />
 			</Routes>

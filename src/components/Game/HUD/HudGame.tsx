@@ -5,35 +5,88 @@ import styled from 'styled-components'
 import IconMap from './IconMap';
 import SkillIcon from './Skill';
 import UltimIcon from './Ultim';
+import { PixelCorners3x3 } from '../../../styles/HomeStyles';
 
 interface TopHudContainerProps {
 	$pos: 'left' | 'right';
 }
+
+const ProfilPictureContainer = styled(PixelCorners3x3) <TopHudContainerProps>`
+	z-index: 43;
+	position: absolute;
+	width: 64px;
+	height: 64px;
+	top: 20px;
+	left: ${(props) => (props.$pos === 'right' ? 'auto' : '4.5%')};
+	right: ${(props) => (props.$pos === 'right' ? '4.5%' : 'auto')};
+	@media (max-width: 768px) {
+		top: 10px;
+		width: 48px;
+		height: 48px;
+		left: ${(props) => (props.$pos === 'right' ? 'auto' : '20px')};
+		right: ${(props) => (props.$pos === 'right' ? '20px' : 'auto')};
+	}
+`
+const ProfilPicture = styled.img`
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	
+`
+
+const PseudoContainer = styled.div<TopHudContainerProps>`
+	z-index: 42;
+	position: absolute;
+	top: 10px;
+	font-size: 2rem;
+	color: #c49b5f;
+	font-family: 'inknutAntiqua', serif;
+	left: ${(props) => (props.$pos === 'right' ? 'auto' : 'calc(4.5% + 76px)')};
+	right: ${(props) => (props.$pos === 'right' ? 'calc(4.5% + 76px)' : 'auto')};
+	@media (max-width: 768px) {
+		top: 10px;
+		font-size: 1rem;
+		left: ${(props) => (props.$pos === 'right' ? 'auto' : '75px')};
+		right: ${(props) => (props.$pos === 'right' ? '75px' : 'auto')};
+	}
+`
+
 const LifeBarContainer = styled.div<TopHudContainerProps>`
 	z-index: 42;
 	position: absolute;
-	top: 95px;
-	left: ${(props) => (props.$pos === 'right' ? 'auto' : '150px')};
-	right: ${(props) => (props.$pos === 'right' ? '150px' : 'auto')};
+	top: 145px;
+	left: ${(props) => (props.$pos === 'right' ? 'auto' : '200px')};
+	right: ${(props) => (props.$pos === 'right' ? '200px' : 'auto')};
+	@media (max-width: 1080px) {
+		top: 150px;
+		left: ${(props) => (props.$pos === 'right' ? 'auto' : '125px')};
+		right: ${(props) => (props.$pos === 'right' ? '120px' : 'auto')};
+	}
 	@media (max-width: 768px) {
-		top: 55px;
-		left: ${(props) => (props.$pos === 'right' ? 'auto' : '65px')};
-		right: ${(props) => (props.$pos === 'right' ? '65px' : 'auto')};
+		top: 83px;
+		left: ${(props) => (props.$pos === 'right' ? 'auto' : '86px')};
+		right: ${(props) => (props.$pos === 'right' ? '85px' : 'auto')};
 	}
 `
+
 
 const IconContainer = styled.div<TopHudContainerProps>`
 	z-index: 43;
 	position: absolute;
-	top: 6px;
-	left: ${(props) => (props.$pos === 'right' ? 'auto' : '79px')};
-	right: ${(props) => (props.$pos === 'right' ? '80px' : 'auto')};
-	@media (max-width: 768px) {
-		top: 0px;
-		left: ${(props) => (props.$pos === 'right' ? 'auto' : '0px')};
-		right: ${(props) => (props.$pos === 'right' ? '0px' : 'auto')};
+	top: 56px;
+	left: ${(props) => (props.$pos === 'right' ? 'auto' : '129px')};
+	right: ${(props) => (props.$pos === 'right' ? '130px' : 'auto')};
+	@media (max-width: 1080px) {
+		top: 64px;
+		left: ${(props) => (props.$pos === 'right' ? 'auto' : '50px')};
+		right: ${(props) => (props.$pos === 'right' ? '50px' : 'auto')};
 	}
-	`
+	@media (max-width: 768px) {
+		top: 36px;
+		left: ${(props) => (props.$pos === 'right' ? 'auto' : '50px')};
+		right: ${(props) => (props.$pos === 'right' ? '50px' : 'auto')};
+	}
+`
 
 interface BottomHudContainerProps {
 	$pos: 'left' | 'right';
@@ -106,45 +159,72 @@ function HudGame(): ReactElement {
 
 	return (
 		<>
-			<IconContainer $pos={'left'}>
-				<IconMap map={context.players[0].mapInfo.id} />
-			</IconContainer>
-			<LifeBarContainer $pos={'left'}>
-				<LifeBar lifeRemaining={5 - context.players[1].score} />
-			</LifeBarContainer>
-
-			<IconContainer $pos={'right'}>
-				<IconMap map={context.players[1].mapInfo.id} />
-			</IconContainer>
-			<LifeBarContainer $pos={'right'}>
-				<LifeBar mirrored={true} lifeRemaining={5 - context.players[0].score} />
-			</LifeBarContainer>
-
-			<SkillContainer $pos={'right'}>
-				{
+			<>
+				<PseudoContainer $pos={'left'}>
+					{"Pandamanxv3" /* mettre le pseudo du joueur 1 */ }
+				</PseudoContainer>
+				<ProfilPictureContainer $pos={'left'}>
+					<ProfilPicture src={"images/profilPicture/church4.png" /* mettre la photo du joueur 1 */ } alt="Panda" />
+				</ProfilPictureContainer>
+				<PseudoContainer $pos={'right'}>
+					{
+						context.mode === '2PLocal' ?
+							'Player 2'
+							: context.players[1].mapInfo.nameIa
+					}
+				</PseudoContainer>
+				<ProfilPictureContainer $pos={'right'}>
+					{
 					context.mode === '2PLocal' ?
-						<SkillIcon map={context.players[1].mapInfo.id} cooldown={cooldownSkill2} maxCooldown={maxCooldownSkill2} j2={true} />
-						: <SkillIcon map={context.players[0].mapInfo.id} cooldown={cooldownSkill} maxCooldown={maxCooldownSkill} />
-				}
-			</SkillContainer>
-			<UltiContainer $pos={'right'}>
-				{
-					context.mode === '2PLocal' ?
-						<UltimIcon map={context.players[1].mapInfo.id} isAvailable={isUltiAvailable2} j2={true} />
-						: <UltimIcon map={context.players[0].mapInfo.id} isAvailable={isUltiAvailable} />
-				}
-			</UltiContainer>
+						<ProfilPicture src="images/profilPicture/church3.png" alt="Panda" /> :
+						<ProfilPicture src={context.players[1].mapInfo.pictureIa} alt="Panda" />
+					}
+				</ProfilPictureContainer>
 
-			{context.mode === '2PLocal' &&
-				<>
-					<SkillContainer $pos={'left'}>
-						<SkillIcon map={context.players[0].mapInfo.id} cooldown={cooldownSkill} maxCooldown={maxCooldownSkill} />
-					</SkillContainer>
-					<UltiContainer $pos={'left'}>
-						<UltimIcon map={context.players[0].mapInfo.id} isAvailable={isUltiAvailable} />
-					</UltiContainer>
-				</>
-			}
+			</>
+
+			<>
+				<IconContainer $pos={'left'}>
+					<IconMap map={context.players[0].mapInfo.id} />
+				</IconContainer>
+				<LifeBarContainer $pos={'left'}>
+					<LifeBar lifeRemaining={5 - context.players[1].score} />
+				</LifeBarContainer>
+				<IconContainer $pos={'right'}>
+					<IconMap map={context.players[1].mapInfo.id} />
+				</IconContainer>
+				<LifeBarContainer $pos={'right'}>
+					<LifeBar mirrored={true} lifeRemaining={5 - context.players[0].score} />
+				</LifeBarContainer>
+			</>
+
+			<>
+				<SkillContainer $pos={'right'}>
+					{
+						context.mode === '2PLocal' ?
+							<SkillIcon map={context.players[1].mapInfo.id} cooldown={cooldownSkill2} maxCooldown={maxCooldownSkill2} j2={true} />
+							: <SkillIcon map={context.players[0].mapInfo.id} cooldown={cooldownSkill} maxCooldown={maxCooldownSkill} />
+					}
+				</SkillContainer>
+				<UltiContainer $pos={'right'}>
+					{
+						context.mode === '2PLocal' ?
+							<UltimIcon map={context.players[1].mapInfo.id} isAvailable={isUltiAvailable2} j2={true} />
+							: <UltimIcon map={context.players[0].mapInfo.id} isAvailable={isUltiAvailable} />
+					}
+				</UltiContainer>
+
+				{context.mode === '2PLocal' &&
+					<>
+						<SkillContainer $pos={'left'}>
+							<SkillIcon map={context.players[0].mapInfo.id} cooldown={cooldownSkill} maxCooldown={maxCooldownSkill} />
+						</SkillContainer>
+						<UltiContainer $pos={'left'}>
+							<UltimIcon map={context.players[0].mapInfo.id} isAvailable={isUltiAvailable} />
+						</UltiContainer>
+					</>
+				}
+			</>
 
 		</>
 	)

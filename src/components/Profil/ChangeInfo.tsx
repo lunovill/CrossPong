@@ -1,11 +1,9 @@
-import { useState, ChangeEvent, useRef, useEffect } from 'react';
-import {FormEvent, FC} from 'react';
-import styled, { keyframes } from 'styled-components';
-import { useUserInfos } from '../ContextBoard';
+import { useState, ChangeEvent, useEffect } from 'react';
+import { FC } from 'react';
+import styled from 'styled-components';
 import { generateRandomUsername } from './Utils';
-import { StyledImage, WrittingContainer, StyledButton } from './ProfileStyle';
+import { WrittingContainer, StyledButton } from './ProfileStyle';
 import DefaultPhoto from './DefaultPhoto';
-import { useNavigate } from 'react-router-dom';
 
 const Dialog = styled.div`
 	position: fixed;
@@ -71,42 +69,6 @@ const SvgUpdateProfile: FC<SvgProps> = ({ onClick }: SvgProps) => {
 	);
 };
 
-interface StyledSvgReloadPictureProps {
-	$onFirstUpdate?: boolean;
-}
-const StyledSVGReloadPicture = styled.svg<StyledSvgReloadPictureProps>`
-    position:absolute;
-    top: ${props => props.$onFirstUpdate ? '370px' : '300px'};
-    right: 335px;
-
-    fill: #ffffff;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    transform: rotate(180deg);
-    transition: transform 0.3s ease-in-out, fill 0.3s ease-in-out;
-
-  &:hover {
-    transform: rotate(200deg);
-    fill: black;
-  }
-`;
-
-const SvgReloadPicture: FC<SvgProps> = ({ onClick, onFirstUpdate = false }) => {
-	return (
-		<StyledSVGReloadPicture onClick={onClick} $onFirstUpdate={onFirstUpdate} viewBox="0 0 24.00 24.00" id="update-alt" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" className="icon flat-line">
-			<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-			<g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-			<g id="SVGRepo_iconCarrier">
-				<path id="primary" d="M5.07,8A8,8,0,0,1,20,12" style={{ fill: "none", stroke: "#c49f28", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2" }}></path>
-				<path id="primary-2" data-name="primary" d="M18.93,16A8,8,0,0,1,4,12" style={{ fill: "none", stroke: "#c49f28", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2" }}></path>
-				<polyline id="primary-3" data-name="primary" points="5 3 5 8 10 8" style={{ fill: "none", stroke: "#c49f28", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2" }}></polyline>
-				<polyline id="primary-4" data-name="primary" points="19 21 19 16 14 16" style={{ fill: "none", stroke: "#c49f28", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2" }}></polyline>
-			</g>
-		</StyledSVGReloadPicture>
-	);
-}
-
 const StyledInput = styled.input`
     margin-bottom: 20px;
     padding: 10px;
@@ -120,39 +82,6 @@ const StyledInput = styled.input`
   }
 `;
 
-const spin = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-`;
-
-const LoadingContainer = styled.div`
-	position: relative;
-	width: 75px;
-	height: 75px;
-	margin: 5px;
-	border-radius: 5%;
-	overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 55px; 
-    height: 55px; 
-    margin-top: -27.5px; 
-    margin-left: -27.5px;
-    border: 2px solid transparent;
-    border-top-color: #000;
-    border-left-color: #000;
-    border-radius: 50%;
-    animation: ${spin} 2s linear infinite;
-  }
-`;
 
 interface UpdateInfoProps {
 	name: string | null;
@@ -160,15 +89,8 @@ interface UpdateInfoProps {
 }
 const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 	const [showDialog, setShowDialog] = useState(false);
-	const { setUserInfo, setIsConnected, setNeedToReload } = useUserInfos();
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
-	const [imageSrc, setImageSrc] = useState<string | ArrayBuffer | null>(null);
-	const [errorPhoto, setErrorPhoto] = useState<string | null>(null);
-	const fileInputRef = useRef<HTMLInputElement>(null);
-	const [isLoading, setIsLoading] = useState(false);
 	const [newPseudo, setNewPseudo] = useState<string>("");
-	const [errorPseudo, setErrorPseudo] = useState<string | null>(null);
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (newPseudo === "") {
@@ -181,108 +103,37 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 	}, []);
 
 	const handleChangePseudo = (e: ChangeEvent<HTMLInputElement>) => {
+
 		setNewPseudo(e.target.value.replace(/\s+/g, ''));
 	};
-
-	const handleSubmitPseudo = async () => {
 	
+	const handleSubmitPseudo =() => {
+		
+		//ici parsing + mettre dans session, sinon mettre un bail aleatoire !
 	};
 
 	{/* handler */ }
 
-	const handlerFirstUpdate = () => {
-		handleImageClick();
-		handleSubmitPseudo();
-	}
 	const handleOpenDialog = () => {
 		setShowDialog(true);
 	}
 
-	const handleImageClickOrOpenPicker = () => {
-		if (imageSrc)
-			handleSelectedImage("Uploaded");
-		else if (fileInputRef.current)
-			fileInputRef.current.click();
-	};
+
 
 	const handleSelectedImage = (imageName: string) => {
-		setErrorPhoto(null);
 		setSelectedImage(imageName);
 	};
 
-	const handleChangeImage = () => {
-		setImageSrc(null);
-		setErrorPhoto(null);
-		setIsLoading(false);
-		setErrorPseudo(null);
-		if (selectedImage === "Uploaded") {
-			setSelectedImage(null);
-		}
-	};
 
 	const handleImageClick = () => {
-	
+		//ici parsing + mettre dans session, sinon mettre un bail aleatoire !
+
 	};
 
 	const closeDialog = () => {
 		setShowDialog(false);
 		setSelectedImage(null);
-		setImageSrc(null);
-		setErrorPseudo(null);
-		setErrorPhoto(null);
 	}
-
-	const handleOnChange = async (changeEvent: ChangeEvent<HTMLInputElement>) => {
-		const reader = new FileReader();
-
-		reader.onload = async function (onLoadEvent: ProgressEvent<FileReader>) {
-			if (onLoadEvent.target) {
-				// Simuler un événement de formulaire
-				const fakeEvent = {
-					currentTarget: {
-						elements: [{ name: 'file', files: changeEvent.target.files }]
-					},
-					preventDefault: () => { }
-				} as unknown as FormEvent<HTMLFormElement>;
-				await handleUploadedOnSubmit(fakeEvent);
-			}
-		};
-		changeEvent.target.files && reader.readAsDataURL(changeEvent.target.files[0]);
-	};
-
-	{/* async function to Patch */ }
-
-	async function handleUploadedOnSubmit(event: FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		setIsLoading(true);
-		const form = event.currentTarget;
-		const fileInput = (Array.from(form.elements) as HTMLInputElement[]).find(({ name }) => name === 'file');
-		const formData = new FormData();
-		if (!fileInput?.files) throw new Error('File input not found');
-		for (const file of fileInput.files) {
-			formData.append('file', file);
-			formData.append('upload_preset', 'yrwbuucd');
-		}
-
-		formData.append('upload_preset', 'ml_default');
-		let urlFetch = 'https://api.cloudinary.com/v1_1/deqpv1hlh/image/upload'; //mettre dans env
-
-		const cloudinaryResponse = await fetch(urlFetch, {
-			method: 'POST',
-			body: formData
-		});
-
-		const cloudinaryData = await cloudinaryResponse.json();
-		if (cloudinaryData.secure_url) {
-			setErrorPhoto(null);
-			setImageSrc(cloudinaryData.secure_url);
-			handleSelectedImage("Uploaded");
-		} else {
-			setErrorPhoto('Seules les images sont autorisées pour l\'upload et la taille du fichier doit être inférieure à 10 MB."');
-		}
-		setIsLoading(false);
-	}
-
 
 	return (
 		<>
@@ -293,33 +144,19 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 						<CloseButton onClick={closeDialog}>x
 						</CloseButton> :
 						<WrittingContainer $size="20px" $weight="700" color="#e4d6d6">Please complete your personal information to proceed.</WrittingContainer>}
-					<> {/* Picture */}
+					<> 
+					{/* Picture */}
 						{/* Default Picture */}
 						<WrittingContainer $size="12px" $weight="700" color="#000000">Select Your Profile Picture</WrittingContainer>
 						<DefaultPhoto handleSelectedImage={handleSelectedImage} selectedImage={selectedImage as string} />
-
-						{/* Upload Picture */}
-						<WrittingContainer $size="12px" $weight="700" color="#000000">Or Upload Your Own Image</WrittingContainer>
-						{errorPhoto && <WrittingContainer $size="12px" $weight="700" $color="#9e0b0b">{errorPhoto}</WrittingContainer>}
-						{imageSrc && <SvgReloadPicture onClick={handleChangeImage} onFirstUpdate={onFirstUpdate && true} />}
-						{isLoading ? (
-							<LoadingContainer />
-						) : (
-							<StyledImage
-								src={imageSrc ? imageSrc as string : `/images/profilPicture/uploadedPicture.png`}
-								onClick={imageSrc === null ? handleImageClickOrOpenPicker : () => handleSelectedImage("Uploaded")}
-								$isSelected={selectedImage === "Uploaded"}
-								alt="Profile picture"
-							/>
-						)}
-						<input type="file" ref={fileInputRef} onChange={handleOnChange} style={{ display: 'none' }} />
 						{/* Confirm Button */}
 						{!onFirstUpdate && (selectedImage ?
 							<StyledButton onClick={handleImageClick}>Confirm Image Selection</StyledButton>
 							:
 							<StyledButton disabled> Please Select an Image</StyledButton>)}
 					</>
-					<> {/* Pseudo */}
+					<>
+						{/* Pseudo */}
 						<WrittingContainer $size="14px" $weight="700" $color="#000000">
 							Select Your New UserName
 						</WrittingContainer>
@@ -329,21 +166,16 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 							onChange={handleChangePseudo}
 						/>
 						{/* Confirm Button */}
-						{!onFirstUpdate && (name === newPseudo ?
-							<StyledButton disabled>
-								Please Update Your Pseudo
-							</StyledButton> :
-							<StyledButton onClick={handleSubmitPseudo}>
-								Confirm New Pseudo
-							</StyledButton>)
+						{
+							!onFirstUpdate && (name === newPseudo ?
+								<StyledButton disabled>
+									Please Update Your Pseudo
+								</StyledButton> :
+								<StyledButton onClick={handleSubmitPseudo}>
+									Confirm New Pseudo
+								</StyledButton>)
 						}
-						{errorPseudo && <div>{errorPseudo}</div>}
-						{onFirstUpdate && ((selectedImage && newPseudo) ?
-							<StyledButton onClick={handlerFirstUpdate}>Submit Information</StyledButton>
-							:
-							<StyledButton disabled>Complete Fields to Submit</StyledButton>)}
 					</>
-
 				</Dialog>
 			)}
 			{!onFirstUpdate && <SvgUpdateProfile onClick={handleOpenDialog} />}

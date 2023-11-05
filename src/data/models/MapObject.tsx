@@ -22,6 +22,9 @@ export class MapObject {
     font: string;
     mainColor: string;
     secondaryColor: string;
+	thirdColor: string;
+	nameIa: string;
+	pictureIa: string;
     JsxMap: (props: MapProps) => JSX.Element;
     JsxBall: (props: BallProps) => JSX.Element;
     JsxPaddle: (props: PaddleProps) => JSX.Element;
@@ -33,6 +36,9 @@ export class MapObject {
         this.font = props.font;
         this.mainColor = props.mainColor;
         this.secondaryColor = props.secondaryColor;
+		this.thirdColor = props.thirdColor;
+		this.nameIa = props.nameIa;
+		this.pictureIa = props.pictureIa;
         this.JsxMap = props.mapJSX;
         this.JsxPaddle = props.paddleJSX;
         this.JsxBall = props.ballJSX;
@@ -46,6 +52,9 @@ const medieval: MapInfo = {
     font: 'Redfighter',
     mainColor: '#47BCFF',
     secondaryColor: '#882178',
+	thirdColor: '#adaff0',
+	nameIa: 'KnightCaskaAI',
+	pictureIa: '/images/profilPicture/medieval4.png',
     mapJSX: MedievalMap,
     ballJSX: MedievalBall,
     paddleJSX: MedievalPaddle
@@ -58,6 +67,9 @@ const western: MapInfo = {
     font: 'Albertson',
     mainColor: '#FEB64A',
     secondaryColor: '#165C5D',
+	thirdColor: '#cca845',
+	nameIa: 'CowBoy_BePong',
+	pictureIa: '/images/profilPicture/cowboy1.png',
     mapJSX: WesternMap,
     ballJSX: WesternBall,
     paddleJSX: WesternPaddle
@@ -70,6 +82,9 @@ const ninja: MapInfo = {
     font: 'Aasianninja',
     mainColor: '#FFAE61',
     secondaryColor: '#CD5050',
+	thirdColor: '#cfa298',
+	nameIa: 'RyuHyabusa_42',
+	pictureIa: '/images/profilPicture/ninja2.png',
     mapJSX: NinjaMap,
     ballJSX: NinjaBall,
     paddleJSX: NinjaPaddle
@@ -82,6 +97,9 @@ const retro: MapInfo = {
     font: 'Yoster',
     mainColor: '#C39253',
     secondaryColor: '#215B33',
+	thirdColor: '#7ca867',
+	nameIa: 'RetroGLaDOS',
+	pictureIa: '/images/profilPicture/church3.png',
     mapJSX: RetroMap,
     ballJSX: RetroBall,
     paddleJSX: RetroPaddle

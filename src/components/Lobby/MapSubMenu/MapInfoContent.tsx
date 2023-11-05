@@ -17,10 +17,11 @@ const SpellImg = styled.img<SpellProps>`
 
 const TitleAbility = styled.div<SpellProps>`
 	position: absolute;
-	top: 115px;
+	top: 130px;
 	left: ${(props) => props.$left};
 	width: 100px;
 	font-size: 13px;
+	line-height: 13px;
 	text-align: center;
 	font-weight: bold;
 	font-family: 'inknutAntiqua', sans-serif;
@@ -35,6 +36,7 @@ const DescriptionAbility = styled.div<SpellProps>`
 	top: 160px;
 	left: ${(props) => props.$left};
 	font-size: 11px;
+	line-height: 14px;
 	font-family: 'inknutAntiqua', sans-serif;
 	color: #000000;
 	/* text-shadow: 0px 0px 2px black; */

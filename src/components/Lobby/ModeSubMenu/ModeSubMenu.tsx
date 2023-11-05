@@ -67,7 +67,7 @@ const Button: ButtonProps[] = [
 // send({ type: 'chooseMode', mode: modeValue });
 
 const SelectModeSubMenu = () => {
-	const [expanded, setExpanded] = useState<Number>(-1);
+	const [expanded, setExpanded] = useState<number>(-1);
 
 	return (
 		<>
@@ -77,6 +77,7 @@ const SelectModeSubMenu = () => {
 					<MenuButton	
 						key={index}
 						setExpanded={setExpanded}
+						expanded={expanded}
 						$key={index}
 						label={button.label}
 						modeValue={button.modeValue}

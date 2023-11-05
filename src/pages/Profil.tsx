@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useUserInfos } from '../components/ContextBoard';
 import styled from 'styled-components';
 import UpdateInfo from '../components/Profil/ChangeInfo';
 import { WrittingContainer } from '../components/Profil/ProfileStyle';
@@ -172,8 +171,6 @@ export default function Profil() {
 
 	return (
 		<>
-			{/* {errorProfile &&
-				<p>{errorProfile}</p>}
 			<TitleContainer>
 				<Link to="/">
 					<Title src="/images/CrossPongLogo.png" alt="Cross Pong Logo" />
@@ -185,16 +182,16 @@ export default function Profil() {
 						PROFILE
 						<span></span>
 					</ProfilTitle>
-					{userInfo &&
-						<>
-							<StyledImage src={userInfo.urlPhoto} alt="Profile picture" />
-							<WrittingContainer $margin='2px'>{userInfo.pseudo}</WrittingContainer>
-							{matches &&
+
+					<>
+						<StyledImage src={"images/profilPicture/cowboy4.png"} alt="Profile picture" />
+						<WrittingContainer $margin='2px'>{"pandamanxv3"}</WrittingContainer>
+						{/* {matches &&
 								<>
 									<WrittingContainer $color='#000000' $weight='700' $size='15px' $margin='38px'>Last 10 matches</WrittingContainer>
-									<ScoreContainer>
+									<ScoreContainer> */}
 
-										{matches.map((match, index) => {
+						{/* {matches.map((match, index) => {
 											return (
 												<LineScoreContainer key={"LineScoreContainer" + index}>
 													<WrittingContainer2 key={index} $textAlign={"left"} $isUser={userInfo.pseudo === match.playerA}>{match.playerA}</WrittingContainer2>
@@ -202,22 +199,18 @@ export default function Profil() {
 													<WrittingContainer2 key={index + 84} $textAlign={"right"} $isUser={userInfo.pseudo === match.playerB}>{match.playerB}</WrittingContainer2>
 												</LineScoreContainer>
 											);
-										})}
-									</ScoreContainer>
+										})} */}
+						{/* </ScoreContainer>
 								</>
-							}
-							<WrittingContainer $color='#000000' $weight='700' $size='15px'>
-							</WrittingContainer>
-							<UpdateInfo name={userInfo.pseudo} onFirstUpdate={false} />
-						</>
-					}
+							} */}
+						<WrittingContainer $color='#000000' $weight='700' $size='15px'>
+						</WrittingContainer>
+						<UpdateInfo name={"pandamanxv3"} onFirstUpdate={false} />
+					</>
+
 				</OutlineBlock>
 				<ContainerBlock />
-				<TwoFAToggle />
 			</Container>
-			<LogOutContainer>
-				<Logout />
-			</LogOutContainer> */}
 		</>
 	);
 }

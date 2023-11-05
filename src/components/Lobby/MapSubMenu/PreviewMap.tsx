@@ -54,6 +54,7 @@ interface ContainerProps {
 	$font: string;
 	$top: string;
 	$fontSize: string;
+	$color: string;
 }
 
 const PreviewImg = styled.img`
@@ -66,12 +67,14 @@ const PreviewImg = styled.img`
 `
 
 const MapTitleContainer = styled.div<ContainerProps>`
+	z-index: 6;
 	position: absolute;
 	font-family: ${props => props.$font};
 	letter-spacing: 0.5px;
 	line-height: 1;
 	font-size: ${props => props.$fontSize};
-	color: white;
+	color: ${props => props.$color};
+	text-shadow: 0px 1px 3px #000000;
 	text-align: center;
 	width: 50%;
 	left: 25%;
@@ -86,14 +89,14 @@ type fontsOption = {
 
 const fontTopPosition: fontsOption = {
 	'ninja': '76%',
-	'western': '82%',
+	'western': '81%',
 	'retro': '74%',
 	'medieval': '70%'
 }
 
 const fontSize: fontsOption = {
 	'ninja': '1.6em',
-	'western': '2.35em',
+	'western': '2.05em',
 	'retro': '1.7em',
 	'medieval': '2.2em'
 }
@@ -105,6 +108,7 @@ const PreviewMap = ({ map }: PreviewMapProps) => {
 	const mapName = mapsAssets[map].mapName;
 	const font = mapsAssets[map].font;
 	const backgroundColor = mapsAssets[map].secondaryColor;
+	const fontColor = mapsAssets[map].thirdColor;
 	const previewImg = mapsAssets[map].previewImagePath;
 	return (
 		<>
@@ -112,7 +116,7 @@ const PreviewMap = ({ map }: PreviewMapProps) => {
 			<ContainerBackground $color={backgroundColor} />
 			<Container key={map}>
 				<PreviewImg src={previewImg} />
-				<MapTitleContainer $font={font} $top={fontTopPosition[map]} $fontSize={fontSize[map]}>
+				<MapTitleContainer $font={font} $top={fontTopPosition[map]} $fontSize={fontSize[map]} $color={fontColor}>
 					{mapName}
 				</MapTitleContainer>
 			</Container>

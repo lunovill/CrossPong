@@ -70,7 +70,7 @@ const MenuContainer = styled.div`
 
 const items = [
 	{ to: '/game', children: 'Let\'s Play', rotationValue: 1.245 },
-	{ to: '', children: 'Profile', rotationValue: 5.95 },
+	{ to: '/profile', children: 'Profile', rotationValue: 5.95 },
 	{ to: null, children: 'Chatbox', rotationValue: 4.39 },
 	{ to: 'https://github.com/pandamanxv3/Transcendance', children: 'About Us', rotationValue: 2.837 },
 ]
