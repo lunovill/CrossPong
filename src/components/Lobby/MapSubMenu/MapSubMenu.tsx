@@ -28,7 +28,7 @@ const SelectMapSubMenu = () => {
 
 	const mainColor = context.current!.mapInfo.mainColor;
 	const secondaryColor = context.current!.mapInfo.secondaryColor;
-
+	const thirdColor = context.current!.mapInfo.thirdColor;
 
 	const handleReturn = () => {
 		send({ type: 'leave' });
@@ -43,6 +43,7 @@ const SelectMapSubMenu = () => {
 			<Pixelated_Button
 				color_button={mainColor}
 				color_outline={secondaryColor}
+				$hoverColor={thirdColor}
 				position={['40px', '30px']}
 				text={'PLAY'}
 				onClick={() => {

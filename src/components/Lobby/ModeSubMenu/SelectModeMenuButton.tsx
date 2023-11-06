@@ -1,17 +1,17 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { PixelCorners3x3 } from '../../../styles/HomeStyles';
 import Pixelated_Button from '../../Global_UI/Pixelated_Button';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { ModeType } from '../../../types/machine.type';
 import { useGame } from '../../../game/hooks/useGame';
-import { set } from 'math/vec2';
 
 interface ButtonProps {
 	$expanded: number;
-	$isClicked?: string;
+	$color?: string;
 }
 
 const MenuButtonContainer = styled(PixelCorners3x3) <ButtonProps>`
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,40 +19,29 @@ const MenuButtonContainer = styled(PixelCorners3x3) <ButtonProps>`
   height: 76px;
   margin: 10px;
   z-index: 8;
-  background-color:  #000000;
+  background-color: #FFF8DC;
   transition: background-color 2s ease,
-              width 1s ease,
-              height 1s ease,
-              transform 0.6s ease 0.4s;
-  ${props => (props.$expanded != -1) && css`
-  		position: absolute;	
-		transform: translate(0%, calc((66.666% - 564px)));
-		width: 544px;
-		height: 566px;
-      	background-color: #FFF8DC;
+  width 1s ease,
+  height 1s ease,
+  transform 0.6s ease 0.4s;
+
+  ${props => (props.$expanded !== -1) && css`
+    position: absolute;
+    animation: ${css`
+      ${keyframes`
+        from {
+          background-color: ${props.$color};
+        }
+        to {
+          background-color: #FFF8DC;
+        }
+      `} 2s ease;
+    `} 
+    transform: translate(0%, calc((66.666% - 564px)));
+    width: 544px;
+    height: 566px;
   `}
 `;
-
-const MenuButtonContainerAnimation = styled(PixelCorners3x3) <ButtonProps>`
-	position: absolute;
-	width: 468px;
-	height: 76px;
-	margin: 10px;
-	z-index: 8;
-	background-color:  #000000;
-	transition: background-color 2s ease,
-              width 1s ease,
-              height 1s ease,
-              transform 0.6s ease 0.4s;
-  ${props => (props.$expanded != -1) && css`
-  		position: absolute;	
-		transform: translate(0%, calc((66.666% - 564px)));
-		width: 544px;
-		height: 566px;
-      	background-color: #FFF8DC;
-  `}
-`;
-
 
 type Props = {
 	label: string;
@@ -60,12 +49,12 @@ type Props = {
 	setExpanded: (expanded: number) => void;
 	expanded: number;
 	$backgroundColor: string;
+	$hoverColor?: string;
 	$key: number;
 };
 
-const MenuButton: React.FC<Props> = ({ label, modeValue, $backgroundColor, $key, setExpanded, expanded }) => {
+const MenuButton: React.FC<Props> = ({ label, modeValue, $backgroundColor, $key, setExpanded, expanded, $hoverColor }) => {
 	const { send } = useGame();
-	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (expanded === $key) {
@@ -73,8 +62,7 @@ const MenuButton: React.FC<Props> = ({ label, modeValue, $backgroundColor, $key,
 				handleTransitionEnd();
 			}, 1000);
 		}
-	}
-		, [expanded]);
+	}, [expanded]);
 
 	const handleTransitionEnd = () => {
 		send({ type: 'join', id: 'j1', name: 'Player' });
@@ -83,7 +71,7 @@ const MenuButton: React.FC<Props> = ({ label, modeValue, $backgroundColor, $key,
 	};
 
 	const handleButtonClick = () => {
-		setExpanded($key); // Déclencher l'animation d'expansion
+		setExpanded($key);
 	};
 
 	return (
@@ -93,11 +81,12 @@ const MenuButton: React.FC<Props> = ({ label, modeValue, $backgroundColor, $key,
 
 				<MenuButtonContainer
 					$expanded={expanded}
-					ref={containerRef}
+					$color={$hoverColor}
 				>
 					{(expanded === -1) &&
 						<Pixelated_Button
 							color_button={$backgroundColor}
+							$hoverColor={$hoverColor}
 							text={label}
 							font_size={'24px'}
 							onClick={handleButtonClick}

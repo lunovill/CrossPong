@@ -6,6 +6,7 @@ type ButtonColorProps = {
   $color_font?: string;
   $font_size?: string;
   $position?: string[];
+  $hoverColor?: string;
 }
 
 const PlayButton = styled(PixelCorners2x2) <ButtonColorProps>`
@@ -24,7 +25,9 @@ const PlayButton = styled(PixelCorners2x2) <ButtonColorProps>`
 	align-items: center;
   cursor: pointer;
   &:hover {
-        filter: drop-shadow(16px 16px 20px red) invert(85%);
+	${props => props.$hoverColor ? `background-color: ${props.$hoverColor};` 
+	: 'filter: drop-shadow(16px 16px 20px red) hue-rotate(-90deg);'}
+        
         cursor: pointer;
     }
 `;
@@ -46,6 +49,7 @@ interface Pixelated_ButtonProps {
   text: string;
   onClick?: () => void;
   position?: string[];
+  $hoverColor?: string;
 }
 
 function Pixelated_Button( props: Pixelated_ButtonProps) {
@@ -57,7 +61,8 @@ function Pixelated_Button( props: Pixelated_ButtonProps) {
       <PlayButtonBackground $color={ColorOutline} />
       <PlayButton
         $color={props.color_button} $color_font={ColorFont} $font_size={FontSize} $position={props.position}
-        onClick={props.onClick}
+        $hoverColor={props.$hoverColor}
+		onClick={props.onClick}
       >
         {props.text}
       </PlayButton>

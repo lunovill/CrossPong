@@ -97,7 +97,7 @@ const retro: MapInfo = {
     font: 'Yoster',
     mainColor: '#C39253',
     secondaryColor: '#215B33',
-	thirdColor: '#7ca867',
+	thirdColor: '#487c30',
 	nameIa: 'RetroGLaDOS',
 	pictureIa: '/images/profilPicture/church3.png',
     mapJSX: RetroMap,

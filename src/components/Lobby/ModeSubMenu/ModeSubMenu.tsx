@@ -6,27 +6,10 @@ import { ModeType } from '../../../types/machine.type';
 
 type ButtonProps = {
 	$backgroundColor: string;
+	$hoverColor?: string;
 	label: string;
 	modeValue: ModeType;
 };
-
-const ProfilTitle = styled.div`
-     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: calc(100% - 250px);
-    height: 76px;
-    margin: 10px;
-	padding-top: 15px;
-    margin-top: 50px;
-
-    font-family: "Yoster", serif;
-	font-weight: 700;
-    font-size: 32px;
-    
-    color: #383844;
-    position: relative;
-`;
 
 const MenuContainer = styled.div`
     display: flex;
@@ -41,30 +24,17 @@ const MenuContainer = styled.div`
 const Button: ButtonProps[] = [
 	{
 		$backgroundColor: '#882178',
+		$hoverColor: '#5e8b9c',
 		label: 'LOCAL SPLITSCREEN MATCH',
 		modeValue: ModeType.LOCALPLAYER,
 	},
 	{
 		$backgroundColor: '#CD5050',
+		$hoverColor: '#73be92',
 		label: 'LOCAL VS IA MATCH',
 		modeValue: ModeType.IA,
 	},
 ];
-
-// ${props => props.$expanded && css`
-//   		position: absolute;	
-// 		transform: translate(0%, calc((66.666% - 564px)));
-// 		width: 544px;
-// 		height: 566px;
-//       	background-color: #FFF8DC;
-//       	& > button {
-//         	opacity: 0; // Hide the button text and border
-//       	}
-//   `}
-
-// send({ type: 'join', id: 'j1', name: 'Tmp' });
-// send({ type: 'join', id: 'j2', name: 'Bot' });
-// send({ type: 'chooseMode', mode: modeValue });
 
 const SelectModeSubMenu = () => {
 	const [expanded, setExpanded] = useState<number>(-1);
@@ -82,6 +52,7 @@ const SelectModeSubMenu = () => {
 						label={button.label}
 						modeValue={button.modeValue}
 						$backgroundColor={button.$backgroundColor}
+						$hoverColor={button.$hoverColor}
 					/>
 				))}
 			</MenuContainer>
