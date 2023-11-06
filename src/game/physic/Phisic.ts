@@ -9,6 +9,7 @@ import MedievalPaddle from "./MedievalPaddle";
 import WesternPaddle from "./WesternPaddle";
 import NinjaPaddle from "./NinjaPaddle";
 import RetroPaddle from "./RetroPaddle";
+import { Body } from "p2-es";
 
 interface PaddleInfoProps {
 	position: Vector3,
@@ -124,8 +125,15 @@ export default class Physic extends EventEmitter {
 				.concat(...this.paddles.map(p => p.skillBalls)),
 			this.ball
 		].filter(b => !b.isDestroyed)
-		.sort((a, b) => b.body.body.velocity[1] - a.body.body.velocity[1]);
-		return bot(balls[0].body.body.position, balls[0].body.body.velocity, this.paddles[0].body.position, this.paddles[1].body.position, [])
+			.sort((a, b) => b.body.body.velocity[1] - a.body.body.velocity[1]);
+		return bot(balls[0].body.body.position,
+			balls[0].body.body.velocity,
+			this.paddles[0].body.position,
+			this.paddles[1].body.position,
+			[...([] as { body: Body, isDestroyed: boolean }[])
+				.concat(...this.paddles.map(p => p.skillBodies))
+			].filter((b, i) => (i < 2 && !b.isDestroyed))
+				.map(b => b.body.position));
 	}
 
 	get paddlesInfo(): [PaddleInfoProps, PaddleInfoProps] {

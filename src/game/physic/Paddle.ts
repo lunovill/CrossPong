@@ -21,7 +21,7 @@ export default abstract class Paddle {
 		isAvailable: boolean,
 	};
 
-	protected skillBodies: { body: Body, isDestroyed: boolean }[];
+	public skillBodies: { body: Body, isDestroyed: boolean }[];
 
 	constructor(location: number) {
 		let shape: Box = new Box({ width: PADDLE_WIDTH, height: PADDLE_HEIGHT });

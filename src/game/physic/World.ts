@@ -49,13 +49,14 @@ export class World extends P2World {
 			* this.paddles[1].handleCollision(this.paddles[1] === paddle);
 
 		ball.impulse[0] = (1 - Math.abs(collisionPoint)) * Math.sign(ball.impulse[0] * -1);
-		ball.impulse[1] = ((ball.body.position[1] > 2.16 || ball.body.position[1] < -2.16) ? -collisionPoint : collisionPoint);
+		ball.impulse[1] = ((ball.body.position[1] > 2.15 || ball.body.position[1] < -2.15) ? -collisionPoint : collisionPoint);
 		ball.body.velocity[0] *= -1 * speedFactor;
 		ball.body.velocity[1] = ball.impulse[1] * 5 * speedFactor;
 		return;
 	}
 
 	private handleBorderCollision = (ball: Ball) => {
+		console.log('collision');
 		ball.collision++;
 		ball.impulse[1] *= -1;
 		ball.body.velocity[1] *= -1;
