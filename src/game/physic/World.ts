@@ -1,5 +1,5 @@
 import Ball from "./Ball"
-import Paddle from "./Paddle"
+import Paddle from "./Paddles/Paddle"
 import {Box, Body, BeginContactEvent, World as P2World} from 'p2-es'
 import { BALL, BORDER, FPS, MAP_HEIGHT, MAP_WIDTH, OFFSET, PADDLE, PADDLE_POSITION } from '../game.constants'
 

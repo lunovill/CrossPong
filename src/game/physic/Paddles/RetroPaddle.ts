@@ -1,8 +1,8 @@
 import { Body } from "p2-es";
-import { Vector3 } from "../../types/physic.type";
+import { Vector3 } from "../../../types/physic.type";
 import Paddle from "./Paddle";
-import Ball from "./Ball";
-import { COOLDOWN } from "../game.constants";
+import Ball from "../Ball";
+import { COOLDOWN } from "../../game.constants";
 
 export interface RetroSkillInfoProps {
 	power: { isActive: boolean },

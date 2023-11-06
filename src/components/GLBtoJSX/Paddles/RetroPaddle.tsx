@@ -4,7 +4,7 @@ import { MutableRefObject, ReactElement, useEffect, useRef, useState } from 'rea
 import { useFrame } from '@react-three/fiber'
 import { PaddleProps } from '../../../types/Map';
 import { Group, Mesh, MeshStandardMaterial } from 'three';
-import { RetroSkillInfoProps } from '../../../game/physic/RetroPaddle';
+import { RetroSkillInfoProps } from '../../../game/physic/Paddles/RetroPaddle';
 import { DissolveMaterial } from '../DissolveMaterial';
 import { RetroPowerEffect } from '../../Effects/RetroPowerEffect';
 

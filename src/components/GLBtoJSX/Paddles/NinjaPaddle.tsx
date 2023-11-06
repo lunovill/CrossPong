@@ -7,7 +7,7 @@ import { Group, MeshStandardMaterial } from 'three';
 import chroma, { Scale } from 'chroma-js';
 import FlameShader from '../Shaders/FlamShader';
 import gsap from 'gsap';
-import { NinjaSkillInfoProps } from '../../../game/physic/NinjaPaddle';
+import { NinjaSkillInfoProps } from '../../../game/physic/Paddles/NinjaPaddle';
 import { DissolveMaterial } from '../DissolveMaterial';
 import { RetroPowerEffect } from '../../Effects/RetroPowerEffect';
 

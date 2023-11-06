@@ -1,8 +1,8 @@
 import { Body } from "p2-es";
 import Paddle from "./Paddle";
-import { COOLDOWN, FPS } from "../game.constants";
-import { Vector3 } from "../../types/physic.type";
-import Ball from "./Ball";
+import { COOLDOWN, FPS } from "../../game.constants";
+import { Vector3 } from "../../../types/physic.type";
+import Ball from "../Ball";
 
 export interface NinjaSkillInfoProps {
 	power: { isActive: boolean, effect: boolean, factor: number },

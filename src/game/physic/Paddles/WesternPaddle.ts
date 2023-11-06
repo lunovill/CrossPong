@@ -1,8 +1,8 @@
 import { Body } from "p2-es";
-import { Vector3 } from "../../types/physic.type";
-import Ball from "./Ball";
+import { Vector3 } from "../../../types/physic.type";
+import Ball from "../Ball";
 import Paddle from "./Paddle";
-import { COOLDOWN } from "../game.constants";
+import { COOLDOWN } from "../../game.constants";
 
 export interface WesternSkillInfoProps {
 	power: { isActive: boolean },

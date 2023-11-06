@@ -1,8 +1,9 @@
-import { Body, Box } from "p2-es";
-import Paddle from "./Paddle";
-import { BALL, BALL_RADIUS, COOLDOWN, MAP_HEIGHT, PADDLE_POSITION, STONE } from "../game.constants";
-import { Vector3 } from "../../types/physic.type";
-import Ball from "./Ball";
+import { Body, Box } from 'p2-es';
+import Paddle from './Paddle';
+import { BALL, BALL_RADIUS, COOLDOWN, MAP_HEIGHT, PADDLE_POSITION, STONE } from '../../game.constants';
+import { Vector3 } from '../../../types/physic.type';
+import Ball from '../Ball';
+import MedievalBot from '../Bots/MedievalBot'
 
 export interface MedievalSkillInfoProps {
 	power: { isActive: boolean, left: boolean, right: boolean },
@@ -19,6 +20,8 @@ export default class MedievalPaddle extends Paddle {
 		body.addShape(shape);
 		return body;
 	}
+
+	public bot: MedievalBot;
 
 	constructor(location: number) {
 		super(location);
@@ -39,6 +42,7 @@ export default class MedievalPaddle extends Paddle {
 				isDestroyed: false
 			});
 		}
+		this.bot = new MedievalBot;
 	}
 
 	public applyPower(): void { return; }

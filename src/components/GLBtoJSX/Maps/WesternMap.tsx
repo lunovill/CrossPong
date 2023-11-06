@@ -4,7 +4,7 @@ import { useGLTF } from '@react-three/drei'
 import { useEffect, useState } from 'react'
 import StarsDisappearEffect from '../../Animation/StarsDisepearEffect'
 import { DissolveMaterial } from '../DissolveMaterial'
-import { WesternSkillInfoProps } from '../../../game/physic/WesternPaddle'
+import { WesternSkillInfoProps } from '../../../game/physic/Paddles/WesternPaddle'
 import { WesternUltiAnimation } from '../Skills/WesternSkills'
 
 type GLTFResultWestern = GLTF & {

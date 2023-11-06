@@ -1,7 +1,8 @@
 import { Body, Box } from "p2-es";
-import { BALL, BORDER, PADDLE, PADDLE_DAMPING, PADDLE_HEIGHT, PADDLE_POSITION, PADDLE_SPEED, PADDLE_WIDTH } from "../game.constants";
-import { SkillInfoProps, Vector3, formatTuple } from "../../types/physic.type";
-import Ball from "./Ball";
+import { BALL, BORDER, PADDLE, PADDLE_DAMPING, PADDLE_HEIGHT, PADDLE_POSITION, PADDLE_SPEED, PADDLE_WIDTH } from "../../game.constants";
+import { SkillInfoProps, Vector3, formatTuple } from "../../../types/physic.type";
+import Ball from "../Ball";
+import Bot from "../Bots/Bot";
 
 export default abstract class Paddle {
 	public body: Body;
@@ -22,6 +23,8 @@ export default abstract class Paddle {
 	};
 
 	public skillBodies: { body: Body, isDestroyed: boolean }[];
+
+	abstract bot: Bot;
 
 	constructor(location: number) {
 		let shape: Box = new Box({ width: PADDLE_WIDTH, height: PADDLE_HEIGHT });

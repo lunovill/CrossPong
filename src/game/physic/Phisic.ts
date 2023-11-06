@@ -1,14 +1,13 @@
 import { EventEmitter } from "events";
 import Ball from "./Ball";
-import Paddle from "./Paddle";
+import Paddle from "./Paddles/Paddle";
 import { World } from "./World";
 import { SkillInfoProps, Vector3 } from "../../types/physic.type";
-import { bot } from "./bot";
 import { MapTheme } from "../../types/machine.type";
-import MedievalPaddle from "./MedievalPaddle";
-import WesternPaddle from "./WesternPaddle";
-import NinjaPaddle from "./NinjaPaddle";
-import RetroPaddle from "./RetroPaddle";
+import MedievalPaddle from "./Paddles/MedievalPaddle";
+import WesternPaddle from "./Paddles/WesternPaddle";
+import NinjaPaddle from "./Paddles/NinjaPaddle";
+import RetroPaddle from "./Paddles/RetroPaddle";
 import { Body } from "p2-es";
 
 interface PaddleInfoProps {
@@ -126,7 +125,8 @@ export default class Physic extends EventEmitter {
 			this.ball
 		].filter(b => !b.isDestroyed)
 			.sort((a, b) => b.body.body.velocity[1] - a.body.body.velocity[1]);
-		return bot(balls[0].body.body.position,
+
+		this.paddles[1].bot.update(balls[0].body.body.position,
 			balls[0].body.body.velocity,
 			this.paddles[0].body.position,
 			this.paddles[1].body.position,
@@ -134,6 +134,11 @@ export default class Physic extends EventEmitter {
 				.concat(...this.paddles.map(p => p.skillBodies))
 			].filter((b, i) => (i < 2 && !b.isDestroyed))
 				.map(b => b.body.position));
+		this.paddles[1].bot.handleKetEvent();
+		this.paddles[1].bot.handlePowerEvent();
+		this.paddles[1].bot.handleUltiEvent();
+
+		return this.paddles[1].bot.key;
 	}
 
 	get paddlesInfo(): [PaddleInfoProps, PaddleInfoProps] {
