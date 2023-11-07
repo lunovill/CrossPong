@@ -85,9 +85,9 @@ const StyledInput = styled.input`
 
 interface UpdateInfoProps {
 	name: string | null;
-	onFirstUpdate?: boolean;
+
 }
-const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
+const UpdateInfo: FC<UpdateInfoProps> = ({ name }) => {
 	const [showDialog, setShowDialog] = useState(false);
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
 	const [newPseudo, setNewPseudo] = useState<string>("");
@@ -103,13 +103,14 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 	}, []);
 
 	const handleChangePseudo = (e: ChangeEvent<HTMLInputElement>) => {
-
-		setNewPseudo(e.target.value.replace(/\s+/g, ''));
+		if (e.target.value.length < 13)
+			setNewPseudo(e.target.value.replace(/\s+/g, ''));
 	};
 	
 	const handleSubmitPseudo =() => {
-		
-		//ici parsing + mettre dans session, sinon mettre un bail aleatoire !
+		sessionStorage.setItem('pseudo', newPseudo);	
+		setNewPseudo("");
+
 	};
 
 	{/* handler */ }
@@ -126,8 +127,9 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 
 
 	const handleImageClick = () => {
-		//ici parsing + mettre dans session, sinon mettre un bail aleatoire !
-
+		console.log(selectedImage);
+		if (selectedImage)
+			sessionStorage.setItem('profilePic', selectedImage);
 	};
 
 	const closeDialog = () => {
@@ -137,20 +139,19 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 
 	return (
 		<>
-			{(showDialog || onFirstUpdate) && (
+			{(showDialog) && (
 				<Dialog>
 					{/* Close button // First time message*/}
-					{!onFirstUpdate ?
+					{
 						<CloseButton onClick={closeDialog}>x
-						</CloseButton> :
-						<WrittingContainer $size="20px" $weight="700" color="#e4d6d6">Please complete your personal information to proceed.</WrittingContainer>}
+						</CloseButton>
+					}
 					<> 
 					{/* Picture */}
-						{/* Default Picture */}
 						<WrittingContainer $size="12px" $weight="700" color="#000000">Select Your Profile Picture</WrittingContainer>
 						<DefaultPhoto handleSelectedImage={handleSelectedImage} selectedImage={selectedImage as string} />
 						{/* Confirm Button */}
-						{!onFirstUpdate && (selectedImage ?
+						{(selectedImage ?
 							<StyledButton onClick={handleImageClick}>Confirm Image Selection</StyledButton>
 							:
 							<StyledButton disabled> Please Select an Image</StyledButton>)}
@@ -167,7 +168,7 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 						/>
 						{/* Confirm Button */}
 						{
-							!onFirstUpdate && (name === newPseudo ?
+							((name === newPseudo  || newPseudo === "") ?
 								<StyledButton disabled>
 									Please Update Your Pseudo
 								</StyledButton> :
@@ -178,7 +179,7 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name, onFirstUpdate = false }) => {
 					</>
 				</Dialog>
 			)}
-			{!onFirstUpdate && <SvgUpdateProfile onClick={handleOpenDialog} />}
+			{<SvgUpdateProfile onClick={handleOpenDialog} />}
 		</>
 	)
 }

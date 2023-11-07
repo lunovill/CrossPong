@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import UpdateInfo from '../components/Profil/ChangeInfo';
 import { WrittingContainer } from '../components/Profil/ProfileStyle';
 import { Link } from 'react-router-dom';
+import { initializeSessionStorage } from '../components/Profil/CheckInfoSessionStorage';
 
 const ContainerBlock = styled.div`
 	width: 310px;
@@ -159,39 +160,49 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const LogOutContainer = styled.div`
-	position: absolute;
-	top: 650px;
-	left: 50%;
-  transform: translate(-40%, -0%);
-`;
-
 export default function Profil() {
 
+	const [pseudo, setPseudo] = useState<string>("");
+	const [profilePicture, setProfilePicture] = useState<string>("");
 
-	return (
-		<>
-			<TitleContainer>
-				<Link to="/">
-					<Title src="/images/CrossPongLogo.png" alt="Cross Pong Logo" />
-				</Link>
-			</TitleContainer>
-			<Container>
-				<OutlineBlock>
-					<ProfilTitle>
-						PROFILE
-						<span></span>
-					</ProfilTitle>
+	useEffect(() => {
+		const pseudo = localStorage.getItem("pseudo");
+		const profilePicture = localStorage.getItem("profilePicture");
+		if (pseudo && profilePicture) {
+			setPseudo(pseudo);
+			setProfilePicture(profilePicture);
+		}
+		else {
+			initializeSessionStorage();
+			setPseudo(sessionStorage.getItem("pseudo") || "Tommy");
+			setProfilePicture(sessionStorage.getItem("profilePic") || "/images/profilPicture/ninja4.png");
+		}
+	}, []);
 
-					<>
-						<StyledImage src={"images/profilPicture/cowboy4.png"} alt="Profile picture" />
-						<WrittingContainer $margin='2px'>{"pandamanxv3"}</WrittingContainer>
-						{/* {matches &&
+
+		return (
+			<>
+				<TitleContainer>
+					<Link to="/">
+						<Title src="/images/CrossPongLogo.webp" alt="Cross Pong Logo" />
+					</Link>
+				</TitleContainer>
+				<Container>
+					<OutlineBlock>
+						<ProfilTitle>
+							PROFILE
+							<span></span>
+						</ProfilTitle>
+
+						<>
+							<StyledImage src={profilePicture} alt="Profile picture" />
+							<WrittingContainer $margin='2px'>{pseudo} </WrittingContainer>
+							{/* {matches &&
 								<>
 									<WrittingContainer $color='#000000' $weight='700' $size='15px' $margin='38px'>Last 10 matches</WrittingContainer>
 									<ScoreContainer> */}
 
-						{/* {matches.map((match, index) => {
+							{/* {matches.map((match, index) => {
 											return (
 												<LineScoreContainer key={"LineScoreContainer" + index}>
 													<WrittingContainer2 key={index} $textAlign={"left"} $isUser={userInfo.pseudo === match.playerA}>{match.playerA}</WrittingContainer2>
@@ -200,17 +211,17 @@ export default function Profil() {
 												</LineScoreContainer>
 											);
 										})} */}
-						{/* </ScoreContainer>
+							{/* </ScoreContainer>
 								</>
 							} */}
-						<WrittingContainer $color='#000000' $weight='700' $size='15px'>
-						</WrittingContainer>
-						<UpdateInfo name={"pandamanxv3"} onFirstUpdate={false} />
-					</>
+							<WrittingContainer $color='#000000' $weight='700' $size='15px'>
+							</WrittingContainer>
+							<UpdateInfo name={pseudo}/>
+						</>
 
-				</OutlineBlock>
-				<ContainerBlock />
-			</Container>
-		</>
-	);
-}
+					</OutlineBlock>
+					<ContainerBlock />
+				</Container>
+			</>
+		);
+	}

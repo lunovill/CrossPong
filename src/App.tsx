@@ -1,6 +1,6 @@
 import './styles/App.css';
 import { useLocation, Routes, Route } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import BackgroundMusic from './components/Home/BackgroundMusic';
 import { useState } from 'react';
 import Home from './pages/Home';
 import Profil from './pages/Profil';
@@ -11,7 +11,7 @@ import { useGLTF } from '@react-three/drei';
 import { LoadingContext } from './components/ContextBoard';
 import HomeLoading from './pages/loadingPages/HomeLoading';
 import { useEffect } from 'react';
-import { ReadyContext } from './components/ContextBoard';
+import CheckInfoSessionStorage from './components/Profil/CheckInfoSessionStorage';
 
 const ChargingTime = 0;
 const intervalTime = 10;
@@ -53,6 +53,8 @@ function App() {
 	return (
 		<>
 			<GlobalStyle />
+			<BackgroundMusic />
+			<CheckInfoSessionStorage />
 			<Routes location={location} key={location.pathname}>
 				<Route index element={
 					<Home />

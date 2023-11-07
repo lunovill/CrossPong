@@ -16,9 +16,11 @@ const ProfilPictureContainer = styled(PixelCorners3x3) <TopHudContainerProps>`
 	position: absolute;
 	width: 64px;
 	height: 64px;
-	top: 20px;
-	left: ${(props) => (props.$pos === 'right' ? 'auto' : '4.5%')};
-	right: ${(props) => (props.$pos === 'right' ? '4.5%' : 'auto')};
+	top: 172px;
+	background-color: #efead9;
+	padding: 3px;
+	left: ${(props) => (props.$pos === 'right' ? 'auto' : '185px')};
+	right: ${(props) => (props.$pos === 'right' ? '185px' : 'auto')};
 	@media (max-width: 768px) {
 		top: 10px;
 		width: 48px;
@@ -37,12 +39,26 @@ const ProfilPicture = styled.img`
 const PseudoContainer = styled.div<TopHudContainerProps>`
 	z-index: 42;
 	position: absolute;
-	top: 10px;
-	font-size: 2rem;
-	color: #c49b5f;
+	background-color: #efead9;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	line-height: 1.2;
+	text-align: center;
+	width: 105px;
+	top: 172px;
+	font-size: 0.7rem;
+	color: #110c05;
 	font-family: 'inknutAntiqua', serif;
-	left: ${(props) => (props.$pos === 'right' ? 'auto' : 'calc(4.5% + 76px)')};
-	right: ${(props) => (props.$pos === 'right' ? 'calc(4.5% + 76px)' : 'auto')};
+	left: ${(props) => (props.$pos === 'right' ? 'auto' : '245px')};
+	right: ${(props) => (props.$pos === 'right' ? '245px' : 'auto')};
+	@media (max-width: 1080px) {
+		top: 10px;
+		font-size: 1rem;
+		left: ${(props) => (props.$pos === 'right' ? 'auto' : '150px')};
+		right: ${(props) => (props.$pos === 'right' ? '150px' : 'auto')};
+	}
 	@media (max-width: 768px) {
 		top: 10px;
 		font-size: 1rem;
@@ -156,15 +172,15 @@ function HudGame(): ReactElement {
 		if (context.mode === '2PLocal')
 			setCooldownSkill2(context.physic!.paddlesInfo[1].time);
 	}, [context.physic!.paddlesInfo[1].time]);
-
+	//#efead9
 	return (
 		<>
 			<>
 				<PseudoContainer $pos={'left'}>
-					{"Pandamanxv3" /* mettre le pseudo du joueur 1 */ }
+					{"Pandamanxv3xv3" /* mettre le pseudo du joueur 1 */}
 				</PseudoContainer>
 				<ProfilPictureContainer $pos={'left'}>
-					<ProfilPicture src={"images/profilPicture/church4.png" /* mettre la photo du joueur 1 */ } alt="Panda" />
+					<ProfilPicture src={"images/profilPicture/church4.png" /* mettre la photo du joueur 1 */} alt="Panda" />
 				</ProfilPictureContainer>
 				<PseudoContainer $pos={'right'}>
 					{
@@ -175,9 +191,9 @@ function HudGame(): ReactElement {
 				</PseudoContainer>
 				<ProfilPictureContainer $pos={'right'}>
 					{
-					context.mode === '2PLocal' ?
-						<ProfilPicture src="images/profilPicture/church3.png" alt="Panda" /> :
-						<ProfilPicture src={context.players[1].mapInfo.pictureIa} alt="Panda" />
+						context.mode === '2PLocal' ?
+							<ProfilPicture src="images/profilPicture/church3.png" alt="Panda" /> :
+							<ProfilPicture src={context.players[1].mapInfo.pictureIa} alt="Panda" />
 					}
 				</ProfilPictureContainer>
 
