@@ -3,6 +3,8 @@ import { Vector3 } from "../../../types/physic.type";
 import Ball from "../Ball";
 import Paddle from "./Paddle";
 import { COOLDOWN } from "../../game.constants";
+import WesternBot from "../Bots/WesternBot";
+import RetroBot from "../Bots/RetroBot";
 
 export interface WesternSkillInfoProps {
 	power: { isActive: boolean },
@@ -10,10 +12,13 @@ export interface WesternSkillInfoProps {
 };
 
 export default class WesternPaddle extends Paddle {
+	public bot: WesternBot;
+
 	constructor(location: number) {
 		super(location);
 
 		this.power.cooldown = COOLDOWN.Western;
+		this.bot = new RetroBot;
 	}
 
 	public applyPower(): void {

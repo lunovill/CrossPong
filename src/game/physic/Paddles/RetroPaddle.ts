@@ -3,6 +3,7 @@ import { Vector3 } from "../../../types/physic.type";
 import Paddle from "./Paddle";
 import Ball from "../Ball";
 import { COOLDOWN } from "../../game.constants";
+import RetroBot from "../Bots/RetroBot";
 
 export interface RetroSkillInfoProps {
 	power: { isActive: boolean },
@@ -12,11 +13,14 @@ export interface RetroSkillInfoProps {
 export default class RetroPaddle extends Paddle {
 	private effect: boolean;
 
+	public bot: RetroBot;
+
 	constructor(location: number) {
 		super(location);
 
 		this.power.cooldown = COOLDOWN.Retro;
-		this.effect = false
+		this.effect = false;
+		this.bot = new RetroBot;
 	}
 
 	public applyPower(): void { return; }

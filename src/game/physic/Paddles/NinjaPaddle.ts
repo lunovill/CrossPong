@@ -3,6 +3,7 @@ import Paddle from "./Paddle";
 import { COOLDOWN, FPS } from "../../game.constants";
 import { Vector3 } from "../../../types/physic.type";
 import Ball from "../Ball";
+import NinjaBot from "../Bots/NinjaBot";
 
 export interface NinjaSkillInfoProps {
 	power: { isActive: boolean, effect: boolean, factor: number },
@@ -12,6 +13,8 @@ export interface NinjaSkillInfoProps {
 export default class NinjaPaddle extends Paddle {
 	private effect: boolean;
 
+	public bot: NinjaBot;
+
 	constructor(location: number) {
 		super(location);
 
@@ -19,6 +22,7 @@ export default class NinjaPaddle extends Paddle {
 		this.effect = false;
 		this.skillBalls.push({ body: new Ball, isDestroyed: true });
 		this.skillBalls.push({ body: new Ball, isDestroyed: true });
+		this.bot = new NinjaBot;
 	}
 
 	public applyPower(): void {
