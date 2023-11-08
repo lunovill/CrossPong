@@ -29,7 +29,7 @@ export default class WesternPaddle extends Paddle {
 
 	public handleCollision(isMe: boolean): number {
 		if (isMe) {
-			(this.ulti.isActive) && (this.factor = 1.65);
+			(this.ulti.isActive) && (this.factor = 1.6);
 			this.collision++
 		} else {
 			(this.ulti.isActive) && (this.factor = 0.4);

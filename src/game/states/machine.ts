@@ -27,7 +27,7 @@ import { LIFE } from "../game.constants";
 export const GameModel = createModel({
 	animation: undefined as AnimationStates | undefined,
 	starsColor: ['#2245e2', '#d92fe6', '#f0e51c', '#1cf030', '#ffffff'] as string[],
-	starsRef: null as MutableRefObject<Group| null> | null,
+	starsRef: null as MutableRefObject<Group | null> | null,
 	mode: undefined as ModeType | undefined,
 	current: undefined as Player | undefined,
 	players: [] as Player[],
@@ -161,10 +161,14 @@ export const GameMachine = GameModel.createMachine({
 					actions: [GameModel.assign({ animation: AnimationStates.END })],
 					target: GameStates.ANIMATION
 				},
-				play: {
+				play: [{
+					cond: isEndGameGuard,
+					actions: [GameModel.assign({ animation: AnimationStates.END })],
+					target: GameStates.ANIMATION
+				}, {
 					actions: [GameModel.assign(playPhysicAction)],
 					target: GameStates.PLAY
-				},
+				}],
 				leave: {
 					actions: [GameModel.assign(leaveGameAction)],
 					target: GameStates.MODE

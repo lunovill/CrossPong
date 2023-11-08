@@ -89,7 +89,7 @@ export default function Player(): ReactElement {
 		(JSON.stringify(newInfo) !== JSON.stringify(info)) && setInfo(newInfo);
 	});
 
-	return <>
+return <>
 		{context.animation === 'Ulti' && <UltiAnimation index={index} />}
 		{isAnimation && <TextThreeTwoOne />}
 		<PaddlePlayer

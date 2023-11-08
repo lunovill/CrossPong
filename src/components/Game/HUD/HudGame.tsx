@@ -7,6 +7,7 @@ import SkillIcon from './Skill';
 import UltimIcon from './Ultim';
 import { PixelCorners3x3 } from '../../../styles/HomeStyles';
 import { useInGameState } from '../../../components/ContextBoard';
+import { useFrame } from '@react-three/fiber';
 
 interface TopHudContainerProps {
 	$pos: 'left' | 'right';
@@ -156,6 +157,7 @@ function HudGame(): ReactElement {
 	const [cooldownSkill2, setCooldownSkill2] = useState(0);
 	const [maxCooldownSkill2, setMaxCooldownSkill2] = useState(0);
 	const [isUltiAvailable2, setIsUltiAvailable2] = useState(true);
+	const [frame, setFrame] = useState<number>(0);
 
 	useEffect(() => {
 		setInGame(true);
@@ -165,6 +167,10 @@ function HudGame(): ReactElement {
 			setPseudo(Pseudo);
 		if (ProfilPicture)
 			setProfilPicture(ProfilPicture);
+
+		setMaxCooldownSkill(context.physic!.paddlesInfo[0].cooldown);
+		if (context.mode === '2PLocal')
+			setMaxCooldownSkill2(context.physic!.paddlesInfo[1].cooldown);
 		return () => {
 			setInGame(false);
 		}
@@ -180,25 +186,12 @@ function HudGame(): ReactElement {
 			setIsUltiAvailable2(false);
 	}, [context.physic!.paddlesInfo[1].skill.ulti.isAvailable])
 
-
-	useEffect(() => {
-		setMaxCooldownSkill(context.physic!.paddlesInfo[0].cooldown);
-	}, [context.physic!.paddlesInfo[0].cooldown]);
-
-	useEffect(() => {
-		if (context.mode === '2PLocal')
-			setMaxCooldownSkill2(context.physic!.paddlesInfo[1].cooldown);
-	}, [context.physic!.paddlesInfo[1].cooldown]);
-
-
 	useEffect(() => {
 		setCooldownSkill(context.physic!.paddlesInfo[0].time);
-	}, [context.physic!.paddlesInfo[0].time]);
-
-	useEffect(() => {
 		if (context.mode === '2PLocal')
 			setCooldownSkill2(context.physic!.paddlesInfo[1].time);
-	}, [context.physic!.paddlesInfo[1].time]);
+		setFrame(prev => prev + 1);
+	}, []);
 
 	return (
 		<>

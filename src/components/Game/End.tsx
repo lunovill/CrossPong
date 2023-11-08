@@ -2,6 +2,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useGame } from '../../game/hooks/useGame';
 import { PixelCorners2x2, PixelCorners3x3 } from '../../styles/HomeStyles';
+import { addScoreToSessionStorage } from '../MatchHistory';
 
 interface ButtonProps {
 	color?: string;
@@ -65,16 +66,13 @@ const ButtonGroup = styled.div<ButtonProps>`
 
 export default function End(): ReactElement {
 	const { context, send } = useGame();
-	const [disableRestart, setDisableRestart] = useState<boolean>(false);
 
-	if (!['2PLocal', 'IA'].includes(context.mode!)) {
-		useEffect(() => {
-			const timer = setTimeout(() => {
-				setDisableRestart(true);
-			}, 15000);
-			return () => clearTimeout(timer);
-		}, []);
-	}
+	useEffect(() => {
+		addScoreToSessionStorage(context.players[0].name,
+			context.players[0].score,
+			context.players[1].score,
+			(context.players[1].name === 'Bot') ? context.players[1].mapInfo.nameIa : context.players[1].name);
+	}, []);
 
 	return (
 		<>
@@ -86,16 +84,15 @@ export default function End(): ReactElement {
 					Leave
 				</PlayButton>
 			</ButtonGroup>
-			{(!disableRestart) && (
-				<ButtonGroup top={"30%"}>
-					<PlayButtonBackground color={"#000000"} />
-					<PlayButton color={"#488f48"} onClick={() => {
-						send({ type: 'restart' });
-					}}>
-						Restart
-					</PlayButton>
-				</ButtonGroup>
-			)}
+			<ButtonGroup top={"30%"}>
+				<PlayButtonBackground color={"#000000"} />
+				<PlayButton color={"#488f48"} onClick={() => {
+					send({ type: 'restart' });
+				}}>
+					Restart
+				</PlayButton>
+			</ButtonGroup>
+
 		</>
 	);
 }

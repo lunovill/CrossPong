@@ -16,6 +16,6 @@ export const canUltiGuard: GameGuard<'ulti'> = (context, event) => {
     return !context.players[event.index].utli;
 }
 
-export const isEndGameGuard: GameGuard<'start'> = (context, _) => {
+export const isEndGameGuard: GameGuard<'start' | 'play'> = (context, _) => {
     return !!context.players.find(p => p.score === context.victory);
 }

@@ -65,8 +65,8 @@ const MenuButton: React.FC<Props> = ({ label, modeValue, $backgroundColor, $key,
 	}, [expanded]);
 
 	const handleTransitionEnd = () => {
-		send({ type: 'join', id: 'j1', name: 'Player' });
-		send({ type: 'join', id: 'j2', name: 'Bot' });
+		send({ type: 'join', id: 'j1', name: sessionStorage.getItem('pseudo')! });
+		send({ type: 'join', id: 'j2', name: (modeValue === 'IA') ? 'Bot' : 'Player2' });
 		send({ type: 'chooseMode', mode: modeValue });
 	};
 

@@ -56,6 +56,7 @@ export default class Ball {
 			clearInterval(interval);
 			this.impulse = [1 * direction, 0];
 			this.body.velocity = [3 * direction, 0];
+			this.body.position = [0, Math.random() * 0.1 - 0.05]
 		}, 4000);
 		return (direction === -1) ? 0 : 1;
 	}
