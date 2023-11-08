@@ -2,10 +2,10 @@ import { ReactElement, useMemo, useRef } from "react";
 import { MAP_HEIGHT } from "../../../game/game.constants";
 import { BufferGeometry, Float32BufferAttribute, Points } from "three";
 import { useFrame } from "@react-three/fiber";
-import { Position } from "../../../game/states/Player";
+import { Vector3 } from '../../../types/physic.type';
 
 interface TornadoProps {
-	position?: Position
+	position?: Vector3
 	height?: number,
 	radius?: number,
 	size?: number

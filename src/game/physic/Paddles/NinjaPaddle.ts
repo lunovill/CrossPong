@@ -61,15 +61,15 @@ export default class NinjaPaddle extends Paddle {
 		return [];
 	}
 
-	public setUlti(ulti: boolean, ball: Ball): Body[] {
+	public setUlti(ulti: boolean, ball: Ball[]): Body[] {
 		if (ulti && this.ulti.isAvailable && !this.ulti.isActive) {
 			this.ulti.isActive = true;
 			this.ulti.isAvailable = false;
 			this.skillBalls.forEach((b, i) => {
-				b.body.copy(ball);
+				b.body.copy(ball[0]);
 				b.body.body.velocity = [
-					Math.cos((2 + Math.random()) * Math.PI / 3 * (i * 2 - 1)) * ball.body.velocity[0] - Math.sin((2 + Math.random()) * Math.PI / 3 * (i * 2 - 1)) * ball.body.velocity[1],
-					Math.sin((2 + Math.random()) * Math.PI / 3 * (i * 2 - 1)) * ball.body.velocity[0] + Math.cos((2 + Math.random()) * Math.PI / 3 * (i * 2 - 1)) * ball.body.velocity[1]
+					Math.cos((2 + Math.random()) * Math.PI / 3 * (i * 2 - 1)) * ball[0].body.velocity[0] - Math.sin((2 + Math.random()) * Math.PI / 3 * (i * 2 - 1)) * ball[0].body.velocity[1],
+					Math.sin((2 + Math.random()) * Math.PI / 3 * (i * 2 - 1)) * ball[0].body.velocity[0] + Math.cos((2 + Math.random()) * Math.PI / 3 * (i * 2 - 1)) * ball[0].body.velocity[1]
 				];
 				const lenght = Math.sqrt(b.body.body.velocity[0] ** 2 + b.body.body.velocity[1] ** 2);
 				b.body.impulse = [b.body.body.velocity[0] / lenght, b.body.body.velocity[1] / lenght];

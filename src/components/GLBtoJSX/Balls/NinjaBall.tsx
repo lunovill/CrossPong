@@ -3,16 +3,16 @@ import { GLTFResult, BallProps } from "../../../types/Map";
 import { MutableRefObject, ReactElement, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Group, MeshStandardMaterial } from "three";
-import { Position } from "../../../game/states/Player";
 import FlameShader, { hexToRgb } from "../Shaders/FlamShader";
 import { RetorUltiEffect } from "../../Effects/RetroUltiEffect";
 import NinjaPowerEffect from "../../Effects/NinjaPowerEffect";
 import { WesternUltiEffect } from "../../Effects/WesternUltiEffect";
+import { Vector3 } from "../../../types/physic.type";
 
 interface NinjaBallAnimationProps {
 	groupRef: MutableRefObject<Group | null>,
 	ballRef: MutableRefObject<Group | null>,
-	velocity: Position
+	velocity: Vector3
 };
 
 function NinjaBallAnimation({ groupRef, ballRef, velocity }: NinjaBallAnimationProps): ReactElement {
@@ -33,7 +33,7 @@ function NinjaBallAnimation({ groupRef, ballRef, velocity }: NinjaBallAnimationP
 }
 
 interface NinjaBallEffectProps {
-	velocity: Position
+	velocity: Vector3
 };
 
 function NinjaBallEffect({ velocity }: NinjaBallEffectProps): ReactElement {

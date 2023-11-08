@@ -30,7 +30,7 @@ export default function Player(): ReactElement {
 			send({ type: 'start' });
 			setIsAnimation(true);
 		} else {
-			context.physic?.play();
+			send({ type: 'play' });
 		}
 	};
 
@@ -43,7 +43,7 @@ export default function Player(): ReactElement {
 		ulti && context.physic?.setUlti(index, true);
 		if (context.physic!.paddlesInfo[index].skill.ulti.isActive) {
 			setIndex(index);
-			send({ type: 'ulti' });
+			send({ type: 'ulti', index });
 		}
 		context.physic!.setKeys(index, { leftward, rightward });
 	};
@@ -54,7 +54,8 @@ export default function Player(): ReactElement {
 				? { leftward: false, rightward: false, power: false, ulti: false }
 				: getKeys();
 			keyEnvent(0, { leftward, rightward, power, ulti });
-			keyEnvent(1, context.physic!.bot);
+			if (context.players.find(p => p.score === 4)) { keyEnvent(1, { ...context.physic!.bot, ulti: true }) }
+			else { keyEnvent(1, context.physic!.bot); }
 		} : (): void => {
 			const { keyUpward, keyDownward, arrowUpward, arrowDownward, power, power2, ulti, ulti2 } = (isAnimation)
 				? { keyUpward: false, keyDownward: false, arrowUpward: false, arrowDownward: false, power: false, power2: false, ulti: false, ulti2: false }

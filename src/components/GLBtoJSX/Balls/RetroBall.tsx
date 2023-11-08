@@ -4,12 +4,13 @@ import { GLTF } from 'three-stdlib'
 import { MutableRefObject, ReactElement, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Group } from "three";
-import { Position } from "../../../game/states/Player";
+import {  } from "../../../game/states/Player";
 import FlameShader, { hexToRgb } from "../Shaders/FlamShader";
 import chroma from "chroma-js";
 import { RetorUltiEffect } from "../../Effects/RetroUltiEffect";
 import NinjaPowerEffect from "../../Effects/NinjaPowerEffect";
 import { WesternUltiEffect } from "../../Effects/WesternUltiEffect";
+import { Vector3 } from "../../../types/physic.type";
 
 type GLTFResultRetroBall = GLTF & {
 	nodes: {
@@ -22,7 +23,7 @@ type GLTFResultRetroBall = GLTF & {
 
 interface RetroBallAnimationProps {
 	groupRef: MutableRefObject<Group | null>,
-	velocity: Position
+	velocity: Vector3
 };
 
 function RetroBallAnimation({ groupRef, velocity }: RetroBallAnimationProps): ReactElement {
@@ -45,7 +46,7 @@ function RetroBallAnimation({ groupRef, velocity }: RetroBallAnimationProps): Re
 }
 
 interface RetroBallEffectProps {
-	velocity: Position
+	velocity: Vector3
 };
 
 function RetroBallEffect({ velocity }: RetroBallEffectProps): ReactElement {

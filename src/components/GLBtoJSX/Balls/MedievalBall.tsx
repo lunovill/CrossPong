@@ -3,14 +3,14 @@ import { GLTFResult, BallProps } from "../../../types/Map";
 import { MutableRefObject, ReactElement, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Group, MeshStandardMaterial } from "three";
-import { Position } from "../../../game/states/Player";
 import { RetorUltiEffect } from "../../Effects/RetroUltiEffect";
 import NinjaPowerEffect from "../../Effects/NinjaPowerEffect";
 import { WesternUltiEffect } from "../../Effects/WesternUltiEffect";
+import { Vector3 } from "../../../types/physic.type";
 
 interface MedievalBallAnimationProps {
 	groupRef: MutableRefObject<Group | null>,
-	velocity: Position
+	velocity: Vector3
 };
 
 function MedievalBallAnimation({ groupRef, velocity }: MedievalBallAnimationProps): ReactElement {

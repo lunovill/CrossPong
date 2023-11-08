@@ -2,10 +2,10 @@ import { useGLTF } from '@react-three/drei'
 import { MutableRefObject, ReactElement, useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { GLTFResult, PaddleProps } from '../../../types/Map';
-import { Position } from '../../../game/states/Player';
 import { Group, Mesh, MeshStandardMaterial } from 'three';
 import { DissolveMaterial } from '../DissolveMaterial';
 import { RetroPowerEffect } from '../../Effects/RetroPowerEffect';
+import { Vector3 } from '../../../types/physic.type';
 
 interface MedievalPaddleAnimationProps {
 	location: -1 | 1,
@@ -14,7 +14,7 @@ interface MedievalPaddleAnimationProps {
 	rightChainRef: MutableRefObject<Mesh | null>,
 	leftChainRef: MutableRefObject<Mesh | null>,
 	ramRef: MutableRefObject<Mesh | null>,
-	velocity: Position
+	velocity: Vector3
 }
 
 function MedievalPaddleAnimation({ rightWheelRef, leftWheelRef, rightChainRef, leftChainRef, ramRef, velocity, location }: MedievalPaddleAnimationProps): ReactElement {

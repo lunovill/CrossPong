@@ -33,8 +33,7 @@ export default function WesternMap({ isMe, visible = true, colors = ['#2245e2', 
 	useEffect(() => {
 		if (visible === true && isVisible === false)
 			setIsVisible(visible);
-	}
-		, [visible]);
+	}, [visible]);
 
 	return (
 		<>

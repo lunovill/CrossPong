@@ -29,7 +29,7 @@ export enum MapTheme {
     RETRO = 'retro'
 };
 
-export type Vector3 = { x: number, y: number, z: number };
+// export type Vector3 = { x: number, y: number, z: number };
 
 export type GameContext = ContextFrom<typeof GameModel>;
 export type GameEvents = EventFrom<typeof GameModel>;

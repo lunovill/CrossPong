@@ -56,7 +56,7 @@ export default abstract class Paddle {
 	abstract canRemoveBodies(): Body[];
 	abstract handleCollision(isMe: boolean): number;
 	abstract setPower(power: boolean, ball: Vector3[]): Body[];
-	abstract setUlti(ulti: boolean, ball: Ball): Body[];
+	abstract setUlti(ulti: boolean, ball: Ball[]): Body[];
 
 	public isSkillBodies(body: Body): Paddle['skillBodies'][0] | undefined {
 		return this.skillBodies.find(skillBody => skillBody.body === body);

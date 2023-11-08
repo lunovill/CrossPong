@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Vector3, TextureLoader, Mesh } from 'three';
 
-
 const vertcylinder = `
     varying vec2 vUv;
 
@@ -60,16 +59,16 @@ const WindShader = ({
 	rotation = [0, 0, 0],
 	color1 = [147, 21, 44],
 	speed = 100 }: WindShaderProps) => {
-	const meshRef = useRef<THREE.Mesh>(null!);
+	const meshRef = useRef<Mesh>(null!);
 	const uniformsRef = useRef({
 		perlinnoise: {
 			type: "t",
-			value: new THREE.TextureLoader().load(
+			value: new TextureLoader().load(
 				"https://raw.githubusercontent.com/pizza3/asset/master/water-min.jpg"
 			)
 		},
 		color4: {
-			value: new THREE.Vector3(...color1)
+			value: new Vector3(...color1)
 		},
 		time: {
 			type: "f",
@@ -77,7 +76,7 @@ const WindShader = ({
 		},
 		noise: {
 			type: "t",
-			value: new THREE.TextureLoader().load(
+			value: new TextureLoader().load(
 				"https://raw.githubusercontent.com/pizza3/asset/master/noise9.jpg"
 			)
 		}
@@ -86,7 +85,7 @@ const WindShader = ({
 	useFrame(({ clock }) => {
 		const delta = clock.getElapsedTime() * speed;
 		uniformsRef.current.time.value = -delta / (1000 * 2);
-		uniformsRef.current.color4.value = new THREE.Vector3(...color1);
+		uniformsRef.current.color4.value = new Vector3(...color1);
 	});
 
 	return (
