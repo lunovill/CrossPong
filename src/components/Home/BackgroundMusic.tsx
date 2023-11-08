@@ -7,8 +7,8 @@ interface ContainerSoundIconProps {
 }
 const ContainerSoundIcon = styled.div<ContainerSoundIconProps>`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   z-index: 10;
   border: none;
   border-radius: 5px;
