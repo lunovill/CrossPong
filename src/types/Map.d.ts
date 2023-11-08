@@ -1,8 +1,9 @@
 import { Euler, Group } from 'three';
 import { MapObject } from '../models/MapObject';
-import { Position } from '../game/states/Player';
+import { Vector3 } from '../game/states/Player';
 import { SkillInfoProps } from '../types/physics';
 import { World } from '../game/physic/World';
+import { Vector3 } from './physic.type';
 
 export type GLTFResult = GLTF & {
     nodes: {
@@ -56,8 +57,8 @@ export interface MapProps {
 export interface PaddleProps {
     animation?: boolean,
     effect?: string,
-    position?: Position,
-    velocity?: Position,
+    position?: Vector3,
+    velocity?: Vector3,
     location?: -1 | 1,
     skillInfo?: SkillInfoProps,
     collision?: number
@@ -67,9 +68,9 @@ export interface PaddleProps {
 export interface BallProps {
     animation?: boolean,
     effect?: string,
-    position?: Position,
+    position?: Vector3,
 	rotation?: [number, number, number],
-    velocity?: Position,
+    velocity?: Vector3,
     collision?: number
 }
 

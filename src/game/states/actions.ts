@@ -87,7 +87,16 @@ export const setIsMapVisibleAction: GameAction<'setIsMapVisible'> = (_, event) =
 	return { isMapVisible: event.visible };
 };
 
-export const ultiGameAction: GameAction<'ulti'> = (context, _) => {
+export const ultiGameAction: GameAction<'ulti'> = (context, event) => {
 	context.physic?.pause();
-	return { animation: AnimationStates.ULTI };
+	return { animation: AnimationStates.ULTI,
+		players: context.players.map((p, i) => {
+		(i === event.index) && (p.utli = true);
+		return p;
+	})};
+};
+
+export const playPhysicAction: GameAction<'play'> = (context, _) => {
+	context.physic?.play();
+	return { animation: undefined };
 };

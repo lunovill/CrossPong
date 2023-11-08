@@ -2,7 +2,6 @@ import { useGLTF } from '@react-three/drei'
 import { MutableRefObject, ReactElement, useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { GLTFResult, PaddleProps } from '../../../types/Map';
-import { Position } from '../../../game/states/Player';
 import { Group, MeshStandardMaterial } from 'three';
 import chroma, { Scale } from 'chroma-js';
 import FlameShader from '../Shaders/FlamShader';
@@ -10,10 +9,11 @@ import gsap from 'gsap';
 import { NinjaSkillInfoProps } from '../../../game/physic/Paddles/NinjaPaddle';
 import { DissolveMaterial } from '../DissolveMaterial';
 import { RetroPowerEffect } from '../../Effects/RetroPowerEffect';
+import { Vector3 } from '../../../types/physic.type';
 
 interface NinjaPaddleAnimationProps {
 	groupRef: MutableRefObject<Group | null>,
-	velocity: Position,
+	velocity: Vector3,
 	collision?: number,
 	location: -1 | 1
 };

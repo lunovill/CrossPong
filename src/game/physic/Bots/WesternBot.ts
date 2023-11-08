@@ -6,10 +6,16 @@ export default class WesternBot extends Bot {
     }
 
     public handlePowerEvent(): void {
-        return;  
+        this.key.power = false;
+        if (this.predict.type === 'limit' && this.ballPosition[0] > 4.95)
+            this.key.power = true;
+        return;
     }
 
     public handleUltiEvent(): void {
-        return;  
+        this.key.ulti = false;
+        if (Math.abs(this.ballVelocity[0] + this.ballVelocity[1]) > 13)
+            this.key.ulti = true;
+        return;
     }
 }

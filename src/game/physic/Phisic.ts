@@ -72,7 +72,7 @@ export default class Physic extends EventEmitter {
 		const balls: { body: Ball, isDestroyed: boolean }[] = [...([] as { body: Ball, isDestroyed: boolean }[]).concat(...this.paddles.map(p => p.skillBalls)), this.ball].filter(b => !b.isDestroyed);
 		if (ulti && balls[0].body.velocity.x === 0 && balls[0].body.velocity.y === 0) return;
 		this.paddles[index]
-			.setUlti(ulti, balls[0].body)
+			.setUlti(ulti, balls.map(b => b.body))
 			.forEach(body => this.world.addBody(body));
 	}
 
@@ -100,7 +100,7 @@ export default class Physic extends EventEmitter {
 				if (balls.length === 1) {
 					this.paddles.forEach(p => {
 						p.setPower(false, []);
-						p.setUlti(false, balls[i].body);
+						p.setUlti(false, balls.map(b => b.body));
 						p.reset();
 					});
 				}
@@ -124,19 +124,27 @@ export default class Physic extends EventEmitter {
 				.concat(...this.paddles.map(p => p.skillBalls)),
 			this.ball
 		].filter(b => !b.isDestroyed)
-			.sort((a, b) => b.body.body.velocity[1] - a.body.body.velocity[1]);
+			.sort((a, b) => b.body.body.position[0] - a.body.body.position[0]);
+		const ball: Ball = ((): Ball => {
+			if (balls.length > 1) {
+				const tmp: { body: Ball, isDestroyed: boolean }[] = balls.filter(b => b.body.body.velocity[0] > 0);
+				if (tmp.length) return tmp[0].body;
+			}
+			return balls[0].body;
+		})();
 
-		this.paddles[1].bot.update(balls[0].body.body.position,
-			balls[0].body.body.velocity,
-			this.paddles[0].body.position,
-			this.paddles[1].body.position,
+		this.paddles[1].bot.update(
+			ball.isVisible ? ball.body.position : undefined,
+			ball.isVisible ? balls[0].body.body.velocity : undefined,
+			(this.paddles[1] instanceof RetroPaddle && this.paddles[1].power.isActive) ? undefined  : this.paddles[0].body.position,
+			(this.paddles[0] instanceof RetroPaddle && this.paddles[0].power.isActive) ? undefined  : this.paddles[1].body.position,
 			[...([] as { body: Body, isDestroyed: boolean }[])
 				.concat(...this.paddles.map(p => p.skillBodies))
 			].filter((b, i) => (i < 2 && !b.isDestroyed))
 				.map(b => b.body.position));
 		this.paddles[1].bot.handleKetEvent();
 		this.paddles[1].bot.handlePowerEvent();
-		this.paddles[1].bot.handleUltiEvent();
+		(this.paddles[1].ulti.isAvailable) && this.paddles[1].bot.handleUltiEvent();
 
 		return this.paddles[1].bot.key;
 	}

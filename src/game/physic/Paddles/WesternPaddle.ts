@@ -4,7 +4,6 @@ import Ball from "../Ball";
 import Paddle from "./Paddle";
 import { COOLDOWN } from "../../game.constants";
 import WesternBot from "../Bots/WesternBot";
-import RetroBot from "../Bots/RetroBot";
 
 export interface WesternSkillInfoProps {
 	power: { isActive: boolean },
@@ -18,7 +17,7 @@ export default class WesternPaddle extends Paddle {
 		super(location);
 
 		this.power.cooldown = COOLDOWN.Western;
-		this.bot = new RetroBot;
+		this.bot = new WesternBot;
 	}
 
 	public applyPower(): void {
@@ -30,7 +29,7 @@ export default class WesternPaddle extends Paddle {
 
 	public handleCollision(isMe: boolean): number {
 		if (isMe) {
-			(this.ulti.isActive) && (this.factor = 1.6);
+			(this.ulti.isActive) && (this.factor = 1.65);
 			this.collision++
 		} else {
 			(this.ulti.isActive) && (this.factor = 0.4);
@@ -52,7 +51,7 @@ export default class WesternPaddle extends Paddle {
 		return [];
 	}
 
-	public setUlti(ulti: boolean, _: Ball): Body[] {
+	public setUlti(ulti: boolean, _: Ball[]): Body[] {
 		if (ulti && this.ulti.isAvailable && !this.ulti.isActive){
 			this.ulti.isActive = true;
 			this.ulti.isAvailable = false;

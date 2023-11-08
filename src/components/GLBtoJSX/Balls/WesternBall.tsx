@@ -2,16 +2,16 @@ import { MutableRefObject, useMemo, useRef } from "react";
 import { GLTFResult, BallProps } from "../../../types/Map";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { Position } from "../../../game/states/Player";
 import { Group, Mesh, MeshStandardMaterial } from "three";
 import { RetorUltiEffect } from "../../Effects/RetroUltiEffect";
 import NinjaPowerEffect from "../../Effects/NinjaPowerEffect";
 import { WesternUltiEffect } from "../../Effects/WesternUltiEffect";
+import { Vector3 } from "../../../types/physic.type";
 
 interface WesternBallAnimationProps {
 	groupRef: MutableRefObject<Group | null>,
 	flowerRef: MutableRefObject<Mesh | null>,
-	velocity: Position,
+	velocity: Vector3,
 	rotation: [number, number, number],
 }
 

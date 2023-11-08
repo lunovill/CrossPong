@@ -76,14 +76,14 @@ export default function UltiAnimation({ index }: { index: number }) {
 	const player: Player = context.players[index];
 
 	useEffect(() => {
-		if (context.mode !== '2PLocal') {
-			setTimeout(() => {
-				('send ulti');
-				send({ type: 'ulti' });
-			}, 1000);
-		}
+		// if (context.mode !== '2PLocal') {
+		// 	setTimeout(() => {
+		// 		('send ulti');
+		// 		send({ type: 'ulti' });
+		// 	}, 1000);
+		// }
 		setTimeout(() => {
-			context.physic?.play();
+			send({ type: 'play' });
 		}, 3000);
 	}, []);
 

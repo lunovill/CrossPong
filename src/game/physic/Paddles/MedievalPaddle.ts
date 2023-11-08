@@ -85,7 +85,7 @@ export default class MedievalPaddle extends Paddle {
 		return [];
 	}
 
-	public setUlti(ulti: boolean, _: Ball): Body[] {
+	public setUlti(ulti: boolean, _: Ball[]): Body[] {
 		if (ulti && this.ulti.isAvailable && !this.ulti.isActive) {
 			this.ulti.isActive = true;
 			this.ulti.isAvailable = false;

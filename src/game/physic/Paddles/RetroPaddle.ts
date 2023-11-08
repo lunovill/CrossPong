@@ -51,10 +51,14 @@ export default class RetroPaddle extends Paddle {
 		return [];
 	}
 
-	public setUlti(ulti: boolean, _: Ball): Body[] {
+	public setUlti(ulti: boolean, balls: Ball[]): Body[] {
 		if (ulti && !this.ulti.isActive) {
 			this.ulti.isActive = true;
 			this.ulti.isAvailable = false;
+			balls.forEach(b => {
+				if (b.visible === 3) { b.visible = (this.location === -1) ? 0 : 1; }
+				else { b.visible = 2; }
+			})
 		} else if (!ulti) {
 			this.ulti.isActive = false;
 			this.effect = false;

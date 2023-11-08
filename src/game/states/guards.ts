@@ -12,6 +12,10 @@ export const canChooseModeGuard: GameGuard<'chooseMode'> = (context, _) => {
     return context.players.length == 2;
 }
 
+export const canUltiGuard: GameGuard<'ulti'> = (context, event) => {
+    return !context.players[event.index].utli;
+}
+
 export const isEndGameGuard: GameGuard<'start'> = (context, _) => {
     return !!context.players.find(p => p.score === context.victory);
 }

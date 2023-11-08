@@ -9,11 +9,11 @@ type Predict = {
 }
 
 export default abstract class Bot {
-	private ballPosition: Vec2 = [0, 0];
-	private ballVelocity: Vec2 = [0, 0];
-	private playerPosition: Vec2 = [0, 0];
-	private botPosition: Vec2 = [0, 0];
-	private stonePositions: Vec2[] = [];
+	protected ballPosition: Vec2 = [0, 0];
+	protected ballVelocity: Vec2 = [0, 0];
+	protected playerPosition: Vec2 = [0, 0];
+	protected botPosition: Vec2 = [0, 0];
+	protected stonePositions: Vec2[] = [];
 
 	protected predict: Predict = { type: 'none', position: [0, 0], velocity: [0, 0] };
 
@@ -137,12 +137,19 @@ export default abstract class Bot {
 		return;
 	}
 
-	public update(ballPosition: Vec2, ballVelocity: Vec2, playerPosition: Vec2, botPosition: Vec2, stonePositions: Vec2[]) {
-		this.ballPosition = ballPosition;
-		this.ballVelocity = ballVelocity;
-		this.playerPosition = playerPosition;
-		this.botPosition = botPosition;
-		this.stonePositions = stonePositions;
+	public update(ballPosition: Vec2 | undefined, ballVelocity: Vec2 | undefined, playerPosition: Vec2 | undefined, botPosition: Vec2 | undefined, stonePositions: Vec2[]) {
+		(ballPosition) && (this.ballPosition = [...ballPosition]);
+		(ballVelocity) && (this.ballVelocity = [...ballVelocity]);
+		(playerPosition) && (this.playerPosition = [...playerPosition]);
+		if (botPosition) {
+			this.botPosition = [...botPosition];
+		} else {
+			if (this.key.leftward)
+				this.botPosition[1] -= Math.random() * 0.25;
+			if (this.key.rightward)
+				this.botPosition[1] += Math.random() * 0.25;
+		}
+		this.stonePositions = [...stonePositions];
 		this.predict = this.predictBallTrajectory();
 	}
 

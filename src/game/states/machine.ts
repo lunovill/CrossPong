@@ -1,6 +1,6 @@
 import { AnimationStates, GameStates, MapTheme, ModeType } from "../../types/machine.type";
 import { createModel } from "xstate/lib/model";
-import { canChangeCurrentGuard, canChooseModeGuard, canJoinGuard, isEndGameGuard } from "./guards";
+import { canChangeCurrentGuard, canChooseModeGuard, canJoinGuard, canUltiGuard, isEndGameGuard } from "./guards";
 import {
 	changeCurrentAction,
 	changeStarsColorAction,
@@ -14,7 +14,9 @@ import {
 	introGameAction,
 	startGameAction,
 	setIsMapVisibleAction,
-	endGameAction
+	endGameAction,
+	playPhysicAction,
+	ultiGameAction
 } from "./actions";
 import { Player } from "./Player";
 import { Group } from "three";
@@ -42,13 +44,14 @@ export const GameModel = createModel({
 		join: (id: Player['id'], name: Player['name']) => ({ id, name }),
 		leave: () => ({}),
 		end: () => ({}),
+		play: () => ({}),
 		restart: () => ({}),
 		score: (index: number) => ({ index }),
 		sendEnd: () => ({}),
 		setIsMapVisible: (visible: boolean) => ({ visible }),
 		setStarsRef: (starsRef: React.MutableRefObject<Group | null>) => ({ starsRef }),
 		start: () => ({}),
-		ulti: () => ({})
+		ulti: (index: number) => ({ index })
 	}
 });
 
@@ -122,6 +125,11 @@ export const GameMachine = GameModel.createMachine({
 				score: {
 					actions: [GameModel.assign(scoreGameAction)],
 					target: GameStates.ANIMATION
+				},
+				ulti: {
+					cond: canUltiGuard,
+					actions: [GameModel.assign(ultiGameAction)],
+					target: GameStates.ANIMATION
 				}
 			}
 		},
@@ -145,13 +153,17 @@ export const GameMachine = GameModel.createMachine({
 					actions: [GameModel.assign(changeCurrentAction)],
 					target: GameStates.ANIMATION
 				},
+				intro: {
+					actions: [GameModel.assign(introGameAction)],
+					target: GameStates.ANIMATION
+				},
 				end: {
 					actions: [GameModel.assign({ animation: AnimationStates.END })],
 					target: GameStates.ANIMATION
 				},
-				intro: {
-					actions: [GameModel.assign(introGameAction)],
-					target: GameStates.ANIMATION
+				play: {
+					actions: [GameModel.assign(playPhysicAction)],
+					target: GameStates.PLAY
 				},
 				leave: {
 					actions: [GameModel.assign(leaveGameAction)],
@@ -168,10 +180,7 @@ export const GameMachine = GameModel.createMachine({
 				}, {
 					actions: [GameModel.assign(startPhysicAction)],
 					target: GameStates.PLAY
-				}],
-				ulti: {
-					target: GameStates.ANIMATION
-				}
+				}]
 			}
 		}
 

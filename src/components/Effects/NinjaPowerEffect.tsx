@@ -1,10 +1,10 @@
 import { useEffect, ReactElement, useState } from 'react';
-import { Position } from '../../game/states/Player';
 import WindShader from '../GLBtoJSX/Shaders/WindShader';
 import { hexToRgb } from '../GLBtoJSX/Shaders/FlamShader';
+import { Vector3 } from '../../types/physic.type';
 
 interface PowerEffectProps {
-	position: Position;
+	position: Vector3;
 }
 
 export default function NinjaPowerEffect({ position }: PowerEffectProps): ReactElement {

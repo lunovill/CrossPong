@@ -2,7 +2,7 @@ import { useGLTF } from '@react-three/drei'
 import { MutableRefObject, ReactElement, useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { GLTFResult, PaddleProps } from '../../../types/Map';
-import { Position } from '../../../game/states/Player';
+import { Vector3 } from '../../../types/physic.type';
 import { Group, Mesh, MeshStandardMaterial } from 'three';
 import { WesternSkillInfoProps } from '../../../game/physic/Paddles/WesternPaddle';
 import { AnimationSkillWestern } from '../Skills/MedivalSkills';
@@ -15,7 +15,7 @@ interface MedievalPaddleAnimationProps {
 	rouageRef: MutableRefObject<Mesh | null>,
 	leverageRef: MutableRefObject<Mesh | null>,
 	tigeRef: MutableRefObject<Mesh | null>,
-	velocity: Position,
+	velocity: Vector3,
 	location: -1 | 1
 }
 

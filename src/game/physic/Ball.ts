@@ -7,6 +7,8 @@ export default class Ball {
 	public impulse: [number, number];
 	public score: number;
 	public collision: number;
+	public visible: 0 | 1 | 2 | 3;
+	public isVisible: boolean;
 
 	constructor() {
 		const shape: Circle = new Circle({ radius: BALL_RADIUS });
@@ -18,6 +20,8 @@ export default class Ball {
 		this.impulse = [0, 0];
 		this.score = 0;
 		this.collision = 0;
+		this.visible = 3;
+		this.isVisible = true;
 	}
 
 	public copy(ball: Ball): void {
@@ -25,6 +29,24 @@ export default class Ball {
 		this.score = ball.score;
 		this.body.position = [...ball.body.position];
 		this.body.velocity = [...ball.body.velocity];
+	}
+
+	public isCollided() {
+		this.collision++;
+		this.isVisible = true;
+		if (this.visible === 0 && this.body.velocity[0] > 0) {
+			setTimeout(() => {
+				this.isVisible = false;
+			}, 50);
+		} else if (this.visible === 1 && this.body.velocity[0] < 0) {
+			setTimeout(() => {
+				this.isVisible = false;
+			}, 50);
+		} else if (this.visible === 2) {
+			setTimeout(() => {
+				this.isVisible = false;
+			}, 50);
+		}
 	}
 
 	public start(): number {
@@ -49,6 +71,8 @@ export default class Ball {
 		this.body.position = [0, 0];
 		this.body.velocity = [0, 0];
 		this.impulse = [0, 0];
+		this.visible = 3;
+		this.isVisible = true;
 		return;
 	}
 
