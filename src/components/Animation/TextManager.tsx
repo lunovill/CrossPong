@@ -8,6 +8,7 @@ export const TextManagerIntro = () => {
 	const [startTime, setStartTime] = useState<number | null>(null);
 	const [opacity, setOpacity] = useState(1);
 	const { context } = useGame();
+	const rotation = context.mode === '2PLocal' ? 0 : Math.PI / 2;
 	const themePlayer = context.players[0].mapInfo.id;
 	const themeOpponent = context.players[1].mapInfo.id;
 

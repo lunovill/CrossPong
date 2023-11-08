@@ -20,8 +20,8 @@ interface MedievalPaddleAnimationProps {
 function MedievalPaddleAnimation({ rightWheelRef, leftWheelRef, rightChainRef, leftChainRef, ramRef, velocity, location }: MedievalPaddleAnimationProps): ReactElement {
 	useFrame(() => {
 		if (rightWheelRef.current && leftWheelRef.current && rightChainRef.current && leftChainRef.current && ramRef.current) {
-			rightWheelRef.current.rotation.y += velocity.y / 4 * location;
-			leftWheelRef.current.rotation.y += velocity.y / 4 * location;
+			rightWheelRef.current.rotation.y += velocity.y / 4 * -location;
+			leftWheelRef.current.rotation.y += velocity.y / 4 * -location;
 			rightChainRef.current.rotation.y += (velocity.y / 6 - rightChainRef.current.rotation.y) * 0.1;
 			leftChainRef.current.rotation.y += (velocity.y / 6 - leftChainRef.current.rotation.y) * 0.1;
 			ramRef.current.position.y += (Math.abs(velocity.y) / 6 + 4.321 - ramRef.current.position.y) * 0.1;

@@ -21,7 +21,7 @@ export function RotatingMesh({ children }: rotatingMenuProps) {
     const [rotationSpeed, setRotationSpeed] = useState(0);
     const targetRotations = [1.245, 2.837, 4.39, 5.95];
     const { meshRefs } = useMeshState();
-    const tabRef = [meshRefs.Play, meshRefs.AboutUS, meshRefs.ChatBox, meshRefs.Profile]
+    const tabRef = [meshRefs.Play, meshRefs.AboutUS, meshRefs.Github, meshRefs.Profile]
     const { setActualRef } = useActualRefMenu();
     const [toRotate, setToRotate] = useState<number | null>(null);
 

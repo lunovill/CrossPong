@@ -101,7 +101,7 @@ interface TextProps {
 export const SimpleText = ({ opacity, text, position, rotation }: TextProps) => {
 	return (
 		<Text
-			color="#dfd6d6"
+			color="#cf8c35"
 			fontSize={0.8}
 			fillOpacity={opacity}
 			maxWidth={20}
@@ -116,20 +116,3 @@ export const SimpleText = ({ opacity, text, position, rotation }: TextProps) => 
 	)
 }
 
-export const TextFight = () => {
-	return (
-		<Text
-			color="#dfd6d6"
-			fontSize={0.8}
-
-			maxWidth={20}
-			lineHeight={1.2}
-			textAlign="center"
-			position={[0, -17, 3]}
-			rotation={[Math.PI / 2, 0, 0]}
-			font='./fonts/inknutantiqua-bold-webfont.woff'
-		>
-			FIGHT !
-		</Text>
-	)
-}

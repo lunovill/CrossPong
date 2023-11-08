@@ -22,7 +22,7 @@ type MeshRefsType = {
 	group_menu: React.RefObject<Group>;
 	AboutUS: React.RefObject<Mesh>;
 	Profile: React.RefObject<Mesh>;
-	ChatBox: React.RefObject<Mesh>;
+	Github: React.RefObject<Mesh>;
 	Play: React.RefObject<Mesh>;
 	Position: number
 	// ajoutez d'autres refs ici
@@ -42,14 +42,14 @@ export const MeshProvider = ({ children }: MeshProviderProps) => {
 	const group_menuRef = useRef<Group>(null);
 	const aboutUsRef = useRef<Mesh>(null);
 	const profileRef = useRef<Mesh>(null);
-	const chatBoxRef = useRef<Mesh>(null);
+	const githubRef = useRef<Mesh>(null);
 	const playRef = useRef<Mesh>(null);
 
 	const [meshRefs, setMeshRefs] = useState<MeshRefsType>({
 		group_menu: group_menuRef,
 		AboutUS: aboutUsRef,
 		Profile: profileRef,
-		ChatBox: chatBoxRef,
+		Github: githubRef,
 		Play: playRef,
 		Position: 0
 	});
@@ -86,31 +86,7 @@ export function useActualRefMenu() {
 	return context;
 }
 
-// UserInfos
 
-type UserInfoContextType = {
-	userInfo: UserInfoType | null;
-	setUserInfo: React.Dispatch<React.SetStateAction<UserInfoType | null>>;
-	isConnected: boolean;
-	setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
-	needToReload: boolean;
-	setNeedToReload: React.Dispatch<React.SetStateAction<boolean>>;
-	needToAuthentified: boolean | undefined;
-	setNeedToAuthentified: React.Dispatch<React.SetStateAction<boolean | undefined>>;
-	is2FAActive: boolean | undefined;
-	setIs2FAActive: React.Dispatch<React.SetStateAction<boolean | undefined>>;
-};
-
-
-export const UserInfosContext = createContext<UserInfoContextType | undefined>(undefined);
-
-export function useUserInfos() {
-	const context = useContext(UserInfosContext);
-	if (!context) {
-		throw new Error('useUserInfos must be used within a UserInfosProvider');
-	}
-	return context;
-}
 
 //ActualRotationMenu
 
@@ -132,20 +108,17 @@ export const useRotationValue = () => {
 	return context;
 };
 
-
-
-
-interface ReadyContextType {
-	setReady: React.Dispatch<React.SetStateAction<boolean>>;
-	ready: boolean;
+interface inGameContextType {
+	setInGame: React.Dispatch<React.SetStateAction<boolean>>;
+	inGame: boolean;
 }
 
-export const ReadyContext = createContext<ReadyContextType | null>(null);
+export const inGameContext = createContext<inGameContextType | null>(null);
 
-export function useReadyState() {
-	const context = useContext(ReadyContext);
+export function useInGameState() {
+	const context = useContext(inGameContext);
 	if (!context) {
-		throw new Error('useReadyState must be used within a ReadyProvider');
+		throw new Error('useinGameState must be used within a inGameProvider');
 	}
 	return context;
 }

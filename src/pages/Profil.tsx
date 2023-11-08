@@ -4,6 +4,8 @@ import UpdateInfo from '../components/Profil/ChangeInfo';
 import { WrittingContainer } from '../components/Profil/ProfileStyle';
 import { Link } from 'react-router-dom';
 import { initializeSessionStorage } from '../components/Profil/CheckInfoSessionStorage';
+import { Score, getScoresFromSessionStorage } from '../components/MatchHistory';
+
 
 const ContainerBlock = styled.div`
 	width: 310px;
@@ -83,6 +85,7 @@ const ScoreContainer = styled.div`
 const LineScoreContainer = styled.div`
 	width: 95%;
 	height: auto;
+	transform: translate(0%, -70%);
 	display: flex;
 	flex-direction: row;
 	position: relative;
@@ -136,6 +139,7 @@ export const WrittingContainer2 = styled.div<WrittingContainerProps>`
 	left: ${props => props.$left || '0px'};
 	font-family: 'InknutAntiqua', sans-serif;
 	font-weight: 700;
+	line-height: 1.5;
 	color: ${props => props.$isUser ? '#d3b769' : '#000000'};
 	
 	font-size: 11px;
@@ -154,6 +158,7 @@ const StyledImage = styled.img`
 
 const Container = styled.div`
   padding-top: 50px;
+  transform: translate(0%, 33.3%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -164,10 +169,13 @@ export default function Profil() {
 
 	const [pseudo, setPseudo] = useState<string>("");
 	const [profilePicture, setProfilePicture] = useState<string>("");
+	const [matches, setMatches] = useState<Score[]>([]);
 
 	useEffect(() => {
-		const pseudo = localStorage.getItem("pseudo");
-		const profilePicture = localStorage.getItem("profilePicture");
+		const pseudo = sessionStorage.getItem("pseudo");
+		const profilePicture = sessionStorage.getItem("profilePicture");
+		const matches = sessionStorage.getItem('scores');
+
 		if (pseudo && profilePicture) {
 			setPseudo(pseudo);
 			setProfilePicture(profilePicture);
@@ -177,51 +185,59 @@ export default function Profil() {
 			setPseudo(sessionStorage.getItem("pseudo") || "Tommy");
 			setProfilePicture(sessionStorage.getItem("profilePic") || "/images/profilPicture/ninja4.png");
 		}
+		if (matches) {
+			setMatches(getScoresFromSessionStorage());
+		}
 	}, []);
 
 
-		return (
-			<>
-				<TitleContainer>
-					<Link to="/">
-						<Title src="/images/CrossPongLogo.webp" alt="Cross Pong Logo" />
-					</Link>
-				</TitleContainer>
-				<Container>
-					<OutlineBlock>
-						<ProfilTitle>
-							PROFILE
-							<span></span>
-						</ProfilTitle>
+	return (
+		<>
+			<TitleContainer>
+				<Link to="/">
+					<Title src="/images/CrossPongLogo.webp" alt="Cross Pong Logo" />
+				</Link>
+			</TitleContainer>
+			<Container>
+				<OutlineBlock>
+					<ProfilTitle>
+						PROFILE
+						<span></span>
+					</ProfilTitle>
 
-						<>
-							<StyledImage src={profilePicture} alt="Profile picture" />
-							<WrittingContainer $margin='2px'>{pseudo} </WrittingContainer>
-							{/* {matches &&
-								<>
-									<WrittingContainer $color='#000000' $weight='700' $size='15px' $margin='38px'>Last 10 matches</WrittingContainer>
-									<ScoreContainer> */}
+					<>
+						<StyledImage src={profilePicture} alt="Profile picture" />
+						<WrittingContainer $margin='2px'>{pseudo} </WrittingContainer>
+						{matches &&
+							<>
+								<WrittingContainer $color='#000000' $weight='700' $size='15px' $margin='38px'>Last 10 matches</WrittingContainer>
 
-							{/* {matches.map((match, index) => {
+								<ScoreContainer>
+									{matches.length !== 0 ?
+										matches.map((match, index) => {
 											return (
 												<LineScoreContainer key={"LineScoreContainer" + index}>
-													<WrittingContainer2 key={index} $textAlign={"left"} $isUser={userInfo.pseudo === match.playerA}>{match.playerA}</WrittingContainer2>
-													<WrittingContainer2 $width={'300px'} $textAlign={"left"} key={index + 42}>{match.scoreA} - {match.scoreB}</WrittingContainer2>
-													<WrittingContainer2 key={index + 84} $textAlign={"right"} $isUser={userInfo.pseudo === match.playerB}>{match.playerB}</WrittingContainer2>
+													<WrittingContainer2 key={index} $textAlign={"left"} $isUser={true}>{pseudo}</WrittingContainer2>
+													<WrittingContainer2 $width={'350px'} $textAlign={"left"} key={index + 42}>{match.scorePlayer1} - {match.scorePlayer2}</WrittingContainer2>
+													<WrittingContainer2 key={index + 84} $textAlign={"right"} $isUser={false}>{match.player2}</WrittingContainer2>
 												</LineScoreContainer>
 											);
-										})} */}
-							{/* </ScoreContainer>
-								</>
-							} */}
-							<WrittingContainer $color='#000000' $weight='700' $size='15px'>
-							</WrittingContainer>
-							<UpdateInfo name={pseudo}/>
-						</>
+										}) :
+										<LineScoreContainer>
+											<WrittingContainer2 $textAlign={"center"} $isUser={true}>No match yet</WrittingContainer2>
+										</LineScoreContainer>
+									}
+								</ScoreContainer>
+							</>
+						}
+						<WrittingContainer $color='#000000' $weight='700' $size='15px'>
+						</WrittingContainer>
+						<UpdateInfo name={pseudo} setProfilePic={setProfilePicture} setPseudo={setPseudo} />
+					</>
 
-					</OutlineBlock>
-					<ContainerBlock />
-				</Container>
-			</>
-		);
-	}
+				</OutlineBlock>
+				<ContainerBlock />
+			</Container>
+		</>
+	);
+}

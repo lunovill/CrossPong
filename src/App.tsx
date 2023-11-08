@@ -8,17 +8,20 @@ import Game from './pages/Game';
 import { GlobalStyle } from './styles/HomeStyles';
 import AnimatedPage from './components/AnimatedPage';
 import { useGLTF } from '@react-three/drei';
-import { LoadingContext } from './components/ContextBoard';
+import { LoadingContext, inGameContext } from './components/ContextBoard';
 import HomeLoading from './pages/loadingPages/HomeLoading';
 import { useEffect } from 'react';
 import CheckInfoSessionStorage from './components/Profil/CheckInfoSessionStorage';
+import About from './pages/About';
 
-const ChargingTime = 0;
+const ChargingTime = 3000;
 const intervalTime = 10;
 
 function App() {
 	const location = useLocation();
-	const [isLoading, setIsLoading] = useState(true);
+	const [inGame, setInGame] = useState<boolean>(false);
+	const storedProfilePic = sessionStorage.getItem('profilePic');
+	const [isLoading, setIsLoading] = useState((storedProfilePic === null));
 	const [elapsedTime, setElapsedTime] = useState(0);
 
 	useEffect(() => {
@@ -34,18 +37,14 @@ function App() {
 
 		return () => {
 			clearInterval(interval);
-			// console.log('Component will unmount');
 		}
 	}, []);
-
-
 
 
 	if (isLoading) {
 		return (
 			<LoadingContext.Provider value={elapsedTime.toFixed()}>
-				<HomeLoading>
-				</HomeLoading>
+				<HomeLoading />
 			</LoadingContext.Provider>
 		)
 	}
@@ -53,21 +52,28 @@ function App() {
 	return (
 		<>
 			<GlobalStyle />
-			<BackgroundMusic />
-			<CheckInfoSessionStorage />
-			<Routes location={location} key={location.pathname}>
-				<Route index element={
-					<Home />
-				} />
-				<Route path="/game" element={
-					<Game />
-				} />
-				<Route path="/profile" element={
-					<AnimatedPage endColor="#71ca71">
-						<Profil />
-					</AnimatedPage>
-				} />
-			</Routes>
+			<inGameContext.Provider value={{ inGame, setInGame }}>
+				<BackgroundMusic />
+				<CheckInfoSessionStorage />
+				<Routes location={location} key={location.pathname}>
+					<Route index element={
+						<Home />
+					} />
+					<Route path="/game" element={
+						<Game />
+					} />
+					<Route path="/profile" element={
+						<AnimatedPage endColor="#71ca71">
+							<Profil />
+						</AnimatedPage>
+					} />
+					<Route path="/about" element={
+						<AnimatedPage endColor="#ca719a">
+							<About />
+						</AnimatedPage>
+					} />
+				</Routes>
+			</inGameContext.Provider>
 		</>
 	)
 }

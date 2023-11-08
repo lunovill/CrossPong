@@ -85,9 +85,10 @@ const StyledInput = styled.input`
 
 interface UpdateInfoProps {
 	name: string | null;
-
+	setPseudo: (pseudo: string) => void;
+	setProfilePic: (profilePic: string) => void;
 }
-const UpdateInfo: FC<UpdateInfoProps> = ({ name }) => {
+const UpdateInfo: FC<UpdateInfoProps> = ({ name, setProfilePic, setPseudo }) => {
 	const [showDialog, setShowDialog] = useState(false);
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
 	const [newPseudo, setNewPseudo] = useState<string>("");
@@ -110,7 +111,7 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name }) => {
 	const handleSubmitPseudo =() => {
 		sessionStorage.setItem('pseudo', newPseudo);	
 		setNewPseudo("");
-
+		setPseudo(newPseudo);
 	};
 
 	{/* handler */ }
@@ -129,7 +130,11 @@ const UpdateInfo: FC<UpdateInfoProps> = ({ name }) => {
 	const handleImageClick = () => {
 		console.log(selectedImage);
 		if (selectedImage)
+		{
 			sessionStorage.setItem('profilePic', selectedImage);
+			setSelectedImage(null);
+			setProfilePic(selectedImage);
+		}
 	};
 
 	const closeDialog = () => {

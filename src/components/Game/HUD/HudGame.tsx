@@ -6,6 +6,7 @@ import IconMap from './IconMap';
 import SkillIcon from './Skill';
 import UltimIcon from './Ultim';
 import { PixelCorners3x3 } from '../../../styles/HomeStyles';
+import { useInGameState } from '../../../components/ContextBoard';
 
 interface TopHudContainerProps {
 	$pos: 'left' | 'right';
@@ -14,13 +15,30 @@ interface TopHudContainerProps {
 const ProfilPictureContainer = styled(PixelCorners3x3) <TopHudContainerProps>`
 	z-index: 43;
 	position: absolute;
-	width: 64px;
-	height: 64px;
-	top: 172px;
-	background-color: #efead9;
-	padding: 3px;
-	left: ${(props) => (props.$pos === 'right' ? 'auto' : '185px')};
-	right: ${(props) => (props.$pos === 'right' ? '185px' : 'auto')};
+	width: 72px;
+	height: 72px;
+	top: 20px;
+	box-shadow: 10px 10px 10px #000000;
+	left: ${(props) => (props.$pos === 'right' ? 'auto' : '4.5%')};
+	right: ${(props) => (props.$pos === 'right' ? '4.5%' : 'auto')};
+	@media (max-width: 768px) {
+		top: 10px;
+		width: 48px;
+		height: 48px;
+		left: ${(props) => (props.$pos === 'right' ? 'auto' : '20px')};
+		right: ${(props) => (props.$pos === 'right' ? '20px' : 'auto')};
+	}
+`
+const ProfilPictureContainerBg = styled(PixelCorners3x3) <TopHudContainerProps>`
+	z-index: 40;
+	position: absolute;
+	width: 72px;
+	height: 72px;
+	background-color: #2c2323b9;
+	top: 20px;
+	left: ${(props) => (props.$pos === 'right' ? 'auto' : '4.5%')};
+	right: ${(props) => (props.$pos === 'right' ? '4.5%' : 'auto')};
+	transform: ${(props) => (props.$pos === 'right' ? 'translate(5%,5%)' : 'translate(-5%,5%)')};
 	@media (max-width: 768px) {
 		top: 10px;
 		width: 48px;
@@ -36,34 +54,26 @@ const ProfilPicture = styled.img`
 	
 `
 
-const PseudoContainer = styled.div<TopHudContainerProps>`
+const PseudoContainer = styled(PixelCorners3x3) <TopHudContainerProps>`
 	z-index: 42;
 	position: absolute;
-	background-color: #efead9;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
-	line-height: 1.2;
-	text-align: center;
-	width: 105px;
-	top: 172px;
-	font-size: 0.7rem;
-	color: #110c05;
+	top: 40px;
+	font-size: 1.2rem;
+	color: #5e364e;
+	background-color: #f5efdd;
+	padding-right: ${(props) => (props.$pos === 'right' ? '20px' : '8px')};
+	padding-left: ${(props) => (props.$pos === 'right' ? '8px' : '20px')};
+	padding-top: 2px;
+	line-height: 1.6;
+	text-shadow: 2px 2px 0px #ddb23c;
 	font-family: 'inknutAntiqua', serif;
-	left: ${(props) => (props.$pos === 'right' ? 'auto' : '245px')};
-	right: ${(props) => (props.$pos === 'right' ? '245px' : 'auto')};
-	@media (max-width: 1080px) {
-		top: 10px;
-		font-size: 1rem;
-		left: ${(props) => (props.$pos === 'right' ? 'auto' : '150px')};
-		right: ${(props) => (props.$pos === 'right' ? '150px' : 'auto')};
-	}
+	left: ${(props) => (props.$pos === 'right' ? 'auto' : 'calc(4.5% + 60px)')};
+	right: ${(props) => (props.$pos === 'right' ? 'calc(4.5% + 60px)' : 'auto')};
 	@media (max-width: 768px) {
-		top: 10px;
+		top: 20px;
 		font-size: 1rem;
-		left: ${(props) => (props.$pos === 'right' ? 'auto' : '75px')};
-		right: ${(props) => (props.$pos === 'right' ? '75px' : 'auto')};
+		left: ${(props) => (props.$pos === 'right' ? 'auto' : '60px')};
+		right: ${(props) => (props.$pos === 'right' ? '60px' : 'auto')};
 	}
 `
 
@@ -135,6 +145,10 @@ const UltiContainer = styled.div<BottomHudContainerProps>`
 
 function HudGame(): ReactElement {
 	const { context } = useGame();
+	const { setInGame } = useInGameState();
+
+	const [pseudo, setPseudo] = useState('Player 1');
+	const [profilPicture, setProfilPicture] = useState('images/profilPicture/church4.png');
 	const [cooldownSkill, setCooldownSkill] = useState(0);
 	const [maxCooldownSkill, setMaxCooldownSkill] = useState(0);
 	const [isUltiAvailable, setIsUltiAvailable] = useState(true);
@@ -142,6 +156,19 @@ function HudGame(): ReactElement {
 	const [cooldownSkill2, setCooldownSkill2] = useState(0);
 	const [maxCooldownSkill2, setMaxCooldownSkill2] = useState(0);
 	const [isUltiAvailable2, setIsUltiAvailable2] = useState(true);
+
+	useEffect(() => {
+		setInGame(true);
+		const Pseudo = sessionStorage.getItem('pseudo');
+		const ProfilPicture = sessionStorage.getItem('profilePic');
+		if (Pseudo)
+			setPseudo(Pseudo);
+		if (ProfilPicture)
+			setProfilPicture(ProfilPicture);
+		return () => {
+			setInGame(false);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (context.physic!.paddlesInfo[0].skill.ulti.isAvailable === false)
@@ -172,15 +199,16 @@ function HudGame(): ReactElement {
 		if (context.mode === '2PLocal')
 			setCooldownSkill2(context.physic!.paddlesInfo[1].time);
 	}, [context.physic!.paddlesInfo[1].time]);
-	//#efead9
+
 	return (
 		<>
 			<>
 				<PseudoContainer $pos={'left'}>
-					{"Pandamanxv3xv3" /* mettre le pseudo du joueur 1 */}
+					{pseudo}
 				</PseudoContainer>
+				<ProfilPictureContainerBg $pos={'left'} />
 				<ProfilPictureContainer $pos={'left'}>
-					<ProfilPicture src={"images/profilPicture/church4.png" /* mettre la photo du joueur 1 */} alt="Panda" />
+					<ProfilPicture src={profilPicture} alt="ProfilIconPlayer1" />
 				</ProfilPictureContainer>
 				<PseudoContainer $pos={'right'}>
 					{
@@ -189,11 +217,13 @@ function HudGame(): ReactElement {
 							: context.players[1].mapInfo.nameIa
 					}
 				</PseudoContainer>
+				<ProfilPictureContainerBg $pos={'right'} />
+
 				<ProfilPictureContainer $pos={'right'}>
 					{
 						context.mode === '2PLocal' ?
-							<ProfilPicture src="images/profilPicture/church3.png" alt="Panda" /> :
-							<ProfilPicture src={context.players[1].mapInfo.pictureIa} alt="Panda" />
+							<ProfilPicture src="images/profilPicture/church3.png" alt="ProfilIconPlayer2" /> :
+							<ProfilPicture src={context.players[1].mapInfo.pictureIa} alt="ProfilIconAI" />
 					}
 				</ProfilPictureContainer>
 

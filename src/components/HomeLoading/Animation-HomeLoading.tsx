@@ -6,6 +6,7 @@ import PaddleLoadingAnimation from './Paddle-Animation';
 import DownVerticalLineAnimation from './Grid-DownVerticalLineAnimation';
 import LogoAnimation from './Logo-Animation';
 import PaddleLightAnimation from './Paddle-LightAnimation';
+import LoadingBarAnimation from './Percentage-Animation';
 
 const Container = styled.div`
   width: 300px;
@@ -24,6 +25,7 @@ const LineDrawingComponent = () => {
       <BallLoadingAnimation />
       <PaddleLightAnimation />
       <PaddleLoadingAnimation />
+	  <LoadingBarAnimation />
     </Container>
   );
 }

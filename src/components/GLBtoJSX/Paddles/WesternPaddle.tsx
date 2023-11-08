@@ -23,8 +23,8 @@ function WesternPaddleAnimation({ rightWheelRef, leftWheelRef, rouageRef, levera
 	useFrame(() => {
 		if (velocity.y) {
 			if (rightWheelRef.current && leftWheelRef.current && rouageRef.current && leverageRef.current && tigeRef.current) {
-				rightWheelRef.current.rotation.y += velocity.y / 4 * location;
-				leftWheelRef.current.rotation.y += velocity.y / 4 * location;
+				rightWheelRef.current.rotation.y += velocity.y / 4 * -location;
+				leftWheelRef.current.rotation.y += velocity.y / 4 * -location;
 				rouageRef.current.rotation.y = velocity.y * 0.1 + 0.25;
 				leverageRef.current.rotation.y += (velocity.y * 0.1 + 0.25 - leverageRef.current.rotation.y) * 0.1;
 				tigeRef.current.position.y = -velocity.y / 2 + 2;

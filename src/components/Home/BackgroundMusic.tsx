@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { useInGameState } from '../ContextBoard';
 
-const ContainerSoundIcon = styled.div`
+interface ContainerSoundIconProps {
+	  $isPlaying: boolean;
+}
+const ContainerSoundIcon = styled.div<ContainerSoundIconProps>`
   position: absolute;
-  top: 15px;
-  right: 25px;
+  top: 10px;
+  right: 10px;
   z-index: 10;
   border: none;
   border-radius: 5px;
@@ -12,6 +16,18 @@ const ContainerSoundIcon = styled.div`
   height: 36px;
   cursor: pointer;
   user-select: none;
+
+  @media (max-width: 1080px) {
+	top: 5px;
+    right: 5px;
+  }
+
+  @media (max-width: 968px) {
+	right: auto;
+	left: 15px;
+	top: auto;
+	bottom: 15px;
+  }
 `;
 
 const IconSoundOn = styled.img`
@@ -26,31 +42,42 @@ const IconSoundOff = styled.img`
 `;
 
 const MusicPlayer: React.FC = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = React.createRef<HTMLAudioElement>();
-
-  useEffect(() => {
-    if (audioRef.current) {
-      isPlaying ? audioRef.current.play() : audioRef.current.pause();
-    }
-  }, [isPlaying]);
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
+	const [isPlaying, setIsPlaying] = useState(false);
+	const { inGame } = useInGameState();
+	const [currentMusic, setCurrentMusic] = useState<string>("/sound/IntroMusic.mp3");
+	const audioRef = useRef<HTMLAudioElement>(null);
+  
+	useEffect(() => {
+	  console.log(inGame);
+	  setCurrentMusic(inGame ? "/sound/BattleMusic.mp3" : "/sound/IntroMusic.mp3");
+	}, [inGame]);
+  
+	useEffect(() => {
+	  if (audioRef.current) {
+		audioRef.current.load();
+		if (isPlaying) {
+		  audioRef.current.play();
+		} else {
+		  audioRef.current.pause();
+		}
+	  }
+	}, [currentMusic, isPlaying]);
+  
+	const togglePlay = () => {
+	  setIsPlaying(!isPlaying);
+	};
+  
+	return (
+	  <>
+		<audio ref={audioRef} loop>
+		  <source src={currentMusic} type="audio/mpeg" />
+		  Your browser does not support the audio element.
+		</audio>
+		<ContainerSoundIcon onClick={togglePlay} $isPlaying={!inGame}>
+		  {isPlaying ? <IconSoundOff src="/UI/soundOff.png" /> : <IconSoundOn src="/UI/soundOn.png" />}
+		</ContainerSoundIcon>
+	  </>
+	);
   };
-
-  return (
-    <>
-      <audio ref={audioRef} loop>
-        <source src="/sound/IntroMusic.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-      <ContainerSoundIcon onClick={togglePlay}>
-        {isPlaying ? <IconSoundOff src="/UI/soundOff.png" /> :
-		<IconSoundOn src="/UI/soundOn.png" />}
-      </ContainerSoundIcon>
-    </>
-  );
-};
-
-export default MusicPlayer;
+  
+  export default MusicPlayer;

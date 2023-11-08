@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useLoadingState } from '../ContextBoard';
 
 const Container = styled.div`
   position: absolute;
@@ -9,9 +10,9 @@ const Container = styled.div`
 `
 
 const LoadingBarAnimation = () => {
-  const loading = 0;
+	const LoadingContext = useLoadingState();
   return (
-    <Container>{String(loading)}%</Container>
+    <Container>{String(LoadingContext)}%</Container>
   )
 }
 
