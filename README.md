@@ -45,7 +45,6 @@ Dive into the CrossPong experience online at [https://cross-pong.vercel.app/](ht
 - [GSAP](https://greensock.com/gsap/)
 - [P2.js](https://schteppe.github.io/p2.js/)
 - [XState](https://xstate.js.org/)
-- A special thank you to Vincent for his exceptional contribution to the 3D models.
 - 42 Paris
 
 ## Team
