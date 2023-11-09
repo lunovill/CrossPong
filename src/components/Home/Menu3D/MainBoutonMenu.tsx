@@ -12,7 +12,7 @@ const MainBoutonMenu = (props: Props) => {
 	const { AboutUS, Github, Play, Profile } = meshRefs;
 	const tabRef = [Play, AboutUS, Github, Profile];
 	const { actualRef } = useActualRefMenu();
-	const tabRedirection = ['/game', '/about', 'https://github.com/pandamanxv3/Transcendance', '/profile'];
+	const tabRedirection = ['/game', '/about', 'https://github.com/lunovill/CrossPong', '/profile'];
 
 	const handlePointerOver = () => {
 		props.setCursor('pointer');
