@@ -4,7 +4,7 @@ import { Group, Mesh } from "three";
 
 // LoadingContext
 
-export const LoadingContext = createContext<String | undefined>(undefined);
+export const LoadingContext = createContext<String | undefined | null>(undefined);
 
 export function useLoadingState() {
 	const context = useContext(LoadingContext);

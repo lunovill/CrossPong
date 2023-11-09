@@ -1,18 +1,20 @@
 import './styles/App.css';
+import { useState, useEffect } from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import BackgroundMusic from './components/Home/BackgroundMusic';
-import { useState } from 'react';
-import Home from './pages/Home';
-import Profil from './pages/Profil';
-import Game from './pages/Game';
 import { GlobalStyle } from './styles/HomeStyles';
 import AnimatedPage from './components/AnimatedPage';
 import { useGLTF } from '@react-three/drei';
 import { LoadingContext, inGameContext } from './components/ContextBoard';
 import HomeLoading from './pages/loadingPages/HomeLoading';
-import { useEffect } from 'react';
 import CheckInfoSessionStorage from './components/Profil/CheckInfoSessionStorage';
+import Home from './pages/Home';
+import Game from './pages/Game';
+import Profil from './pages/Profil';
 import About from './pages/About';
+
+
+
 
 const ChargingTime = 3000;
 const intervalTime = 10;
@@ -21,9 +23,9 @@ function App() {
 	const location = useLocation();
 	const [inGame, setInGame] = useState<boolean>(false);
 	const [isPlaying, setIsPlaying] = useState<boolean>(false);
+	const [elapsedTime, setElapsedTime] = useState(0);
 	const storedProfilePic = sessionStorage.getItem('profilePic');
 	const [isLoading, setIsLoading] = useState((storedProfilePic === null));
-	const [elapsedTime, setElapsedTime] = useState(0);
 
 	useEffect(() => {
 		const startTime = Date.now();
@@ -84,7 +86,7 @@ export default App
 
 useGLTF.preload('./assets/low_poly_rock-transformed.glb');
 useGLTF.preload('./assets/42.gltf');
-useGLTF.preload("./assets/font_menu.glb");
+useGLTF.preload("./assets/Menu3D.glb");
 useGLTF.preload("./assets/balls&paddles/Balls&Paddles.glb");
 useGLTF.preload("./assets/balls&paddles/retroBall.glb");
 useGLTF.preload("./assets/maps/MedievalMap.glb");

@@ -121,7 +121,7 @@ const Title = styled.img`
 	color: #b36b89;
 
 @media (min-width: 1920px) {
-  width: 200px;
+  width: 120px;
 }
 `
 
@@ -156,9 +156,18 @@ const StyledImage = styled.img`
 	margin-bottom: 5px;
 `;
 
+const PageContainer = styled.div`
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	grid-template-rows: 1fr auto 1fr;
+	height: 100vh;
+	width: 100vw;
+`;
+
 const Container = styled.div`
   padding-top: 50px;
-  transform: translate(0%, 33.3%);
+	  grid-column: 2;
+	    grid-row: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -198,6 +207,8 @@ export default function Profil() {
 					<Title src="/images/CrossPongLogo.webp" alt="Cross Pong Logo" />
 				</Link>
 			</TitleContainer>
+			<PageContainer>
+
 			<Container>
 				<OutlineBlock>
 					<ProfilTitle>
@@ -238,6 +249,7 @@ export default function Profil() {
 				</OutlineBlock>
 				<ContainerBlock />
 			</Container>
+			</PageContainer>
 		</>
 	);
 }

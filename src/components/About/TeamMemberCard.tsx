@@ -1,16 +1,26 @@
+import { memberInfo } from "../../data/models/TeamMember";
 import { Fragment } from "react";
-import { memberInfo } from "../../data/models/TeamMember"
+import { Link } from "react-router-dom";
 import styled from "styled-components"
 
 type ContainerProps = {
     $key: number;
 }
+
+const Icon = styled.img`
+	width: 24px;
+	height: 24px;
+	border-radius: 10px;
+	margin: 0.2rem;
+	margin-top: -10px;
+`
+
 const Container = styled.div<ContainerProps>`
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    outline: ${props => props.$key % 2 === 1 ? "2px dashed black" : "2px solid black"};
-    border-radius: 5px;
+    outline: ${props => props.$key % 2 === 1 ? "2px dashed #f3d08bd5" : "2px solid #000000"};    
+	border-radius: 5px;
     margin: 1rem;
 `
 const Avatar = styled.img`
@@ -20,10 +30,12 @@ const Avatar = styled.img`
     margin-bottom: 1rem; // Espace entre l'image et le titre
 `
 const Title = styled.div`
-    font-family: 'HalyardBold';
+    font-family: 'inknutAntiqua';
     text-align: left;
     letter-spacing: 0.03rem;
-    font-size: 1.5rem;
+	font-weight: bold;
+    font-size: 1.4rem;
+	line-height: 1.4rem;
     margin-bottom: 1rem;
 `
 const Role = styled.div`
@@ -61,6 +73,15 @@ const TeamMemberCard = (props: Props) => {
                     {renderStyledText(role, "/")}
                 </Role>
             </Container>
+			<Link to={props.member.linkedin}>
+			<Icon src={"UI/linkedinIcon.png"} />
+			</Link>	
+			{props.member.github && <Link to={props.member.github}>
+				<Icon src={"UI/githubIcon.png"} />
+				</Link>}
+			{props.member.artStation && <Link to={props.member.artStation}>
+				<Icon src={"UI/artstationIcon.png"} />
+				</Link>}
         </>
     )
 }

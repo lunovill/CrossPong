@@ -11,9 +11,9 @@ const Container = styled.div`
 
 const LoadingBarAnimation = () => {
 	const LoadingContext = useLoadingState();
-  return (
-    <Container>{String(LoadingContext)}%</Container>
-  )
+	return (
+		<Container>{String(LoadingContext)}%</Container>
+	)
 }
 
 export default LoadingBarAnimation;
