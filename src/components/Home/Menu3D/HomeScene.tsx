@@ -31,8 +31,6 @@ export default function HomeScene() {
 	const [actualRef, setActualRef] = useState(meshRefs.Play);
 	const [cursor, setCursor] = useState('default');
 
-	const width = window.innerWidth;
-
 	return (
 		<ActualRefMenu.Provider value={{ actualRef, setActualRef }}>
 			<CanvasContainer style={{ cursor: cursor }}>

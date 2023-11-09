@@ -1,6 +1,6 @@
 import Ball from "./Ball"
 import Paddle from "./Paddles/Paddle"
-import {Box, Body, BeginContactEvent, World as P2World} from 'p2-es'
+import { Box, Body, BeginContactEvent, World as P2World } from 'p2-es'
 import { BALL, BORDER, FPS, MAP_HEIGHT, MAP_WIDTH, OFFSET, PADDLE, PADDLE_POSITION } from '../game.constants'
 
 export class World extends P2World {
@@ -34,7 +34,7 @@ export class World extends P2World {
 
 	public allStep(): void {
 		(this.ball.isDestroyed) && this.removeBody(this.ball.body.body);
-		this.ball.body.step(FPS);
+		this.ball.body.step();
 		this.paddles.forEach(p => {
 			p.canRemoveBodies().forEach(body => this.removeBody(body));
 			p.step(FPS);
@@ -45,8 +45,8 @@ export class World extends P2World {
 	private handlePaddleCollision(ball: Ball, paddle: Paddle): void {
 		const collisionPoint: number = ball.body.position[1] - paddle.body.position[1];
 		const speedFactor = this.paddles[0].handleCollision(this.paddles[0] === paddle)
-		* this.paddles[1].handleCollision(this.paddles[1] === paddle);
-		
+			* this.paddles[1].handleCollision(this.paddles[1] === paddle);
+
 		ball.impulse[0] = (1 - Math.abs(collisionPoint)) * Math.sign(ball.impulse[0] * -1);
 		ball.impulse[1] = ((ball.body.position[1] > 2.15 || ball.body.position[1] < -2.15) ? -collisionPoint : collisionPoint);
 		ball.body.velocity[0] *= -1.05 * speedFactor;
@@ -56,8 +56,11 @@ export class World extends P2World {
 	}
 
 	private handleBorderCollision = (ball: Ball) => {
-		ball.impulse[1] *= -1;
-		ball.body.velocity[1] *= -1;
+		if ((ball.body.position[1] < 0 && ball.body.velocity[1] < 0)
+		|| (ball.body.position[1] > 0 && ball.body.velocity[1] > 0)) {
+			ball.impulse[1] *= -1;
+			ball.body.velocity[1] *= -1;
+		}
 		ball.isCollided();
 		return;
 	};
@@ -65,7 +68,7 @@ export class World extends P2World {
 	private handleStoneCollision = (ball: Ball, stone: Paddle['skillBodies'][0]) => {
 		const dx = ball.body.position[0] - stone.body.position[0];
 		const dy = ball.body.position[1] - stone.body.position[1];
-		
+
 		if (PADDLE_POSITION > Math.abs(stone.body.position[0]) && Math.abs(dy) > Math.abs(dx)) {
 			ball.impulse[1] *= -1;
 			ball.body.velocity[1] *= -1;

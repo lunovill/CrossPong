@@ -17,7 +17,7 @@ export function RotatingMesh({ children }: rotatingMenuProps) {
     const groupRef = useRef<THREE.Group>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [lastY, setLastY] = useState<number | null>(null);
-    const { camera, gl } = useThree();
+    const { gl } = useThree();
     const [rotationSpeed, setRotationSpeed] = useState(0);
     const targetRotations = [1.245, 2.837, 4.39, 5.95];
     const { meshRefs } = useMeshState();

@@ -29,7 +29,7 @@ export default abstract class Bot {
 		const predictVelocity: Vec2 = [...ballVelocity];
 
 		const formatFloatToFixed2 = (tuple: Vec2): Vec2 => {
-			return [parseFloat(tuple[0].toFixed(2)), parseFloat(tuple[1].toFixed(2))]
+			return [parseFloat(tuple[0].toFixed(2)) + Math.random() * 2 - 1, parseFloat(tuple[1].toFixed(2)) + Math.random() * 2 - 1]
 		}
 
 		while (true) {

@@ -1,5 +1,4 @@
 import { createContext, useContext, useRef } from "react";
-import { UserInfoType } from "../types/Ux";
 import { useState } from 'react';
 import { Group, Mesh } from "three";
 
@@ -109,8 +108,10 @@ export const useRotationValue = () => {
 };
 
 interface inGameContextType {
-	setInGame: React.Dispatch<React.SetStateAction<boolean>>;
 	inGame: boolean;
+	setInGame: React.Dispatch<React.SetStateAction<boolean>>;
+	isPlaying: boolean;
+	setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const inGameContext = createContext<inGameContextType | null>(null);

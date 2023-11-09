@@ -20,6 +20,7 @@ const intervalTime = 10;
 function App() {
 	const location = useLocation();
 	const [inGame, setInGame] = useState<boolean>(false);
+	const [isPlaying, setIsPlaying] = useState<boolean>(false);
 	const storedProfilePic = sessionStorage.getItem('profilePic');
 	const [isLoading, setIsLoading] = useState((storedProfilePic === null));
 	const [elapsedTime, setElapsedTime] = useState(0);
@@ -52,7 +53,7 @@ function App() {
 	return (
 		<>
 			<GlobalStyle />
-			<inGameContext.Provider value={{ inGame, setInGame }}>
+			<inGameContext.Provider value={{ inGame, setInGame, isPlaying, setIsPlaying }}>
 				<BackgroundMusic />
 				<CheckInfoSessionStorage />
 				<Routes location={location} key={location.pathname}>

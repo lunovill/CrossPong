@@ -6,6 +6,7 @@ import { NinjaSkillInfoProps } from '../../game/physic/Paddles/NinjaPaddle';
 import { RetroSkillInfoProps } from '../../game/physic/Paddles/RetroPaddle';
 import Physic from '../../game/physic/Phisic';
 import { WesternSkillInfoProps } from '../../game/physic/Paddles/WesternPaddle';
+import CollisionBallSound from './Sound/CollisionBallSound';
 
 type Info = Physic['ballsInfo'][0] & { effect: string };
 
@@ -42,7 +43,8 @@ export default function Ball(): ReactElement {
 			info.map((b, i) => [
 				(context.current!.id === 'j1')
 					? <BallPlayer key={`player-${i}`} position={b.position} velocity={b.velocity} collision={b.collision} effect={b.effect} />
-					: <BallOpponent key={`opponent-${i}`} position={b.position} velocity={b.velocity} collision={b.collision} effect={b.effect} />
+					: <BallOpponent key={`opponent-${i}`} position={b.position} velocity={b.velocity} collision={b.collision} effect={b.effect} />,
+				<CollisionBallSound key={`collision-${i}`} collision={b.collision} />
 			])
 		}
 	</>;

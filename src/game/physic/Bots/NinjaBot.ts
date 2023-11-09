@@ -18,7 +18,7 @@ export default class NinjaBot extends Bot {
         this.key.ulti = false;
         if (this.ballVelocity[0] > 0
             && this.ballPosition[0] > PADDLE_POSITION - 1
-            && Math.abs(this.ballPosition[1] - this.botPosition[1]) > PADDLE_HEIGHT + 0.5)
+            && Math.abs(this.ballPosition[1] - this.botPosition[1]) > PADDLE_HEIGHT - 0.2)
             this.key.ulti = true; 
         return; 
     }

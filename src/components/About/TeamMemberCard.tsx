@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { memberInfo } from "../../data/models/TeamMember"
 import styled from "styled-components"
 
@@ -43,9 +44,9 @@ const TeamMemberCard = (props: Props) => {
     const { name, role } = props.member;
     const renderStyledText = (text: string, char: string) => {
         return text.split(char).map((segment, index, array) =>
-            index === array.length - 1 ? segment : <React.Fragment key={index}>
+            index === array.length - 1 ? segment : <Fragment key={index}>
                 {segment}<SpecialCharacter key={index}>{char}</SpecialCharacter>
-            </React.Fragment>
+            </Fragment>
         );
     };
 

@@ -7,7 +7,7 @@ import SkillIcon from './Skill';
 import UltimIcon from './Ultim';
 import { PixelCorners3x3 } from '../../../styles/HomeStyles';
 import { useInGameState } from '../../../components/ContextBoard';
-import { useFrame } from '@react-three/fiber';
+import { FPS } from '../../../game/game.constants';
 
 interface TopHudContainerProps {
 	$pos: 'left' | 'right';
@@ -190,8 +190,8 @@ function HudGame(): ReactElement {
 		setCooldownSkill(context.physic!.paddlesInfo[0].time);
 		if (context.mode === '2PLocal')
 			setCooldownSkill2(context.physic!.paddlesInfo[1].time);
-		setFrame(prev => prev + 1);
-	}, []);
+		setTimeout(() => { setFrame(prev => prev + 1) }, FPS * 1000);
+	}, [frame]);
 
 	return (
 		<>
