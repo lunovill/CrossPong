@@ -30,7 +30,7 @@ function TextThreeTwoOne() {
 
 	return (
 		<Text
-			color="#82beb1"
+			color="#222525"
 			fontSize={0.6}
 			fillOpacity={1}
 			maxWidth={20}

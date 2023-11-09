@@ -60,13 +60,13 @@ const PseudoContainer = styled(PixelCorners3x3) <TopHudContainerProps>`
 	position: absolute;
 	top: 40px;
 	font-size: 1.2rem;
-	color: #5e364e;
-	background-color: #f5efdd;
+	color: #ddb23c;
+	/* background-color: #f5efdd; */
 	padding-right: ${(props) => (props.$pos === 'right' ? '20px' : '8px')};
 	padding-left: ${(props) => (props.$pos === 'right' ? '8px' : '20px')};
 	padding-top: 2px;
 	line-height: 1.6;
-	text-shadow: 2px 2px 0px #ddb23c;
+	text-shadow: 2px 2px 2px #682a2a;
 	font-family: 'inknutAntiqua', serif;
 	left: ${(props) => (props.$pos === 'right' ? 'auto' : 'calc(4.5% + 60px)')};
 	right: ${(props) => (props.$pos === 'right' ? 'calc(4.5% + 60px)' : 'auto')};
