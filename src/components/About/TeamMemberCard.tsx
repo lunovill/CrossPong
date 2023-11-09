@@ -73,8 +73,7 @@ const TeamMemberCard = (props: Props) => {
         window.open(props.member.artStation, '_blank');
     };
 
-    return (
-        <>
+    return <>
             <Container $key={props.$key}>
                 <Avatar src={props.member.avatar} />
                 <Title>
@@ -90,8 +89,7 @@ const TeamMemberCard = (props: Props) => {
             }
             {props.member.artStation
                 && <Icon src={"UI/artstationIcon.png"} onClick={handleClickArtStation} />}
-        </>
-    )
+        </>;
 }
 
 export default TeamMemberCard;
