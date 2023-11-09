@@ -61,8 +61,16 @@ const TeamMemberCard = (props: Props) => {
         );
     };
 
-    const handleClick = (url): void => {
-        window.open(url, '_blank');
+    const handleClickLinkedin = (): void => {
+        window.open(props.member.linkedin, '_blank');
+    };
+
+    const handleClickGithub = (): void => {
+        window.open(props.member.github, '_blank');
+    };
+
+    const handleClickArtStation = (): void => {
+        window.open(props.member.artStation, '_blank');
     };
 
     return (
@@ -76,12 +84,12 @@ const TeamMemberCard = (props: Props) => {
                     {renderStyledText(role, "/")}
                 </Role>
             </Container>
-            <Icon src={"UI/linkedinIcon.png"} onClick={handleClick(props.member.linkedin)} />
+            <Icon src={"UI/linkedinIcon.png"} onClick={handleClickLinkedin} />
             {props.member.github
-                && <Icon src={"UI/githubIcon.png"} onClick={handleClick(props.member.github)} />
+                && <Icon src={"UI/githubIcon.png"} onClick={handleClickGithub} />
             }
             {props.member.artStation
-                && <Icon src={"UI/artstationIcon.png"} onClick={handleClick(props.member.artStation)} />}
+                && <Icon src={"UI/artstationIcon.png"} onClick={handleClickArtStation} />}
         </>
     )
 }
