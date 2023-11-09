@@ -108,8 +108,10 @@ export const useRotationValue = () => {
 };
 
 interface inGameContextType {
-	setInGame: React.Dispatch<React.SetStateAction<boolean>>;
 	inGame: boolean;
+	setInGame: React.Dispatch<React.SetStateAction<boolean>>;
+	isPlaying: boolean;
+	setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const inGameContext = createContext<inGameContextType | null>(null);

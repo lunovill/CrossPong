@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 
 interface WrittingContainerProps {
 	readonly $color?: string;
@@ -60,13 +60,4 @@ font-family: 'InknutAntiqua', sans-serif;
   transform: translateY(5px);
   box-shadow: 0px 0px 0px 0px #a29bfe;
 }
-`;
-
-const spin = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 `;

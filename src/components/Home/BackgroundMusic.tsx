@@ -41,11 +41,12 @@ const IconSoundOff = styled.img`
   transform: translate(-23.5%, -1.5%);
 `;
 
-const MusicPlayer = () => {
-	const [isPlaying, setIsPlaying] = useState(false);
-	const { inGame } = useInGameState();
+const MusicPlayer: React.FC = () => {
+	const { isPlaying, setIsPlaying, inGame } = useInGameState();
 	const [currentMusic, setCurrentMusic] = useState<string>("/sound/IntroMusic.mp3");
 	const audioRef = useRef<HTMLAudioElement>(null);
+
+	useEffect(() => { setIsPlaying(false); }, []);
 
 	useEffect(() => {
 		console.log(inGame);
@@ -74,7 +75,7 @@ const MusicPlayer = () => {
 				Your browser does not support the audio element.
 			</audio>
 			<ContainerSoundIcon onClick={togglePlay} $isPlaying={!inGame}>
-				{isPlaying ? <IconSoundOff src="/UI/soundOff.png" /> : <IconSoundOn src="/UI/soundOn.png" />}
+				{isPlaying ? <IconSoundOff src="/UI/soundOn.png" /> : <IconSoundOn src="/UI/soundOff.png" />}
 			</ContainerSoundIcon>
 		</>
 	);

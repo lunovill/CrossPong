@@ -40,7 +40,7 @@ export function RetroPaddleAnimation({ paddleRef }: RetroPaddleAnimationProps): 
 };
 
 
-export default function RetroPaddle({ animation = true, effect = 'none', location = 1, position = { x: 0, y: 0, z: 0 }, velocity = { x: 0, y: 0, z: 0 }, skillInfo = undefined}: PaddleProps) {
+export default function RetroPaddle({ animation = true, effect = 'none', location = 1, position = { x: 0, y: 0, z: 0 }, skillInfo = undefined}: PaddleProps) {
 	const { nodes, materials } = useGLTF('./assets/balls&paddles/retroPaddle.glb') as GLTFResultRetroPaddle;
 	const groupRef = useRef<Group>(null);
 	const paddleRef = useRef<Group>(null);

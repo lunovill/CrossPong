@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import HomeScene from '../components/Home/Menu3D/HomeScene';
 import MenuHome from '../components/Home/Menu2D/MenuHome';
 import {  MeshProvider, RotationProvider } from '../components/ContextBoard';
-import { useState } from 'react';
 
 const Container = styled.div`
 	display: grid;

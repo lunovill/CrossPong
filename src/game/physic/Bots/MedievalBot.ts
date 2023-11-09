@@ -16,10 +16,7 @@ export default class MedievalBot extends Bot {
 
         const detT = det(direction1, direction2);
 
-        if (detT === 0) {
-            // Les deux lignes sont parallèles, il n'y a pas d'intersection
-            return false;
-        }
+        if (detT === 0) { return false; }
 
         const distT: Vec2 = [segmentStart[0] - lineStart[0], segmentStart[1] - lineStart[1]];
 
@@ -66,8 +63,8 @@ export default class MedievalBot extends Bot {
         this.key.ulti = false;
         if (this.ballVelocity[0] > 0
             && this.ballPosition[0] > PADDLE_POSITION - 1
-            && Math.abs(this.ballPosition[1] - this.botPosition[1]) > PADDLE_HEIGHT + 0.5)
-            this.key.ulti = true; 
+            && Math.abs(this.ballPosition[1] - this.botPosition[1]) > PADDLE_HEIGHT - 0.2)
+            this.key.ulti = true;
         return;
     }
 }

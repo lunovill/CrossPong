@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect } from 'react';
 import styled from 'styled-components';
 import { useGame } from '../../game/hooks/useGame';
 import { PixelCorners2x2, PixelCorners3x3 } from '../../styles/HomeStyles';

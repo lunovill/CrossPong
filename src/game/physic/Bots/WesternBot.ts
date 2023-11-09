@@ -7,7 +7,7 @@ export default class WesternBot extends Bot {
 
     public handlePowerEvent(): void {
         this.key.power = false;
-        if (this.predict.type === 'limit' && this.ballPosition[0] > 4.95)
+        if (this.predict.type === 'limit' && this.ballPosition[0] > 4.5)
             this.key.power = true;
         return;
     }

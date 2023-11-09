@@ -1,4 +1,4 @@
-import { useLobbyState } from '../ContextBoard'
+import { useGame } from 'src/game/hooks/useGame';
 import styled from 'styled-components';
 
 const ReturnIcon = styled.div`
@@ -9,17 +9,13 @@ const ReturnIcon = styled.div`
     `;
 
 const ReturnButton = () => {
-  const {setMode} = useLobbyState()
+  const { send } = useGame();
 
-  const handleReturn = () => {
-    setMode(undefined);
-  }
-  
   return (
     <>
-    <ReturnIcon
-        onClick={() => handleReturn()} />
-</>
+      <ReturnIcon
+        onClick={() => send({ type: 'leave' })} />
+    </>
   );
 };
 

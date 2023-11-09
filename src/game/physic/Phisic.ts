@@ -136,15 +136,15 @@ export default class Physic extends EventEmitter {
 		this.paddles[1].bot.update(
 			ball.isVisible ? ball.body.position : undefined,
 			ball.isVisible ? balls[0].body.body.velocity : undefined,
-			(this.paddles[1] instanceof RetroPaddle && this.paddles[1].power.isActive) ? undefined  : this.paddles[0].body.position,
-			(this.paddles[0] instanceof RetroPaddle && this.paddles[0].power.isActive) ? undefined  : this.paddles[1].body.position,
+			(this.paddles[1] instanceof RetroPaddle && this.paddles[1].power.isActive) ? undefined : this.paddles[0].body.position,
+			(this.paddles[0] instanceof RetroPaddle && this.paddles[0].power.isActive) ? undefined : this.paddles[1].body.position,
 			[...([] as { body: Body, isDestroyed: boolean }[])
 				.concat(...this.paddles.map(p => p.skillBodies))
 			].filter((b, i) => (i < 2 && !b.isDestroyed))
 				.map(b => b.body.position));
-		this.paddles[1].bot.handleKetEvent();
-		this.paddles[1].bot.handlePowerEvent();
-		(this.paddles[1].ulti.isAvailable) && this.paddles[1].bot.handleUltiEvent();
+			this.paddles[1].bot.handleKetEvent();
+			this.paddles[1].bot.handlePowerEvent();
+			(this.paddles[1].ulti.isAvailable) && this.paddles[1].bot.handleUltiEvent();
 
 		return this.paddles[1].bot.key;
 	}

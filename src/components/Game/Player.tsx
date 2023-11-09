@@ -6,6 +6,7 @@ import { useGame } from '../../game/hooks/useGame';
 import { MapTheme } from '../../types/machine.type';
 import Physic from '../../game/physic/Phisic';
 import TextThreeTwoOne from '../Animation/TextThreeTwoOne';
+import CollisionPaddleSound from './Sound/CollisionPaddleSound';
 
 type Info = Physic['paddlesInfo'][0] & { effect: string };
 
@@ -89,7 +90,7 @@ export default function Player(): ReactElement {
 		(JSON.stringify(newInfo) !== JSON.stringify(info)) && setInfo(newInfo);
 	});
 
-return <>
+	return <>
 		{context.animation === 'Ulti' && <UltiAnimation index={index} />}
 		{isAnimation && <TextThreeTwoOne />}
 		<PaddlePlayer
@@ -99,6 +100,7 @@ return <>
 			location={player.location!}
 			skillInfo={info[0].skill}
 			collision={info[0].collision} />
+		<CollisionPaddleSound collision={info[0].collision} />
 		<PaddleOpponent
 			effect={info[1].effect}
 			position={info[1].position}
@@ -106,5 +108,6 @@ return <>
 			location={opponent.location!}
 			skillInfo={info[1].skill}
 			collision={info[1].collision} />
+		<CollisionPaddleSound collision={info[1].collision} />
 	</>;
 }

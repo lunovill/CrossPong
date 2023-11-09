@@ -61,7 +61,7 @@ export default class Ball {
 		return (direction === -1) ? 0 : 1;
 	}
 
-	public step(delta: number): void { // TMP - Utiliser delta
+	public step(): void {
 		if (this.body.position[0] < -PADDLE_POSITION - 2 || this.body.position[0] > PADDLE_POSITION + 2)
 			this.score = (Math.sign(this.body.position[0]) < 0) ? -1 : 1;
 		this.body.applyForce(this.impulse);

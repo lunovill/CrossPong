@@ -1,6 +1,6 @@
 import { Body } from "p2-es";
 import Paddle from "./Paddle";
-import { COOLDOWN, FPS } from "../../game.constants";
+import { COOLDOWN } from "../../game.constants";
 import { Vector3 } from "../../../types/physic.type";
 import Ball from "../Ball";
 import NinjaBot from "../Bots/NinjaBot";
@@ -31,7 +31,7 @@ export default class NinjaPaddle extends Paddle {
 	}
 
 	public canRemoveBodies(): Body[] {
-		this.skillBalls.forEach(ball => ball.body?.step(FPS));
+		this.skillBalls.forEach(ball => ball.body?.step());
 		return this.skillBalls
 			.filter((_, i) => this.skillBalls[i].isDestroyed)
 			.map(ball => ball.body.body);
