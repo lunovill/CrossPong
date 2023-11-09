@@ -6,6 +6,20 @@ Welcome to CrossPong! This project is a delightful rendition of the classic Pong
 
 CrossPong expands on the classic Pong experience with four unique maps, each representing a half-court. When combined with an opponent's half, they form a complete playing field. Each map is distinct, with its own theme and custom game elements like balls, paddles, and special powers, enriching the traditional Pong formula.
 
+## Screenshots
+
+### Intro Screen
+![Intro Screen](public/screenshot/Screenshot_Intro.png)
+
+### In-Game Experience
+![In-Game Experience](public/screenshot/Screenshot_Ingame.png)
+
+### Menu Interface
+![Menu Interface](public/screenshot/Screenshot_Menu.png)
+
+### Map Selection
+![Map Selection](public/screenshot/Screenshot_Select.png)
+
 ## Built With
 
 - **React TypeScript**: Our framework of choice for building a structured and scalable web application.
