@@ -8,17 +8,17 @@ CrossPong expands on the classic Pong experience with four unique maps, each rep
 
 ## Screenshots
 
-### Intro Screen
-![Intro Screen](public/screenshot/Screenshot_Intro.png)
-
-### In-Game Experience
-![In-Game Experience](public/screenshot/Screenshot_Ingame.png)
-
 ### Menu Interface
 ![Menu Interface](public/screenshot/Screenshot_Menu.png)
 
 ### Map Selection
 ![Map Selection](public/screenshot/Screenshot_Select.png)
+
+### Intro Screen
+![Intro Screen](public/screenshot/Screenshot_Intro.png)
+
+### In-Game Experience
+![In-Game Experience](public/screenshot/Screenshot_Ingame.png)
 
 ## Built With
 
