@@ -61,6 +61,10 @@ const TeamMemberCard = (props: Props) => {
         );
     };
 
+    const handleClick = (url): void => {
+        window.open(url, '_blank');
+    };
+
     return (
         <>
             <Container $key={props.$key}>
@@ -72,12 +76,12 @@ const TeamMemberCard = (props: Props) => {
                     {renderStyledText(role, "/")}
                 </Role>
             </Container>
-            <Icon src={"UI/linkedinIcon.png"} onClick={props.member.linkedin} />
+            <Icon src={"UI/linkedinIcon.png"} onClick={handleClick(props.member.linkedin)} />
             {props.member.github
-                && <Icon src={"UI/githubIcon.png"} onClick={props.member.github} />
+                && <Icon src={"UI/githubIcon.png"} onClick={handleClick(props.member.github)} />
             }
             {props.member.artStation
-                && <Icon src={"UI/artstationIcon.png"} onClick={props.member.artStation} />}
+                && <Icon src={"UI/artstationIcon.png"} onClick={handleClick(props.member.artStation)} />}
         </>
     )
 }
