@@ -1,11 +1,10 @@
 import { createContext, useContext, useRef } from "react";
-import { UserInfoType } from "../types/Ux";
 import { useState } from 'react';
 import { Group, Mesh } from "three";
 
 // LoadingContext
 
-export const LoadingContext = createContext<String | undefined>(undefined);
+export const LoadingContext = createContext<String | undefined | null>(undefined);
 
 export function useLoadingState() {
 	const context = useContext(LoadingContext);

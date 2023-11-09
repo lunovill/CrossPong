@@ -1,55 +1,63 @@
 import styled from 'styled-components';
 
-const Title1 = styled.div`
+interface TitleAboutProps {
+	$color?: string;
+	$transform?: string;
+}
 
-    font-family: 'HalyardBold';
+const Title1 = styled.div<TitleAboutProps>`	
+
+    font-family: 'inknutAntiqua';
     text-align: left;
     letter-spacing: 0.03rem;
-    font-size: 5.5rem;
-    margin-bottom: 1rem;
-    padding-left: 1rem;
-    z-index: 1;
+	font-weight: bold;
+	color: ${(props) => props.$color ? props.$color: "black"};
+    font-size: 2.8rem;
+	transform: ${(props) => props.$transform ? props.$transform: "none"};
+	line-height: 3.5rem;
+	@media (max-width: 768px) {
+		font-size: 1.5rem;
+		line-height: 2.5rem;
+	}
 `;
 
-type OutlinedTextProps = {
-    $pos: number;
-}
-const OutlinedText = styled.span<OutlinedTextProps>`
-    transform: ${(props) => `translate(0px, ${props.$pos}px)`};
-    font-family: 'HalyardBold';
-    font-size: 5.5rem;
-    -webkit-text-stroke: 2px white;
-    padding-left: 1rem;
-    color: transparent;
-    z-index: 0;
-    opacity: 1;
+const Title2 = styled.div<TitleAboutProps>`	
+	position: absolute;
+    font-family: 'inknutAntiqua';
+    text-align: left;
+    letter-spacing: 0.03rem;
+	font-weight: bold;
+	z-index: -10;
+	color: ${(props) => props.$color ? props.$color: "black"};
+    font-size: 2.8rem;
+	transform: ${(props) => props.$transform ? props.$transform: "none"};
+	line-height: 3.5rem;
+	@media (max-width: 768px) {
+		font-size: 1.5rem;
+		line-height: 2.5rem;
+	}
 `;
 
-const diffTransform: number[] = [
-    10,
-    40,
-    40,
-    10,
-    10,
-]
 
 const TitleAbout = () => {
     return (
         <>
-            <Title1>
-                ABOUT US
+            <Title1 $color='##000000b5'>
+                'S TEAM
             </Title1>
-            <Title1>
-                TWO-FACTOR
-            </Title1>
-            {diffTransform.map((value, index) => {
-                return (
-                    <OutlinedText key={index} $pos={value}>
-                        ABOUT US
-                    </OutlinedText>
-                )
-            }
-            )}
+			<Title2 $color='#f3d08bd5' $transform='translate(84%, 80%)'>
+                TEAM
+            </Title2>
+			<Title2 $color='#f3d08bd5' $transform='translate(84%, -80%)'>
+                TEAM
+            </Title2>
+			<Title2 $color='#f3d08ba4' $transform='translate(84%, -160%)'>
+                TEAM
+            </Title2>
+			<Title2 $color='#f3d08b5e' $transform='translate(84%, -240%)'>
+                TEAM
+            </Title2>
+       
         </>
     );
 };
