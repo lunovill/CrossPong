@@ -79,8 +79,8 @@ const nameAbility: description = {
 }
 
 const descriptionsAbility: description = {
-	'ninja': 'Charge up for a powerful shot.',
-	'western': ' Execute a quick dash.',
+	'ninja': 'Charges up for a powerful shot.',
+	'western': ' Executes a quick dash.',
 	'retro': 'Turns the enemy\'s paddle invisible for a short time.',
 	'medieval': ' Summons a pillar on the field.'
 }

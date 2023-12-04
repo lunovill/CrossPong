@@ -42,7 +42,7 @@ export default function EndAnimation() {
     return (<>
 		<Html>
 			<Message>
-				{didPlayerWin ? 'You win! Bravo!' : 'You lose! Try again!'}
+				{didPlayerWin ? 'You win! Bravo!' : 'You lost! Try again!'}
 			</Message>
 		</Html>
 	</>);

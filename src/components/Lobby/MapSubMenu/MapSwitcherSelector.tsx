@@ -54,7 +54,7 @@ const MapSwitcherSelector = () => {
     const mode = context.mode as ModeType;
     const current = context.current as Player;
 
-    if (['IA', '2PLocal'].includes(mode)) {
+    if (['AI', '2PLocal'].includes(mode)) {
         return (
             <>
                 <TabContainer>

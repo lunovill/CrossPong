@@ -31,7 +31,7 @@ const Button: ButtonProps[] = [
 	{
 		$backgroundColor: '#CD5050',
 		$hoverColor: '#73be92',
-		label: 'LOCAL VS IA MATCH',
+		label: 'LOCAL VS AI MATCH',
 		modeValue: ModeType.IA,
 	},
 ];
