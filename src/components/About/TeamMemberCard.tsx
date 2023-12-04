@@ -1,6 +1,5 @@
 import { memberInfo } from "../../data/models/TeamMember";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components"
 
 type ContainerProps = {
@@ -62,8 +61,19 @@ const TeamMemberCard = (props: Props) => {
         );
     };
 
-    return (
-        <>
+    const handleClickLinkedin = (): void => {
+        window.open(props.member.linkedin, '_blank');
+    };
+
+    const handleClickGithub = (): void => {
+        window.open(props.member.github, '_blank');
+    };
+
+    const handleClickArtStation = (): void => {
+        window.open(props.member.artStation, '_blank');
+    };
+
+    return <>
             <Container $key={props.$key}>
                 <Avatar src={props.member.avatar} />
                 <Title>
@@ -73,17 +83,13 @@ const TeamMemberCard = (props: Props) => {
                     {renderStyledText(role, "/")}
                 </Role>
             </Container>
-			<Link to={props.member.linkedin}>
-			<Icon src={"UI/linkedinIcon.png"} />
-			</Link>	
-			{props.member.github && <Link to={props.member.github}>
-				<Icon src={"UI/githubIcon.png"} />
-				</Link>}
-			{props.member.artStation && <Link to={props.member.artStation}>
-				<Icon src={"UI/artstationIcon.png"} />
-				</Link>}
-        </>
-    )
+            <Icon src={"UI/linkedinIcon.png"} onClick={handleClickLinkedin} />
+            {props.member.github
+                && <Icon src={"UI/githubIcon.png"} onClick={handleClickGithub} />
+            }
+            {props.member.artStation
+                && <Icon src={"UI/artstationIcon.png"} onClick={handleClickArtStation} />}
+        </>;
 }
 
 export default TeamMemberCard;
