@@ -54,7 +54,7 @@ const MapSwitcherSelector = () => {
     const mode = context.mode as ModeType;
     const current = context.current as Player;
 
-    if (['AI', '2PLocal'].includes(mode)) {
+    if (['IA', '2PLocal'].includes(mode)) {
         return (
             <>
                 <TabContainer>
@@ -63,7 +63,7 @@ const MapSwitcherSelector = () => {
                         Player 1
                     </Tab>
                     <Tab $active={current.id === j2} onClick={() => { send({ type: 'changeCurrent', id: 'j2' }) }} $color={context.players[1].mapInfo.secondaryColor}>
-                        {mode == '2PLocal' ? 'Player 2' : 'IA'}
+                        {mode == '2PLocal' ? 'Player 2' : 'AI'}
                     </Tab>
                 </TabContainer>
                 <SelectMap />
